@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { initialData, ShipmentData } from '../data/initialData';
+import './ShipmentDesign.scss';
 
 const ShipmentTable: React.FC = () => {
   const [data, setData] = useState<ShipmentData[]>(initialData);
@@ -11,7 +12,7 @@ const ShipmentTable: React.FC = () => {
   };
 
   return (
-    <table>
+    <table className='binTable'>
       <thead>
         <tr>
           <th>便名</th>
@@ -25,21 +26,24 @@ const ShipmentTable: React.FC = () => {
       </thead>
       <tbody>
         {data.map((row, index) => (
-          <tr key={row.bin}>
-            <td>{row.bin}</td>
-            <td>{row.today}</td>
-            <td>
-              <button onClick={() => handleChange(index, 'today', 1)}>▲</button>
+          <tr key={row.bin} className='binBlock'>
+            <td className='binName'>{row.bin}</td>
+            <td className='todayCells'>{row.today}</td>
+            <td className='controlButtonCells'>
+              <button className='countUpButton' onClick={() => handleChange(index, 'today', 1)}>▲</button>
             </td>
-            <td>
-              <button onClick={() => handleChange(index, 'today', -1)}>▼</button>
+            <td className='controlButtonCells'>
+              <button className='countDownButton' onClick={() => handleChange(index, 'today', -1)}>▼</button>
             </td>
-            <td>{row.tomorrow}</td>
-            <td>
-              <button onClick={() => handleChange(index, 'tomorrow', 1)}>▲</button>
+
+            <td className='cellSpacer'></td>
+
+            <td className='nextDayCells'>{row.tomorrow}</td>
+            <td className='controlButtonCells'>
+              <button className='countUpButton' onClick={() => handleChange(index, 'tomorrow', 1)}>▲</button>
             </td>
-            <td>
-              <button onClick={() => handleChange(index, 'tomorrow', -1)}>▼</button>
+            <td className='controlButtonCells'>
+              <button className='countDownButton' onClick={() => handleChange(index, 'tomorrow', -1)}>▼</button>
             </td>
           </tr>
         ))}

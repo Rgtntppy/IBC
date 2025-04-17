@@ -1,0 +1,64 @@
+.binTable{
+    width: 40%;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    thead tr,
+    tbody tr {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .binBlock {
+        td, th {
+            flex: 1;
+            border: 1px solid rgb(42, 42, 42);
+            margin: 2px 0;
+        }
+        
+        .binName {
+            text-align: center;
+            max-width: 30px;
+            min-width: 25px;
+            padding: 6px;
+            font-weight: 500;
+        }
+
+        .todayCells,
+        .nextDayCells {
+            text-align: right;
+            max-width: 50px;
+            min-width: 30px;
+            padding: 6px;
+        }
+        
+        .todayCells {
+        }
+
+        .cellSpacer {
+            width: 10px;
+            border: none;
+            background: transparent;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nextDayCells {
+        }
+
+        .controlButtonCells {
+            max-width: 30px;
+            min-width: 25px;
+        }
+        
+        .countUpButton,
+        .countDownButton {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(200, 200, 200);
+        }
+    }
+}
