@@ -1,64 +1,100 @@
-.binTable{
-    width: 40%;
-    border-collapse: separate;
-    border-spacing: 0;
-
-    thead tr,
-    tbody tr {
+.binGrid {
+    display: flex;
+    gap: 8px;
+    padding: 20px;
+    justify-content: start;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    
+    .binColumn {
         display: flex;
-        width: 100%;
-        justify-content: space-around;
-    }
-
-    .binBlock {
-        td, th {
-            flex: 1;
-            border: 1px solid rgb(42, 42, 42);
-            margin: 2px 0;
-        }
+        flex-direction: column;
+        gap: 8px;
         
-        .binName {
-            text-align: center;
-            max-width: 30px;
-            min-width: 25px;
-            padding: 6px;
-            font-weight: 500;
-        }
+        .binBlock {
+            display: grid;
+            grid-template-columns: auto 1fr auto 1fr auto;
+            gap: 1px;
+            align-items: center;
+            padding: 3px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            min-width: 150px;
 
-        .todayCells,
-        .nextDayCells {
-            text-align: right;
-            max-width: 50px;
-            min-width: 30px;
-            padding: 6px;
-        }
-        
-        .todayCells {
-        }
+            &.highlight-blue {
+                background-color: rgb(221, 235, 247);
+            }
+            
+            /* 左側: bin名 */
+            .binName {
+                font-weight: bold;
+                font-size: 18px;
+                text-align: left;
+                padding: 5px;
+                width: 30px;
+                
+                &.highlight-red {
+                    background-color: rgb(255, 199, 206);
+                }
+            }
+    
+            .todayCells,
+            .nextDayCells {
+                text-align: center;
+                font-weight: bold;
+                width: 50px;
+                padding: 2px;
+            }
 
-        .cellSpacer {
-            width: 10px;
-            border: none;
-            background: transparent;
-            margin: 0;
-            padding: 0;
-        }
+            /* 今日の数量表示 */
+            .todayCells {
+                font-size: 24px;
+            }
+            
+            /* 明日の数量表示 */
+            .nextDayCells {
+                font-size: 16px;
+            }
+            
+            /* 上下のカウントボタン */
+            .controlButtonCells {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                align-items: center;
+            }
+            
+            .countUpButton,
+            .countDownButton {
+                font-size: 12px;
+                cursor: pointer;
+                border: none;
+                border-radius: 4px;
+                color: white;
+                transition: background-color 0.2s;
+                
+            }
+            
+            .countUpButton {
+                padding: 6px 10px;
+                background-color: #007bff;
+                
+                &:hover {
+                    background-color: #0056b3;
+                }
+            }
+            
+            .countDownButton {
+                padding: 3px 6px;
+                background-color: #dc3545;
 
-        .nextDayCells {
-        }
-
-        .controlButtonCells {
-            max-width: 30px;
-            min-width: 25px;
-        }
-        
-        .countUpButton,
-        .countDownButton {
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            background-color: rgb(200, 200, 200);
+                &:hover {
+                    background-color: #a71d2a;
+                }
+            }
         }
     }
 }

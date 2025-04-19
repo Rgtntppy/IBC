@@ -1,54 +1,66 @@
 import React, { useState } from 'react';
-import { initialData, ShipmentData } from '../data/initialData';
 import './ShipmentDesign.scss';
+import { initialData, ShipmentData } from '../data/initialData';
+import { BinBlock } from './BinBlock';
 
 const ShipmentTable: React.FC = () => {
-  const [data, setData] = useState<ShipmentData[]>(initialData);
+  const [data, setData] = useState(initialData);
 
-  const handleChange = (index: number, key: 'today' | 'tomorrow', diff: number) => {
-    const newData = [...data];
-    newData[index][key] = Math.max(0, newData[index][key] + diff);
-    setData(newData);
+  const handleChange = (id: number, key: 'today' | 'tomorrow', diff: number) => {
+    setData(prev =>
+      prev.map(item =>
+        item.id === id
+        ? { ...item, [key]: Math.max(0, item[key] + diff) }
+        : item
+      )
+    );
   };
 
+  const PMBin = [
+    [  1, 24,  3],
+    [ 14, 15, 16, 17],
+    [ 18, 19, 20, 21],
+    [ 22, 23, 25, 26, 27]
+  ];
+
+  const AMBin = [
+    [  2,  4],
+    [  5,  6,  7],
+    [  8,  9, 10, 11],
+    [ 12, 13]
+  ]
+
+  const pmColumns = PMBin.map(col =>
+    col.map(id => data.find(d => d.id === id)).filter(Boolean) as ShipmentData[]
+  );
+
+  const amColumns = AMBin.map(col =>
+    col.map(id => data.find(d => d.id === id)).filter(Boolean) as ShipmentData[]
+  );
+
   return (
-    <table className='binTable'>
-      <thead>
-        <tr>
-          <th>便名</th>
-          <th>当日分</th>
-          <th></th>
-          <th></th>
-          <th>翌日分</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((row, index) => (
-          <tr key={row.bin} className='binBlock'>
-            <td className='binName'>{row.bin}</td>
-            <td className='todayCells'>{row.today}</td>
-            <td className='controlButtonCells'>
-              <button className='countUpButton' onClick={() => handleChange(index, 'today', 1)}>▲</button>
-            </td>
-            <td className='controlButtonCells'>
-              <button className='countDownButton' onClick={() => handleChange(index, 'today', -1)}>▼</button>
-            </td>
+    <>
+    <h1>ドラム出荷数管理表</h1>
+    <div className="binGrid">
+      {pmColumns.map((col, colIndex) => (
+        <div key={colIndex} className="binColumn">
+          {col.map((row, rowIndex) => (
+            <BinBlock key={row.id} row={row} onChange={handleChange} />
+          ))}
+        </div>
+      ))}
+    </div>
 
-            <td className='cellSpacer'></td>
-
-            <td className='nextDayCells'>{row.tomorrow}</td>
-            <td className='controlButtonCells'>
-              <button className='countUpButton' onClick={() => handleChange(index, 'tomorrow', 1)}>▲</button>
-            </td>
-            <td className='controlButtonCells'>
-              <button className='countDownButton' onClick={() => handleChange(index, 'tomorrow', -1)}>▼</button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="binGrid">
+      {amColumns.map((col, colIndex) => (
+        <div key={colIndex} className="binColumn">
+          {col.map((row, rowIndex) => (
+            <BinBlock key={row.id} row={row} onChange={handleChange} />
+          ))}
+        </div>
+      ))}
+      </div>
+    </>
   );
 };
 
