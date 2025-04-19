@@ -1,7 +1,7 @@
 import { BinBlockProps } from "../data/binBlockInterface";
 
-export const BinBlock: React.FC<BinBlockProps> = ({ row, onChange }) => (
-    <div className={`binBlock ${row.highlight ? `highlight-${row.highlight}` : ''}`}>
+export const BinBlock: React.FC<BinBlockProps> = ({ row, onChange, className }) => (
+    <div className={`binBlock ${row.highlight ? `highlight-${row.highlight}` : ''} ${className || ''}`}>
         <div className={`binName ${row.highlight ? `highlight-${row.highlight}` : ''}`}>{row.bin}</div>
         <div className="todayCells">{row.today}</div>
         <div className="controlButtonCells">

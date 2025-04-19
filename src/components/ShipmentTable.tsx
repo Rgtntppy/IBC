@@ -43,9 +43,16 @@ const ShipmentTable: React.FC = () => {
     <h1>ドラム出荷数管理表</h1>
     <div className="binGrid">
       {pmColumns.map((col, colIndex) => (
-        <div key={colIndex} className="binColumn">
+        <div 
+          key={colIndex}
+          className={`binColumn ${colIndex < 3 ? 'column-lifted' : ''}`}
+        >
           {col.map((row, rowIndex) => (
-            <BinBlock key={row.id} row={row} onChange={handleChange} />
+            <BinBlock 
+              key={row.id}
+              row={row}
+              onChange={handleChange}
+            />
           ))}
         </div>
       ))}
@@ -53,9 +60,17 @@ const ShipmentTable: React.FC = () => {
 
     <div className="binGrid">
       {amColumns.map((col, colIndex) => (
-        <div key={colIndex} className="binColumn">
+        <div
+          key={colIndex}
+          className={`binColumn ${colIndex < 2 ? 'column-lifted' : ''}`}
+        >
           {col.map((row, rowIndex) => (
-            <BinBlock key={row.id} row={row} onChange={handleChange} />
+            <BinBlock 
+              key={row.id}
+              row={row}
+              onChange={handleChange}
+              className={colIndex === 0 && rowIndex === 1 ? 'spaced' : ''}
+            />
           ))}
         </div>
       ))}
