@@ -15,7 +15,10 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
         <>
         <div className={`dayCells ${className || ""} ${count > limit ? 'alert' : ''}`}>
             <p className="label">{label}</p>
-            <div className="count">
+            <div
+                className="count"
+                style={{ visibility: count === 0 ? 'hidden' : 'visible'}}
+            >
                 {count}
             </div>
             {showCheckbox && (
