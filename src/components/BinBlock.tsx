@@ -8,6 +8,7 @@ export const BinBlock: React.FC<BinBlockProps> = ({ row, onChange, className }) 
             label="当日分"
             className="todayCells"
             count={row.today}
+            limit={row.limit}
             showCheckbox={true}
             checkboxLabel="大ドラム"
             onIncrement={() => onChange(row.id, 'today', 1)}
@@ -18,6 +19,7 @@ export const BinBlock: React.FC<BinBlockProps> = ({ row, onChange, className }) 
             label="翌日分"
             className="nextDayCells"
             count={row.tomorrow}
+            limit={row.limit}
             showCheckbox={true}
             checkboxLabel="大ドラム"
             onIncrement={() => onChange(row.id, 'tomorrow', 1)}

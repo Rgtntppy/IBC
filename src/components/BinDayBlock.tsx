@@ -5,6 +5,7 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
     label,
     className,
     count,
+    limit,
     showCheckbox = false,
     checkboxLabel = "",
     onIncrement,
@@ -12,9 +13,11 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
 }) => {
     return (
         <>
-        <div className={`dayCells ${className || ""}`}>
+        <div className={`dayCells ${className || ""} ${count > limit ? 'alert' : ''}`}>
             <p className="label">{label}</p>
-            <div className="count">{count}</div>
+            <div className="count">
+                {count}
+            </div>
             {showCheckbox && (
                 <label className="checkboxLabel">
                     <input type="checkbox" />

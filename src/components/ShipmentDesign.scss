@@ -85,17 +85,19 @@ $binBlockHight: 60px;
                         cursor: pointer;
                     }
                 }
+
+                &.alert {
+                    background: linear-gradient(to top, red, transparent);
+                }
             }
 
             /* 今日の数量表示 */
             .todayCells {
-                font-size: 24px;
                 background-color: rgb(255, 255, 153);
             }
             
             /* 明日の数量表示 */
             .nextDayCells {
-                font-size: 16px;
             }
             
             /* 上下のカウントボタン */
