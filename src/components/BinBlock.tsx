@@ -1,18 +1,28 @@
 import { BinBlockProps } from "../data/binBlockInterface";
+import { BinDayBlock } from "./BinDayBlock";
 
 export const BinBlock: React.FC<BinBlockProps> = ({ row, onChange, className }) => (
     <div className={`binBlock ${row.highlight ? `highlight-${row.highlight}` : ''} ${className || ''}`}>
         <div className={`binName ${row.highlight ? `highlight-${row.highlight}` : ''}`}>{row.bin}</div>
-        <div className="todayCells">{row.today}</div>
-        <div className="controlButtonCells">
-            <button className="countUpButton" onClick={() => onChange(row.id, 'today', 1)}>▲</button>
-            <button className="countDownButton" onClick={() => onChange(row.id, 'today', -1)}>▼</button>
-        </div>
+        <BinDayBlock
+            label="当日分"
+            className="todayCells"
+            count={row.today}
+            showCheckbox={true}
+            checkboxLabel="大ドラム"
+            onIncrement={() => onChange(row.id, 'today', 1)}
+            onDecrement={() => onChange(row.id, 'today', -1)}
+        />
 
-        <div className="nextDayCells">{row.tomorrow}</div>
-        <div className="controlButtonCells">
-            <button className="countUpButton" onClick={() => onChange(row.id, 'tomorrow', 1)}>▲</button>
-            <button className="countDownButton" onClick={() => onChange(row.id, 'tomorrow', -1)}>▼</button>
-        </div>
+        <BinDayBlock
+            label="翌日分"
+            className="nextDayCells"
+            count={row.tomorrow}
+            showCheckbox={true}
+            checkboxLabel="大ドラム"
+            onIncrement={() => onChange(row.id, 'tomorrow', 1)}
+            onDecrement={() => onChange(row.id, 'tomorrow', -1)}
+        />
+        
     </div>
 );
