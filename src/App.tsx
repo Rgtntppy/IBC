@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/topPage/Home';
-import ShipmentTable from './components/ShipmentTable';
-import ViewingPage from './components/ViewingPage';
+import ShipmentTable from './components/master/ShipmentTable';
+import ViewingPage from './components/viewing/ViewingPage';
 
 const basename = process.env.NODE_ENV === 'production' ? '/IBC/docs' : '/';
 

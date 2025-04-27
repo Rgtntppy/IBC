@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './ShipmentDesign.scss';
-import { initialData, ShipmentData } from '../data/initialData';
+import { initialData, ShipmentData } from '../../data/initialData';
 import { BinBlock } from './BinBlock';
 
 const ShipmentTable: React.FC = () => {

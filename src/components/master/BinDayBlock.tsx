@@ -1,5 +1,5 @@
 import React from "react";
-import { BinDayBlockProps } from "../data/binDayBlockInterface";
+import { BinDayBlockProps } from "../../data/binDayBlockInterface";
 
 export const BinDayBlock: React.FC<BinDayBlockProps> = ({
     label,

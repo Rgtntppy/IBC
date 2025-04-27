@@ -1,4 +1,4 @@
-import { BinBlockProps } from "../data/binBlockInterface";
+import { BinBlockProps } from "../../data/binBlockInterface";
 import { BinDayBlock } from "./BinDayBlock";
 
 export const BinBlock: React.FC<BinBlockProps> = ({ row, onChange, className }) => (
