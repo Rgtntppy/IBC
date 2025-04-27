@@ -4,9 +4,11 @@ import Home from './components/Home';
 import ShipmentTable from './components/ShipmentTable';
 import ViewingPage from './components/ViewingPage';
 
+const basename = process.env.NODE_ENV === 'production' ? '/IBC' : '/';
+
 function App() {
   return (
-    <Router basename='/IBC'>
+    <Router basename={basename}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/master" element={<ShipmentTable />} />
