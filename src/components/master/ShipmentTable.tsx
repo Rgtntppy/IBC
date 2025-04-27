@@ -17,17 +17,17 @@ const ShipmentTable: React.FC = () => {
   };
 
   const PMBin = [
-    [  1, 24,  3],
-    [ 14, 15, 16, 17],
-    [ 18, 19, 20, 21],
-    [ 22, 23, 25, 26, 27]
+    [  1, 80,  3,  5],
+    [ 70, 71, 72, 73],
+    [ 74, 75, 76, 77],
+    [ 78, 79, 81, 95, 96]
   ];
 
   const AMBin = [
-    [  2,  4],
-    [  5,  6,  7],
-    [  8,  9, 10, 11],
-    [ 12, 13]
+    [  2,  4, 6],
+    [  61,  62,  63],
+    [ 64,  65, 66, 67],
+    [ 68, 69]
   ]
 
   const pmColumns = PMBin.map(col =>
@@ -62,7 +62,7 @@ const ShipmentTable: React.FC = () => {
       {amColumns.map((col, colIndex) => (
         <div
           key={colIndex}
-          className={`binColumn ${colIndex < 2 ? 'column-lifted' : ''}`}
+          className={`binColumn ${colIndex == 1 ? 'column-lifted' : ''}`}
         >
           {col.map((row, rowIndex) => (
             <BinBlock 
