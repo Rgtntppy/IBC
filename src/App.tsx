@@ -4,7 +4,7 @@ import Home from './components/Home';
 import ShipmentTable from './components/ShipmentTable';
 import ViewingPage from './components/ViewingPage';
 
-const basename = process.env.NODE_ENV === 'production' ? '/IBC' : '/';
+const basename = process.env.NODE_ENV === 'production' ? '/IBC/docs' : '/';
 
 function App() {
   return (
