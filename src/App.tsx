@@ -6,7 +6,7 @@ import ViewingPage from './components/ViewingPage';
 
 function App() {
   return (
-    <Router>
+    <Router basename='/IBC'>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/master" element={<ShipmentTable />} />
