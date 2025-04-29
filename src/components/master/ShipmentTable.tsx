@@ -3,6 +3,7 @@ import './ShipmentDesign.scss';
 import { initialData, ShipmentData } from '../../data/initialData';
 import { BinBlock } from './BinBlock';
 import { useSyncScroll } from './useSyncScroll';
+import { saveDayCells } from '../../firebase/firestoreService';
 
 const ShipmentTable: React.FC = () => {
   const [data, setData] = useState(initialData);
@@ -14,6 +15,16 @@ const ShipmentTable: React.FC = () => {
         item.id === id
         ? { ...item, [key]: Math.max(0, item[key] + diff) }
         : item
+      )
+    );
+  };
+
+  const handleCheckboxToggle = (id: number, key: 'isLargeDrumToday' | 'isLargeDrumTomorrow') => {
+    setData(prev => 
+      prev.map(item =>
+        item.id === id
+          ? { ...item, [key]: !item[key] }
+          : item
       )
     );
   };
@@ -54,6 +65,7 @@ const ShipmentTable: React.FC = () => {
               key={row.id}
               row={row}
               onChange={handleChange}
+              onCheckboxToggle={handleCheckboxToggle}
             />
           ))}
         </div>
@@ -71,6 +83,7 @@ const ShipmentTable: React.FC = () => {
               key={row.id}
               row={row}
               onChange={handleChange}
+              onCheckboxToggle={handleCheckboxToggle}
             />
           ))}
         </div>

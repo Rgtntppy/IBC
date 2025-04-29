@@ -1,7 +1,12 @@
 import { BinBlockProps } from "../../data/binBlockInterface";
 import { BinDayBlock } from "./BinDayBlock";
 
-export const BinBlock: React.FC<BinBlockProps> = ({ row, onChange, className }) => (
+export const BinBlock: React.FC<BinBlockProps> = ({ 
+    row,
+    onChange,
+    onCheckboxToggle,
+    className 
+}) => (
     <div className="binBlock">
         <div className={`binName ${row.highlight ? `highlight-${row.highlight}` : ''}`}>{row.bin}</div>
         <BinDayBlock
@@ -10,9 +15,11 @@ export const BinBlock: React.FC<BinBlockProps> = ({ row, onChange, className }) 
             count={row.today}
             limit={row.limit}
             showCheckbox={true}
+            checked={false}
             checkboxLabel="大ドラム"
             onIncrement={() => onChange(row.id, 'today', 1)}
             onDecrement={() => onChange(row.id, 'today', -1)}
+            onCheckboxToggle={() => onCheckboxToggle(row.id, 'isLargeDrumToday')}
         />
 
         <BinDayBlock
@@ -21,9 +28,11 @@ export const BinBlock: React.FC<BinBlockProps> = ({ row, onChange, className }) 
             count={row.tomorrow}
             limit={row.limit}
             showCheckbox={true}
+            checked={false}
             checkboxLabel="大ドラム"
             onIncrement={() => onChange(row.id, 'tomorrow', 1)}
             onDecrement={() => onChange(row.id, 'tomorrow', -1)}
+            onCheckboxToggle={() => onCheckboxToggle(row.id, 'isLargeDrumTomorrow')}
         />
         
     </div>

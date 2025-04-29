@@ -4,7 +4,9 @@ export interface BinDayBlockProps {
     count: number;
     limit: number;
     showCheckbox: boolean;
+    checked: boolean;
     checkboxLabel?: string;
     onIncrement: () => void;
     onDecrement: () => void;
+    onCheckboxToggle: () => void;
 }

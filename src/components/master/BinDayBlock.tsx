@@ -7,9 +7,11 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
     count,
     limit,
     showCheckbox = false,
+    checked = false,
     checkboxLabel = "",
     onIncrement,
     onDecrement,
+    onCheckboxToggle,
 }) => {
     return (
         <>
@@ -23,7 +25,11 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
             </div>
             {showCheckbox && (
                 <label className="checkboxLabel">
-                    <input type="checkbox" />
+                    <input 
+                        type="checkbox"
+                        checked={checked}
+                        onChange={onCheckboxToggle}
+                    />
                     {checkboxLabel}
                 </label>
             )}
