@@ -17,16 +17,16 @@ const ShipmentTable: React.FC = () => {
   };
 
   const PMBin = [
-    [  1, 80,  3,  5],
+    [  1, 80,  3,  8],
     [ 70, 71, 72, 73],
     [ 74, 75, 76, 77],
     [ 78, 79, 81, 95, 96]
   ];
 
   const AMBin = [
-    [  2,  4, 6],
-    [  61,  62,  63],
-    [ 64,  65, 66, 67],
+    [  2,  5,  4, 9],
+    [ 61, 62, 63],
+    [ 64, 65, 66, 67],
     [ 68, 69]
   ]
 
@@ -69,7 +69,6 @@ const ShipmentTable: React.FC = () => {
               key={row.id}
               row={row}
               onChange={handleChange}
-              className={colIndex === 0 && rowIndex === 1 ? 'spaced' : ''}
             />
           ))}
         </div>

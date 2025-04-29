@@ -4,16 +4,17 @@ export type ShipmentData = {
   today: number;
   tomorrow: number;
   limit: number;
-  highlight?: "red" | "blue";
+  highlight?: "red" | "blue" | "white";
 }
 
 export const initialData = [
     { id:  1, bin: "特1", today: 0, tomorrow: 0, limit: 15, highlight: "red" },
     { id:  2, bin: "特2", today: 0, tomorrow: 0, limit: 15, highlight: "red" },
-    { id:  3, bin: "S1", today: 0, tomorrow: 0, limit: 3 },
-    { id:  4, bin: "S2", today: 0, tomorrow: 0, limit: 3 },
-    { id:  5, bin: "仮1", today: 0, tomorrow: 0, limit: 10 },
-    { id:  6, bin: "仮2", today: 0, tomorrow: 0, limit: 10 },
+    { id:  3, bin: "S1",  today: 0, tomorrow: 0, limit: 3 },
+    { id:  4, bin: "S2",  today: 0, tomorrow: 0, limit: 3 },
+    { id:  5, bin: "路線", today: 0, tomorrow: 0, limit:10 },
+    { id:  8, bin: "仮1", today: 0, tomorrow: 0, limit: 10, highlight: "white" },
+    { id:  9, bin: "仮2", today: 0, tomorrow: 0, limit: 10, highlight: "white" },
     { id: 61, bin: "61", today: 0, tomorrow: 0, limit: 3 },
     { id: 62, bin: "62", today: 0, tomorrow: 0, limit: 3 },
     { id: 63, bin: "63", today: 0, tomorrow: 0, limit: 3 },

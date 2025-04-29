@@ -2,11 +2,11 @@ import { BinBlockProps } from "../../data/binBlockInterface";
 import { BinDayBlock } from "./BinDayBlock";
 
 export const BinBlock: React.FC<BinBlockProps> = ({ row, onChange, className }) => (
-    <div className={`binBlock ${row.highlight ? `highlight-${row.highlight}` : ''} ${className || ''}`}>
+    <div className="binBlock">
         <div className={`binName ${row.highlight ? `highlight-${row.highlight}` : ''}`}>{row.bin}</div>
         <BinDayBlock
             label="当日分"
-            className="todayCells"
+            className={`todayCells ${row.highlight ? `highlight-${row.highlight}` : ''}`}
             count={row.today}
             limit={row.limit}
             showCheckbox={true}
