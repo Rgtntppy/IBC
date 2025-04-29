@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import './ShipmentDesign.scss';
 import { initialData, ShipmentData } from '../../data/initialData';
 import { BinBlock } from './BinBlock';
+import { useSyncScroll } from './useSyncScroll';
 
 const ShipmentTable: React.FC = () => {
   const [data, setData] = useState(initialData);
+  const { amRef, pmRef } = useSyncScroll();
 
   const handleChange = (id: number, key: 'today' | 'tomorrow', diff: number) => {
     setData(prev =>
@@ -41,7 +43,7 @@ const ShipmentTable: React.FC = () => {
   return (
     <>
     <h1>ドラム出荷数管理表</h1>
-    <div className="binGrid">
+    <div ref={pmRef} className="binGrid">
       {pmColumns.map((col, colIndex) => (
         <div 
           key={colIndex}
@@ -58,7 +60,7 @@ const ShipmentTable: React.FC = () => {
       ))}
     </div>
 
-    <div className="binGrid">
+    <div ref={amRef} className="binGrid">
       {amColumns.map((col, colIndex) => (
         <div
           key={colIndex}

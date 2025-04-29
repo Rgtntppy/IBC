@@ -12,6 +12,10 @@ $button-radius: 4px;
     flex-wrap: nowrap;
     overflow: visible;
     overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
     
     .binColumn {
         display: flex;
