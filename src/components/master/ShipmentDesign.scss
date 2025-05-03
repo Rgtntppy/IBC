@@ -226,7 +226,22 @@ $button-radius: 5px;
     }
 }
 
+.amBinGrid {
+    position: relative;
+}
+
 .prepareNextDay {
-    padding: 5px 10px;
-    background-color: rgb(184, 184, 184);
+    position: absolute;
+    bottom: 20px;
+    right: 40px;
+    padding: 8px 16px;
+    background-color: rgb(220, 220, 220);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 10;
+
+    &:hover {
+        background-color: red;
+    }
 }

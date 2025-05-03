@@ -85,7 +85,7 @@ const ShipmentTable: React.FC = () => {
       ))}
     </div>
 
-    <div ref={amRef} className='binGrid'>
+    <div ref={amRef} className='binGrid amBinGrid'>
       {amColumns.map((col, colIndex) => (
         <div
           key={colIndex}
@@ -101,7 +101,11 @@ const ShipmentTable: React.FC = () => {
           ))}
         </div>
       ))}
+      <button className='prepareNextDay' onClick={() => setShowConfirmModal(true)}>
+        翌日分準備
+      </button>
     </div>
+
     {showConfirmModal && (
       <div className='modal-overlay'>
         <div className='modal-content'>
@@ -120,7 +124,6 @@ const ShipmentTable: React.FC = () => {
         </div>
       </div>
     )}
-    <button className='prepareNextDay' onClick={() => setShowConfirmModal(true)}>翌日分準備</button>
     </>
   );
 };
