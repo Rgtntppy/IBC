@@ -4,8 +4,8 @@ export type ShipmentData = {
   today: number;
   tomorrow: number;
   limit: number;
-  isLargeDrumToday?:boolean;
-  isLargeDrumTomorrow?:boolean;
+  isLargeDrumToday:boolean;
+  isLargeDrumTomorrow:boolean;
   highlight?: "red" | "blue" | "white";
 }
 

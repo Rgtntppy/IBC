@@ -88,7 +88,7 @@ const ShipmentTable: React.FC = () => {
           ))}
         </div>
       ))}
-      </div>
+    </div>
     </>
   );
 };

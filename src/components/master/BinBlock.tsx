@@ -15,7 +15,7 @@ export const BinBlock: React.FC<BinBlockProps> = ({
             count={row.today}
             limit={row.limit}
             showCheckbox={true}
-            checked={false}
+            checked={row.isLargeDrumToday}
             checkboxLabel="大ドラム"
             onIncrement={() => onChange(row.id, 'today', 1)}
             onDecrement={() => onChange(row.id, 'today', -1)}
@@ -28,12 +28,11 @@ export const BinBlock: React.FC<BinBlockProps> = ({
             count={row.tomorrow}
             limit={row.limit}
             showCheckbox={true}
-            checked={false}
+            checked={row.isLargeDrumTomorrow}
             checkboxLabel="大ドラム"
             onIncrement={() => onChange(row.id, 'tomorrow', 1)}
             onDecrement={() => onChange(row.id, 'tomorrow', -1)}
             onCheckboxToggle={() => onCheckboxToggle(row.id, 'isLargeDrumTomorrow')}
         />
-        
     </div>
 );

@@ -28,7 +28,7 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
                     <input 
                         type="checkbox"
                         checked={checked}
-                        onChange={onCheckboxToggle}
+                        onChange={() => onCheckboxToggle()}
                     />
                     {checkboxLabel}
                 </label>
