@@ -8,7 +8,14 @@ export const BinBlock: React.FC<BinBlockProps> = ({
     className 
 }) => (
     <div className="binBlock">
-        <div className={`binName ${row.highlight ? `highlight-${row.highlight}` : ''}`}>{row.bin}</div>
+        <div className={`binName ${row.highlight ? `highlight-${row.highlight}` : ''}`}>
+            {row.bin.length >= 4
+                ? <>
+                    {row.bin.slice(0, 2)}<br/>{row.bin.slice(2)}
+                </>
+                : row.bin
+            }
+        </div>
         <BinDayBlock
             label="当日分"
             className={`todayCells ${row.highlight ? `highlight-${row.highlight}` : ''}`}

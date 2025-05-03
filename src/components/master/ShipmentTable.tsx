@@ -7,6 +7,7 @@ import { saveDayCells } from '../../firebase/firestoreService';
 
 const ShipmentTable: React.FC = () => {
   const [data, setData] = useState(initialData);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const { amRef, pmRef } = useSyncScroll();
 
   const handleChange = (id: number, key: 'today' | 'tomorrow', diff: number) => {
@@ -29,6 +30,18 @@ const ShipmentTable: React.FC = () => {
     );
   };
 
+  const prepareNextDay = () => {
+    setData(prev =>
+      prev.map(item => ({
+        ...item,
+        today: item.tomorrow,
+        tomorrow: 0,
+        isLargeDrumToday: item.isLargeDrumTomorrow,
+        isLargeDrumTomorrow: false
+      }))
+    );
+  };
+
   const PMBin = [
     [  1, 80,  3,  8],
     [ 70, 71, 72, 73],
@@ -40,7 +53,7 @@ const ShipmentTable: React.FC = () => {
     [  2,  5,  4, 9],
     [ 61, 62, 63],
     [ 64, 65, 66, 67],
-    [ 68, 69]
+    [ 68, 69, 810]
   ]
 
   const pmColumns = PMBin.map(col =>
@@ -54,7 +67,7 @@ const ShipmentTable: React.FC = () => {
   return (
     <>
     <h1>ドラム出荷数管理表</h1>
-    <div ref={pmRef} className="binGrid">
+    <div ref={pmRef} className='binGrid'>
       {pmColumns.map((col, colIndex) => (
         <div 
           key={colIndex}
@@ -72,7 +85,7 @@ const ShipmentTable: React.FC = () => {
       ))}
     </div>
 
-    <div ref={amRef} className="binGrid">
+    <div ref={amRef} className='binGrid'>
       {amColumns.map((col, colIndex) => (
         <div
           key={colIndex}
@@ -89,6 +102,25 @@ const ShipmentTable: React.FC = () => {
         </div>
       ))}
     </div>
+    {showConfirmModal && (
+      <div className='modal-overlay'>
+        <div className='modal-content'>
+          <p>本日分のデータは失われますが<br/>よろしいでしょうか？</p>
+          <div className='modal-buttons'>
+            <button onClick={() => {
+              prepareNextDay();
+              setShowConfirmModal(false);
+            }}>
+              はい
+            </button>
+            <button onClick={() => setShowConfirmModal(false)}>
+              いいえ
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+    <button className='prepareNextDay' onClick={() => setShowConfirmModal(true)}>翌日分準備</button>
     </>
   );
 };
