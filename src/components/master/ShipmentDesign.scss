@@ -226,7 +226,7 @@ $button-radius: 5px;
     }
 }
 
-.dayCells {
+.todayDate {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -237,6 +237,7 @@ $button-radius: 5px;
         appearance: none;
         border: 0;
         background: transparent;
+        color: #000;
         font-size: 24px;
         padding: 2px 4px;
         margin: 0;

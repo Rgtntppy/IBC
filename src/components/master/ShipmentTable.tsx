@@ -75,7 +75,7 @@ const ShipmentTable: React.FC = () => {
   return (
     <>
     <h1>ドラム出荷数管理表</h1>
-    <div className='dayCells'>
+    <div className='todayDate'>
       <input
         className='days'
         type='date'
