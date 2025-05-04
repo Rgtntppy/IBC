@@ -226,22 +226,51 @@ $button-radius: 5px;
     }
 }
 
-.amBinGrid {
+.dayCells {
     position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    align-items: center;
+    
+    .days {
+        appearance: none;
+        border: 0;
+        background: transparent;
+        font-size: 24px;
+        padding: 2px 4px;
+        margin: 0;
+    }
+    
+    .daysText {
+        font-size: 24px;
+        margin: 0;
+    }
 }
 
-.prepareNextDay {
-    position: absolute;
-    bottom: 20px;
-    right: 40px;
-    padding: 8px 16px;
-    background-color: rgb(220, 220, 220);
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    z-index: 10;
-
-    &:hover {
-        background-color: red;
+.todayBinGrid {
+    transform: translateY(-50px);
+    .amBinGrid {
+        position: relative;
+        
+        .prepareNextDay {
+            position: absolute;
+            bottom: 20px;
+            right: 40px;
+            padding: 8px 16px;
+            background-color: rgb(220, 220, 220);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 10;
+            
+            &:hover {
+                background-color: red;
+            }
+        }
+    }
+    
+    .pmBinGrid {
+        
     }
 }
