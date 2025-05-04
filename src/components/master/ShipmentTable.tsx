@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ShipmentDesign.scss';
 import { initialData, ShipmentData } from '../../data/initialData';
 import { BinBlock } from './BinBlock';
@@ -11,6 +11,10 @@ const ShipmentTable: React.FC = () => {
   const [data, setData] = useState(initialData);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const { amRef, pmRef } = useSyncScroll();
+
+  useEffect(() => {
+    saveDayCells(data);
+  },[data]);
 
   const handleChange = (id: number, key: 'today' | 'tomorrow', diff: number) => {
     setData(prev =>
@@ -122,7 +126,7 @@ const ShipmentTable: React.FC = () => {
         </button>
       </div>
     </div>
-    
+
     {showConfirmModal && (
       <div className='modal-overlay'>
         <div className='modal-content'>
