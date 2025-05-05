@@ -53,8 +53,12 @@ const ShipmentTable: React.FC = () => {
       }))
     );
 
-    const nextDate = getNextBusinessDay(new Date(currentDate));
-    setCurrentDate(dayjs(nextDate).format('YYYY/MM/DD'));
+    const ymd = currentDate.replace(/\D/g, '');
+    const nextYMD = getNextBusinessDay(ymd);
+    const nextDateDisplay = dayjs(nextYMD, 'YYYYMMDD').format('YYYY年MM月DD日');
+
+    setCurrentDate(dayjs(nextYMD).format('YYYY/MM/DD'));
+    setDisplayDate(nextDateDisplay);
   };
 
   const PMBin = [
@@ -89,6 +93,7 @@ const ShipmentTable: React.FC = () => {
       setDisplayDate={setDisplayDate}
       isDateConfirmed={isDateConfirmed}
       setIsDateConfirmed={setIsDateConfirmed}
+      prepareNextDay={prepareNextDay}
     />
     <div className='todayBinGrid'>
       <div ref={pmRef} className='binGrid pmBinGrid'>
