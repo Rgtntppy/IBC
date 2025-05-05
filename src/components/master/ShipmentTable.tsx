@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import dayjs from 'dayjs';
 import './ShipmentDesign.scss';
 import { initialData, ShipmentData } from '../../data/initialData';
 import { BinBlock } from './BinBlock';
@@ -7,14 +8,61 @@ import { saveDayCells } from '../../firebase/firestoreService';
 import { getNextBusinessDay } from '../../data/getNextBusinessDay';
 
 const ShipmentTable: React.FC = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(dayjs().format('YYYY/MM/DD'));
+  const [displayDate, setDisplayDate] = useState(dayjs().format('YYYY年MM月DD日分'));
+  const [yearInput, setYearInput] = useState('');
+  const [monthDayInput, setMonthDayInput] = useState('');
+  const [isDateConfirmed, setIsDateConfirmed] = useState(false)
   const [data, setData] = useState(initialData);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  
+  const yearInputRef = useRef<HTMLInputElement>(null);
+  const monthDayInputRef = useRef<HTMLInputElement>(null);
   const { amRef, pmRef } = useSyncScroll();
 
   useEffect(() => {
     saveDayCells(data);
   },[data]);
+
+  const formatAndSetDate = (year: string, mmdd: string) => {
+    if (year.length === 4 && mmdd.length === 4) {
+      const formatted = `${year}/${mmdd.slice(0, 2)}/${mmdd.slice(2, 4)}`;
+      const formattedDisplay = `${year}年${mmdd.slice(0, 2)}月${mmdd.slice(2, 4)}日分`;
+      setCurrentDate(formatted);
+      setDisplayDate(formattedDisplay);
+    }
+  }
+
+  const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, 4);
+    setYearInput(value);
+    formatAndSetDate(value, monthDayInput);
+  };
+
+  const handleMonthDayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, 4);
+    setMonthDayInput(value);
+    formatAndSetDate(yearInput, value);
+  };
+
+  const handleDateConfirm = () => {
+    if (yearInput.length === 4 && monthDayInput.length === 4) {
+      const formattedDisplay = `${yearInput}年${monthDayInput.slice(0, 2)}月${monthDayInput.slice(2, 4)}日分`;
+      setDisplayDate(formattedDisplay);
+      setIsDateConfirmed(true);
+    }
+  }
+
+  const handleInputBlur = () => {
+    setTimeout(() => {
+      const isYearFocused = document.activeElement === yearInputRef.current;
+      const isMonthDayFocused = document.activeElement === monthDayInputRef.current;
+
+      if (!isYearFocused && !isMonthDayFocused) {
+        handleDateConfirm();
+      }
+    }, 0);
+  };
 
   const handleChange = (id: number, key: 'today' | 'tomorrow', diff: number) => {
     setData(prev =>
@@ -47,7 +95,8 @@ const ShipmentTable: React.FC = () => {
       }))
     );
 
-    setCurrentDate(prevDate => getNextBusinessDay(prevDate));
+    const nextDate = getNextBusinessDay(new Date(currentDate));
+    setCurrentDate(dayjs(nextDate).format('YYYY/MM/DD'));
   };
 
   const PMBin = [
@@ -75,16 +124,51 @@ const ShipmentTable: React.FC = () => {
   return (
     <>
     <h1>ドラム出荷数管理表</h1>
-    <div className='todayDate'>
-      <input
-        className='days'
-        type='date'
-        value={currentDate.toISOString().split('T')[0]}
-        onChange={e => setCurrentDate(new Date(e.target.value))}
-      />
-      <p className='daysText'>
-        日分
-      </p>
+    <div className='todayLabel'>
+      {!isDateConfirmed ? (
+        <div className='todayDate'>
+          <input
+            className='yearInput'
+            type='text'
+            value={yearInput}
+            onChange={handleYearChange}
+            placeholder='2025'
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleDateConfirm();
+            }}
+            onBlur={handleInputBlur}
+            ref={yearInputRef}
+          />
+          <input
+            className='monthDayInput'
+            type='text'
+            value={monthDayInput}
+            onChange={handleMonthDayChange}
+            placeholder='0401'
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleDateConfirm();
+            }}
+            onBlur={handleInputBlur}
+            ref={monthDayInputRef}
+          />
+        </div>
+      ) : (
+        <p
+          className='daysText'
+          onClick={() => {
+            const parsed = dayjs(currentDate);
+            setYearInput(parsed.format('YYYY'));
+            setMonthDayInput(parsed.format('MMDD')); 
+            setIsDateConfirmed(false);
+
+            setTimeout(() => {
+              monthDayInputRef.current?.focus();
+            }, 0);
+          }}
+        >
+          {displayDate}
+        </p>
+      )}
     </div>
     <div className='todayBinGrid'>
       <div ref={pmRef} className='binGrid pmBinGrid'>
@@ -99,8 +183,8 @@ const ShipmentTable: React.FC = () => {
                 row={row}
                 onChange={handleChange}
                 onCheckboxToggle={handleCheckboxToggle}
-              />
-            ))}
+                />
+                ))}
           </div>
         ))}
       </div>
