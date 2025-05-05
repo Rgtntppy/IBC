@@ -1,11 +1,11 @@
-import { BinBlockProps } from "../../data/binBlockInterface";
-import { BinDayBlock } from "./BinDayBlock";
+import './binBlocks.scss';
+import { BinBlockProps } from "./binBlockInterface";
+import { BinDayBlock } from "./binDayBlocks/BinDayBlock";
 
 export const BinBlock: React.FC<BinBlockProps> = ({ 
     row,
     onChange,
     onCheckboxToggle,
-    className 
 }) => (
     <div className="binBlock">
         <div className={`binName ${row.highlight ? `highlight-${row.highlight}` : ''}`}>
