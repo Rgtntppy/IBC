@@ -26,7 +26,7 @@ const ShipmentTable: React.FC = () => {
     setData(prev =>
       prev.map(item =>
         item.id === id
-        ? { ...item, [key]: Math.max(0, item[key] + diff) }
+        ? { ...item, [key]: Math.max(0, (item[key] ?? 0) + diff) }
         : item
       )
     );
@@ -44,13 +44,16 @@ const ShipmentTable: React.FC = () => {
 
   const prepareNextDay = () => {
     setData(prev =>
-      prev.map(item => ({
+      prev.map(item => 
+        TentativeIDs.includes(item.id)
+        ? item
+        : {
         ...item,
-        today: item.tomorrow,
+        today: item.tomorrow ?? 0,
         tomorrow: 0,
-        isLargeDrumToday: item.isLargeDrumTomorrow,
+        isLargeDrumToday: item.isLargeDrumTomorrow ?? false,
         isLargeDrumTomorrow: false
-      }))
+      })
     );
 
     const ymd = currentDate.replace(/\D/g, '');
@@ -74,6 +77,8 @@ const ShipmentTable: React.FC = () => {
     [ 64, 65, 66, 67],
     [ 68, 69, 810]
   ]
+
+  const TentativeIDs = [ 8, 9];
 
   const pmColumns = PMBin.map(col =>
     col.map(id => data.find(d => d.id === id)).filter(Boolean) as ShipmentData[]
