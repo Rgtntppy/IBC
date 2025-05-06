@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/IBC/docs/static/css/main.9cbf89ca.css",
+    "main.js": "/IBC/docs/static/js/main.f1bbdd1f.js",
+    "index.html": "/IBC/docs/index.html",
+    "main.9cbf89ca.css.map": "/IBC/docs/static/css/main.9cbf89ca.css.map",
+    "main.f1bbdd1f.js.map": "/IBC/docs/static/js/main.f1bbdd1f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9cbf89ca.css",
+    "static/js/main.f1bbdd1f.js"
+  ]
+}
