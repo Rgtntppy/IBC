@@ -1,7 +1,7 @@
 {
   "name": "ibc",
   "version": "0.1.0",
-  "homepage": "https://rgtntppy.github.io/IBC/docs/",
+  "homepage": "https://rgtntppy.github.io/",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
