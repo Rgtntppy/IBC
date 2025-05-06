@@ -1,19 +1,22 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import './shipmentDesign.scss';
-import { initialData, ShipmentData } from '../../data/initialData';
+import { ShipmentData, initialData } from '../../data/initialData';
 import { BinBlock } from './binBlocks/BinBlock';
 import { useSyncScroll } from './useSyncScroll';
 import { saveDayCells } from '../../firebase/firestoreService';
 import { getNextBusinessDay } from '../../data/getNextBusinessDay';
 import { TodayLabel } from './todayLabel/TodayLabel';
 import { PopUp } from './popUp/PopUp';
+import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
+import { OnlytodayProps, onlytodaysData } from './binBlocks/onlytoday/onlytodayInterface';
 
 const ShipmentTable: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(dayjs().format('YYYY/MM/DD'));
   const [displayDate, setDisplayDate] = useState(dayjs().format('YYYY年MM月DD日分'));
   const [isDateConfirmed, setIsDateConfirmed] = useState(false)
   const [data, setData] = useState(initialData);
+  const [onlytodaysBinData, setOnlytodaysBinData] = useState(onlytodaysData);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   
   const { amRef, pmRef } = useSyncScroll();
@@ -38,6 +41,26 @@ const ShipmentTable: React.FC = () => {
         item.id === id
           ? { ...item, [key]: !item[key] }
           : item
+      )
+    );
+  };
+
+  const handleChangeTentative = (id: number, key: 'today', diff: number) => {
+    setOnlytodaysBinData(prev =>
+      prev.map(item =>
+        item.id === id
+        ? { ...item, [key]: Math.max(0, (item[key] ?? 0) + diff) }
+        : item
+      )
+    );
+  };
+
+  const handleCheckboxTentative = (id: number, key: 'isLargeDrumToday') => {
+    setOnlytodaysBinData(prev =>
+      prev.map(item =>
+        item.id === id
+        ? { ...item, [key]: !item[key] }
+      : item
       )
     );
   };
@@ -76,7 +99,7 @@ const ShipmentTable: React.FC = () => {
     [ 61, 62, 63],
     [ 64, 65, 66, 67],
     [ 68, 69, 810]
-  ]
+  ];
 
   const TentativeIDs = [ 8, 9];
 
@@ -87,6 +110,9 @@ const ShipmentTable: React.FC = () => {
   const amColumns = AMBin.map(col =>
     col.map(id => data.find(d => d.id === id)).filter(Boolean) as ShipmentData[]
   );
+
+  const tentative1 = onlytodaysBinData.find(d => d.id === 8);
+  const tentative2 = onlytodaysBinData.find(d => d.id === 9);
 
   return (
     <>
@@ -117,6 +143,13 @@ const ShipmentTable: React.FC = () => {
                 ))}
           </div>
         ))}
+        {tentative1 && (
+          <Onlytoday
+            {...tentative1}
+            onChange={handleChangeTentative}
+            onCheckboxToggle={handleCheckboxTentative}
+          />
+        )}
       </div>
 
       <div ref={amRef} className='binGrid amBinGrid'>
@@ -135,6 +168,13 @@ const ShipmentTable: React.FC = () => {
             ))}
           </div>
         ))}
+        {tentative2 && (
+          <Onlytoday
+            {...tentative2}
+            onChange={handleChangeTentative}
+            onCheckboxToggle={handleCheckboxTentative}
+          />
+        )}
         <button className='prepareNextDay' onClick={() => setShowConfirmModal(true)}>
           翌日分準備
         </button>

@@ -2,10 +2,10 @@ export type ShipmentData = {
   id: number;
   bin: string;
   today: number;
-  tomorrow: number;
-  limit: number;
   isLargeDrumToday:boolean;
+  tomorrow: number;
   isLargeDrumTomorrow:boolean;
+  limit: number;
   highlight?: "red" | "blue" | "white";
 }
 
@@ -15,8 +15,6 @@ export const initialData = [
     { id:  3, bin: "S1",  today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 },
     { id:  4, bin: "S2",  today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 },
     { id:  5, bin: "路線", today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit:10 },
-    { id:  8, bin: "仮1", today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 10, highlight: "white" },
-    { id:  9, bin: "仮2", today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 10, highlight: "white" },
     { id: 61, bin: "61", today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 },
     { id: 62, bin: "62", today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 },
     { id: 63, bin: "63", today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 },

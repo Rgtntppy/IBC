@@ -1,6 +1,7 @@
 $binBlockHight: 60px;
 
 .binGrid {
+    position: relative;
     display: flex;
     display: flex;
     gap: 3px;
@@ -34,6 +35,7 @@ $binBlockHight: 60px;
     transform: translateY(-50px);
     .amBinGrid {
         position: relative;
+        padding: 15px;
         
         .prepareNextDay {
             position: absolute;
