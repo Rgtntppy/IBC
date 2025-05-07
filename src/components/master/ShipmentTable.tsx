@@ -116,7 +116,7 @@ const ShipmentTable: React.FC = () => {
 
   return (
     <>
-    <h1>ドラム出荷数管理表</h1>
+    <h1 className='title'>ドラム出荷数管理表</h1>
     <TodayLabel
       currentDate={currentDate}
       setCurrentDate={setCurrentDate}
