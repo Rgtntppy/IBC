@@ -17,7 +17,7 @@ export const saveDayCells = async (dayCells: any) => {
 
 export const loadDayCells = async () => {
     try {
-        const docSnap = await getDoc(doc(db, 'ddayDells', DAYCELLS_DOC_ID));
+        const docSnap = await getDoc(doc(db, 'dayCells', DAYCELLS_DOC_ID));
         if (docSnap.exists()) {
             return docSnap.data().data;
         } else {
