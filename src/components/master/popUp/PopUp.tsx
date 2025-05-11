@@ -5,10 +5,10 @@ export const PopUp: React.FC<PopUpProps> = ({
     setShowConfirmModal,
     prepareNextDay
 }) => (
-    <div className='modal-overlay'>
-        <div className='modal-content'>
+    <div className='modalOverlay'>
+        <div className='modalContent'>
           <p>本日分のデータは失われますが<br/>よろしいでしょうか？</p>
-          <div className='modal-buttons'>
+          <div className='modalButtons'>
             <button onClick={() => {
               prepareNextDay();
               setShowConfirmModal(false);
