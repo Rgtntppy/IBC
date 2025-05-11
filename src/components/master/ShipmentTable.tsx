@@ -115,79 +115,79 @@ const ShipmentTable: React.FC = () => {
   const tentative2 = onlytodaysBinData.find(d => d.id === 9);
 
   return (
-    <>
-    <h1 className='title'>ドラム出荷数管理表</h1>
-    <TodayLabel
-      currentDate={currentDate}
-      setCurrentDate={setCurrentDate}
-      displayDate={displayDate}
-      setDisplayDate={setDisplayDate}
-      isDateConfirmed={isDateConfirmed}
-      setIsDateConfirmed={setIsDateConfirmed}
-      prepareNextDay={prepareNextDay}
-    />
-    <div className='todayBinGrid'>
-      <div ref={pmRef} className='binGrid pmBinGrid'>
-        {pmColumns.map((col, colIndex) => (
-          <div 
-            key={colIndex}
-            className={`binColumn ${colIndex < 3 ? 'column-lifted' : ''}`}
-          >
-            {col.map((row, rowIndex) => (
-              <BinBlock 
-                key={row.id}
-                row={row}
-                onChange={handleChange}
-                onCheckboxToggle={handleCheckboxToggle}
-                />
-                ))}
-          </div>
-        ))}
-        {tentative1 && (
-          <Onlytoday
-            {...tentative1}
-            onChange={handleChangeTentative}
-            onCheckboxToggle={handleCheckboxTentative}
-          />
-        )}
-      </div>
-
-      <div ref={amRef} className='binGrid amBinGrid'>
-        {amColumns.map((col, colIndex) => (
-          <div
-            key={colIndex}
-            className={`binColumn ${colIndex == 1 ? 'column-lifted' : ''}`}
-          >
-            {col.map((row, rowIndex) => (
-              <BinBlock 
-                key={row.id}
-                row={row}
-                onChange={handleChange}
-                onCheckboxToggle={handleCheckboxToggle}
-              />
-            ))}
-          </div>
-        ))}
-        {tentative2 && (
-          <Onlytoday
-            {...tentative2}
-            onChange={handleChangeTentative}
-            onCheckboxToggle={handleCheckboxTentative}
-          />
-        )}
-        <button className='prepareNextDay' onClick={() => setShowConfirmModal(true)}>
-          翌日分準備
-        </button>
-      </div>
-    </div>
-
-    {showConfirmModal && (
-      <PopUp
-        setShowConfirmModal={setShowConfirmModal}
+    <div className='shipmentTable'>
+      <h1 className='title'>ドラム出荷数管理表</h1>
+      <TodayLabel
+        currentDate={currentDate}
+        setCurrentDate={setCurrentDate}
+        displayDate={displayDate}
+        setDisplayDate={setDisplayDate}
+        isDateConfirmed={isDateConfirmed}
+        setIsDateConfirmed={setIsDateConfirmed}
         prepareNextDay={prepareNextDay}
       />
-    )}
-    </>
+      <div className='todayBinGrid'>
+        <div ref={pmRef} className='binGrid pmBinGrid'>
+          {pmColumns.map((col, colIndex) => (
+            <div 
+              key={colIndex}
+              className={`binColumn ${colIndex < 3 ? 'column-lifted' : ''}`}
+            >
+              {col.map((row, rowIndex) => (
+                <BinBlock 
+                  key={row.id}
+                  row={row}
+                  onChange={handleChange}
+                  onCheckboxToggle={handleCheckboxToggle}
+                  />
+                  ))}
+            </div>
+          ))}
+          {tentative1 && (
+            <Onlytoday
+              {...tentative1}
+              onChange={handleChangeTentative}
+              onCheckboxToggle={handleCheckboxTentative}
+            />
+          )}
+        </div>
+
+        <div ref={amRef} className='binGrid amBinGrid'>
+          {amColumns.map((col, colIndex) => (
+            <div
+              key={colIndex}
+              className={`binColumn ${colIndex == 1 ? 'column-lifted' : ''}`}
+            >
+              {col.map((row, rowIndex) => (
+                <BinBlock 
+                  key={row.id}
+                  row={row}
+                  onChange={handleChange}
+                  onCheckboxToggle={handleCheckboxToggle}
+                />
+              ))}
+            </div>
+          ))}
+          {tentative2 && (
+            <Onlytoday
+              {...tentative2}
+              onChange={handleChangeTentative}
+              onCheckboxToggle={handleCheckboxTentative}
+            />
+          )}
+          <button className='prepareNextDay' onClick={() => setShowConfirmModal(true)}>
+            翌日分準備
+          </button>
+        </div>
+      </div>
+
+      {showConfirmModal && (
+        <PopUp
+          setShowConfirmModal={setShowConfirmModal}
+          prepareNextDay={prepareNextDay}
+        />
+      )}
+    </div>
   );
 };
 
