@@ -35,15 +35,20 @@
             pointer-events: auto;
             user-select: text;
             opacity: 1;
+            height: 32px;
+            line-height: 32px;
 
-            ::placeholder {
-                font-size: 10px;
+            &::placeholder {
+                line-height: normal;
             }
         }
         
         .yearInput {
             width: 60px;
 
+            &::placeholder {
+                font-size: 18px;
+            }
         }
 
         .yearInput,
@@ -54,11 +59,16 @@
         .monthInput,
         .dayInput {
             width: 30px;
+
+            &::placeholder {
+                font-size: 12px;
+            }
         }
     }
     
     .daysText {
         cursor: pointer;
         padding: 5px;
+        font-size: 24px;
     }
 }

@@ -12,7 +12,7 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
     isDateConfirmed,
     setIsDateConfirmed,
 }) => {
-    const [yearInput, setYearInput] = useState('');
+    const [yearInput, setYearInput] = useState('2025');
     const [monthInput, setMonthInput] = useState('');
     const [dayInput, setDayInput] = useState('');
     const [showError, setShowError] = useState(false);
