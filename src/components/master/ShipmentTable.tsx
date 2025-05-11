@@ -15,19 +15,30 @@ const ShipmentTable: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(dayjs().format('YYYY/MM/DD'));
   const [displayDate, setDisplayDate] = useState(dayjs().format('YYYY年MM月DD日分'));
   const [isDateConfirmed, setIsDateConfirmed] = useState(false)
+  const [hasInitialized, setHasInitialized] = useState(false);
   const [data, setData] = useState(initialData);
   const [onlytodaysBinData, setOnlytodaysBinData] = useState(onlytodaysData);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   
   const { amRef, pmRef } = useSyncScroll();
 
+  // 初回読み込み処理
   useEffect(() => {
     const fetchData = async () => {
       const loaded = await loadDayCells();
       if (loaded) setData(loaded);
+      setHasInitialized(true);
     };
     fetchData();
   },[]);
+
+  //初期化後の data 更新時のみ保存
+  useEffect(() => {
+    if (hasInitialized) {
+      saveDayCells(data);
+    }
+  }, [data, hasInitialized]);
+
   
   const handleChange = (id: number, key: 'today' | 'tomorrow', diff: number) => {
     setData(prev =>
