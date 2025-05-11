@@ -12,6 +12,7 @@
         height: 32px;
         display: flex;
         align-items: center;
+        padding: 5;
         margin: 0 10px;
         z-index: 10;
     }
@@ -20,9 +21,11 @@
         padding: 5px;
         flex-direction: row;
         gap: 0;
+        margin: 0 10px;
         
         .yearInput,
-        .monthDayInput {
+        .monthInput,
+        .dayInput {
             appearance: none;
             border: 0;
             background: transparent;
@@ -32,9 +35,26 @@
             pointer-events: auto;
             user-select: text;
             opacity: 1;
-            margin-right: 12px;
+
+            ::placeholder {
+                font-size: 10px;
+            }
+        }
+        
+        .yearInput {
             width: 60px;
-        }    
+
+        }
+
+        .yearInput,
+        .monthInput {
+            margin-right: 16px;
+        }
+
+        .monthInput,
+        .dayInput {
+            width: 30px;
+        }
     }
     
     .daysText {

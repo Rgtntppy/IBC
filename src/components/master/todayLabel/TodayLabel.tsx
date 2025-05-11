@@ -1,7 +1,8 @@
 import './todayLabel.scss';
-import { TodayLabelProps } from './todayLabelInterfase';
 import React, { useRef, useState } from "react";
 import dayjs from "dayjs";
+import { TodayLabelProps } from './todayLabelInterfase';
+import { DayErrorPopup } from './dayErrorPopups/DayErrorPopup';
 
 export const TodayLabel: React.FC<TodayLabelProps> = ({
     currentDate,
@@ -12,35 +13,72 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
     setIsDateConfirmed,
 }) => {
     const [yearInput, setYearInput] = useState('');
-    const [monthDayInput, setMonthDayInput] = useState('');
-  
+    const [monthInput, setMonthInput] = useState('');
+    const [dayInput, setDayInput] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
     const yearInputRef = useRef<HTMLInputElement>(null);
-    const monthDayInputRef = useRef<HTMLInputElement>(null);
+    const monthInputRef = useRef<HTMLInputElement>(null);
+    const dayInputRef = useRef<HTMLInputElement>(null);
     
-    const formatAndSetDate = (year: string, mmdd: string) => {
-        if (year.length === 4 && mmdd.length === 4) {
-            const formatted = `${year}/${mmdd.slice(0, 2)}/${mmdd.slice(2, 4)}`;
-            const formattedDisplay = `${year}年${mmdd.slice(0, 2)}月${mmdd.slice(2, 4)}日分`;
+    const formatAndSetDate = (year: string, month: string, day: string) => {
+        if (year.length === 4 && month.length === 2 && day.length === 2) {
+            const formatted = `${year}/${month}/${day}`;
+            const formattedDisplay = `${year}年${month}月${day}日分`;
             setCurrentDate(formatted);
             setDisplayDate(formattedDisplay);
         }
     };
 
     const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value.replace(/\D/g, '').slice(0, 4);
+        const value = e.target.value.replace(/\D/g, '');
         setYearInput(value);
-        formatAndSetDate(value, monthDayInput);
+        formatAndSetDate(value, monthInput, dayInput);
+
+        if (value.length === 4) {
+            monthInputRef.current?.focus();
+        }
     };
 
-    const handleMonthDayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value.replace(/\D/g, '').slice(0, 4);
-        setMonthDayInput(value);
-        formatAndSetDate(yearInput, value);
+    const handleMonthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value.replace(/\D/g, '');
+        setMonthInput(value);
+
+        if (value.length === 2) {
+            const mm = parseInt(value, 10);
+            
+            if (mm < 1 || mm > 12) {
+                setErrorMessage('月は01〜12の範囲で入力してください。');
+                setShowError(true);
+                return;
+            }
+
+            formatAndSetDate(yearInput, value, dayInput);
+            dayInputRef.current?.focus();
+        }
+    };
+
+    const handleDayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value.replace(/\D/g, '');
+        setDayInput(value);
+
+        if (value.length ===2) {
+            const dd = parseInt(value, 10);
+
+            if (dd < 1 || dd > 31) {
+                setErrorMessage('日は01〜31の範囲で入力したください。');
+                setShowError(true);
+                return;    
+            }
+
+            formatAndSetDate(yearInput, monthInput, value);
+        }
     };
 
     const handleDateConfirm = () => {
-        if (yearInput.length === 4 && monthDayInput.length === 4) {
-            const formattedDisplay = `${yearInput}年${monthDayInput.slice(0, 2)}月${monthDayInput.slice(2, 4)}日分`;
+        if (yearInput.length === 4 && monthInput.length === 2 && dayInput.length === 2) {
+            const formattedDisplay = `${yearInput}年${monthInput}月${dayInput}日分`;
             setDisplayDate(formattedDisplay);
             setIsDateConfirmed(true);
         }
@@ -49,9 +87,10 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
     const handleInputBlur = () => {
         setTimeout(() => {
             const isYearFocused = document.activeElement === yearInputRef.current;
-            const isMonthDayFocused = document.activeElement === monthDayInputRef.current;
+            const isMonthFocused = document.activeElement === monthInputRef.current;
+            const isDayFocused = document.activeElement === dayInputRef.current;
 
-            if (!isYearFocused && !isMonthDayFocused) {
+            if (!isYearFocused && !isMonthFocused && !isDayFocused) {
             handleDateConfirm();
             }
         }, 0);
@@ -61,47 +100,69 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
         <div className='todayLabel'>
             {!isDateConfirmed ? (
                 <div className='todayDate'>
-                <input
-                    className='yearInput'
-                    type='text'
-                    value={yearInput}
-                    onChange={handleYearChange}
-                    placeholder='YYYY'
-                    onKeyDown={(e) => {
-                    if (e.key === 'Enter') handleDateConfirm();
-                    }}
-                    onBlur={handleInputBlur}
-                    ref={yearInputRef}
-                />
-                <input
-                    className='monthDayInput'
-                    type='text'
-                    value={monthDayInput}
-                    onChange={handleMonthDayChange}
-                    placeholder='mmdd'
-                    onKeyDown={(e) => {
-                    if (e.key === 'Enter') handleDateConfirm();
-                    }}
-                    onBlur={handleInputBlur}
-                    ref={monthDayInputRef}
-                />
+                    <input
+                        className='yearInput'
+                        type='text'
+                        value={yearInput}
+                        onChange={handleYearChange}
+                        placeholder='YYYY年'
+                        maxLength={4}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') handleDateConfirm();
+                        }}
+                        onBlur={handleInputBlur}
+                        ref={yearInputRef}
+                    />
+                    <input
+                        className='monthInput'
+                        type='text'
+                        value={monthInput}
+                        onChange={handleMonthChange}
+                        placeholder='mm月'
+                        maxLength={2}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') handleDateConfirm();
+                        }}
+                        onBlur={handleInputBlur}
+                        ref={monthInputRef}
+                    />
+                    <input
+                        className='dayInput'
+                        type='text'
+                        value={dayInput}
+                        onChange={handleDayChange}
+                        placeholder='dd日'
+                        maxLength={2}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') handleDateConfirm();
+                        }}
+                        onBlur={handleInputBlur}
+                        ref={dayInputRef}
+                    />
                 </div>
             ) : (
                 <p
-                className='daysText'
-                onClick={() => {
-                    const parsed = dayjs(currentDate);
-                    setYearInput(parsed.format('YYYY'));
-                    setMonthDayInput(parsed.format('MMDD')); 
-                    setIsDateConfirmed(false);
+                    className='daysText'
+                    onClick={() => {
+                        const parsed = dayjs(currentDate);
+                        setYearInput(parsed.format('YYYY'));
+                        setMonthInput(parsed.format('MM')); 
+                        setDayInput(parsed.format('DD'));
+                        setIsDateConfirmed(false);
 
-                    setTimeout(() => {
-                    monthDayInputRef.current?.focus();
-                    }, 0);
-                }}
+                        setTimeout(() => {
+                        dayInputRef.current?.focus();
+                        }, 0);
+                    }}
                 >
-                {displayDate}
+                    {displayDate}
                 </p>
+            )}
+            {showError && (
+                <DayErrorPopup
+                    setShowError={setShowError}
+                    errorMessage={errorMessage}
+                />
             )}
         </div>
     )
