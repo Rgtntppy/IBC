@@ -1,4 +1,4 @@
-$binBlockHight: 60px;
+$binBlockHight: 64px;
 $border-color: 1px solid rgb(200, 200, 200);
 $thinRed-color: rgb(252, 228, 214);
 $thinYellow-color: rgb(255, 242, 204);
@@ -22,7 +22,6 @@ $button-radius: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     height: $binBlockHight;
     width: 200px;
-    padding-bottom: 2.5px;
     
     /* 左側: bin名 */
     .binName {
@@ -76,7 +75,7 @@ $button-radius: 5px;
             font-size: 8px;
             
             input[type="checkbox"] {
-                transform: scale(0.9);
+                transform: scale(0.8);
                 margin: 0;
                 accent-color: #007bff;
             }
@@ -133,7 +132,7 @@ $button-radius: 5px;
     }
     
     .countUpButton {
-        padding: 9px 4px;
+        padding: 10px 4px;
         background-color: #007bff;
         
         &:hover {
