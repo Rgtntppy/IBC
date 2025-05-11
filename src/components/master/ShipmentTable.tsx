@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import './shipmentDesign.scss';
+import { saveDayCells, loadDayCells } from '../../firebase/firestoreService';
 import { ShipmentData, initialData } from '../../data/initialData';
 import { BinBlock } from './binBlocks/BinBlock';
 import { useSyncScroll } from './useSyncScroll';
-import { saveDayCells } from '../../firebase/firestoreService';
 import { getNextBusinessDay } from '../../data/getNextBusinessDay';
 import { TodayLabel } from './todayLabel/TodayLabel';
 import { PopUp } from './popUp/PopUp';
 import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
-import { OnlytodayProps, onlytodaysData } from './binBlocks/onlytoday/onlytodayInterface';
+import { onlytodaysData } from './binBlocks/onlytoday/onlytodayInterface';
 
 const ShipmentTable: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(dayjs().format('YYYY/MM/DD'));
@@ -22,8 +22,12 @@ const ShipmentTable: React.FC = () => {
   const { amRef, pmRef } = useSyncScroll();
 
   useEffect(() => {
-    saveDayCells(data);
-  },[data]);
+    const fetchData = async () => {
+      const loaded = await loadDayCells();
+      if (loaded) setData(loaded);
+    };
+    fetchData();
+  },[]);
   
   const handleChange = (id: number, key: 'today' | 'tomorrow', diff: number) => {
     setData(prev =>
