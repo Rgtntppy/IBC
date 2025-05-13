@@ -6,7 +6,7 @@ export type ShipmentData = {
   tomorrow: number;
   isLargeDrumTomorrow:boolean;
   limit: number;
-  highlight?: "red" | "blue" | "white";
+  highlight?: "red" | "blue" | "green" | "white";
 }
 
 export const initialData = [
@@ -14,7 +14,7 @@ export const initialData = [
     { id:  2, bin: "特2", today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 15, highlight: "red" },
     { id:  3, bin: "S1",  today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 },
     { id:  4, bin: "S2",  today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 },
-    { id:  5, bin: "路線", today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit:10 },
+    { id:  5, bin: "路線", today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit:10, highlight: "green" },
     { id: 61, bin: "61", today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 },
     { id: 62, bin: "62", today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 },
     { id: 63, bin: "63", today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 },
