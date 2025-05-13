@@ -3,6 +3,7 @@ $binBlockHight: 60px;
 .shipmentTable {
     
     .title {
+        font-size: 30px;
         padding: 10px 20px;
         margin: 0;
     }
@@ -18,7 +19,7 @@ $binBlockHight: 60px;
         flex-wrap: nowrap;
         overflow-x: auto;
         width: fit-content;
-        zoom: 0.8;
+        zoom: 0.7;
         
         &::-webkit-scrollbar {
             display: none;
@@ -30,7 +31,7 @@ $binBlockHight: 60px;
             gap: 3px;
             
             &.column-lifted {
-                transform: translateY($binBlockHight*1.12);
+                transform: translateY($binBlockHight*1.17);
             }
             
             

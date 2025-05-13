@@ -2,6 +2,7 @@ $binBlockHight: 64px;
 $border-color: 1px solid rgb(200, 200, 200);
 $thinRed-color: rgb(252, 228, 214);
 $thinYellow-color: rgb(255, 242, 204);
+$thinGreen-color: rgb(226, 239, 218);
 $thinBlue-color: rgb(221, 235, 247);
 $white-color: #fff;
 $block-radius: 8px;
@@ -21,7 +22,7 @@ $button-radius: 5px;
     $block-radius;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     height: $binBlockHight;
-    width: 200px;
+    width: 220px;
     
     /* 左側: bin名 */
     .binName {
@@ -40,6 +41,10 @@ $button-radius: 5px;
         &.highlight-red {
             background-color: $thinRed-color;
         }
+
+        &.highlight-green {
+            background-color: $thinGreen-color;
+        }
         
         &.highlight-blue {
             background-color: $thinBlue-color;
@@ -53,7 +58,7 @@ $button-radius: 5px;
         align-items: center;
         font-weight: bold;
         height: 100%;
-        width: 54px;
+        width: 64px;
         overflow: hidden;
         box-sizing: border-box;
         
@@ -98,6 +103,10 @@ $button-radius: 5px;
             background-color: $thinRed-color;
         }
         
+        &.highlight-green {
+            background-color: $thinGreen-color;
+        }
+
         &.highlight-blue {
             background-color: $thinBlue-color;
         }
