@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import './shipmentDesign.scss';
 import { saveDayCells, loadDayCells } from '../../firebase/firestoreService';
-import { ShipmentData, initialData } from '../../data/initialData';
+import { ShipmentData } from './shipmentTableInterface'
+import { initialData } from '../../data/initialData';
 import { BinBlock } from './binBlocks/BinBlock';
 import { useSyncScroll } from './useSyncScroll';
 import { getNextBusinessDay } from '../../data/getNextBusinessDay';
