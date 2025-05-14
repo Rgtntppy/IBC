@@ -1,5 +1,5 @@
 import './popUp.scss';
-import {PopUpProps} from './popUpInterfase';
+import {PopUpProps} from './popUpInterface';
 
 export const PopUp: React.FC<PopUpProps> = ({
     setShowConfirmModal,

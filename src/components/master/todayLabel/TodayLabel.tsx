@@ -1,7 +1,7 @@
 import './todayLabel.scss';
 import React, { useRef, useState } from "react";
 import dayjs from "dayjs";
-import { TodayLabelProps } from './todayLabelInterfase';
+import { TodayLabelProps } from './todayLabelInterface';
 import { DayErrorPopup } from './dayErrorPopups/DayErrorPopup';
 
 export const TodayLabel: React.FC<TodayLabelProps> = ({
