@@ -16,7 +16,7 @@ const Login = () => {
         navigate('/master');
       }
     } else {
-      alert('パスワードが間違っています');
+      alert('ID又はパスワードが間違っています');
     }
   };
 
