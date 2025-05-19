@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './components/topPage/Home';
+import Login from './components/topPage/Login';
 import ShipmentTable from './components/master/ShipmentTable';
 import ViewingPage from './components/viewing/ViewingPage';
 
@@ -10,7 +10,7 @@ function App() {
   return (
     <Router basename={basename}>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
         <Route path="/master" element={<ShipmentTable />} />
         <Route path="/viewing" element={<ViewingPage />} />
       </Routes>

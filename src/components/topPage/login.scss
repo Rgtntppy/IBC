@@ -1,0 +1,31 @@
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .title {
+        font-size: 50px;
+    }
+
+    .inputForm {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(0, 174, 255);
+        border-radius: 18px;
+        padding: 20px 30px;
+
+        .inputID,
+        .inputPW {
+            max-width: 600px;
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        .submitButton {
+            font-size: 18px;
+        }
+    }
+}

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import './shipmentDesign.scss';
 import { saveDayCells, loadDayCells } from '../../firebase/firestoreService';
@@ -21,6 +22,7 @@ const ShipmentTable: React.FC = () => {
   const [onlytodaysBinData, setOnlytodaysBinData] = useState(onlytodaysData);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   
+  const navigate = useNavigate();
   const { amRef, pmRef } = useSyncScroll();
 
   // 初回読み込み処理
@@ -196,6 +198,19 @@ const ShipmentTable: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {process.env.NODE_ENV === 'development' && (
+        <div>
+          <button onClick={() => navigate('/')}>
+            TopPageへ
+          </button>
+          <button onClick={() => {
+            saveDayCells(initialData)
+          }}>
+            初期データを送信
+          </button>
+        </div>
+      )}
 
       {showConfirmModal && (
         <PopUp
