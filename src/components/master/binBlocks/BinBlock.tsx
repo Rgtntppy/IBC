@@ -6,6 +6,7 @@ export const BinBlock: React.FC<BinBlockProps> = ({
     row,
     onChange,
     onCheckboxToggle,
+    role,
 }) => {
     return (
         <div className='binBlock'>
@@ -18,6 +19,7 @@ export const BinBlock: React.FC<BinBlockProps> = ({
                 }
             </div>
             <BinDayBlock
+                role={role}
                 label="当日分"
                 className={`todayCells ${row.highlight ? `highlight-${row.highlight}` : ''}`}
                 count={row.today}
@@ -31,6 +33,7 @@ export const BinBlock: React.FC<BinBlockProps> = ({
             />
 
             <BinDayBlock
+                role={role}
                 label="翌日分"
                 className="nextDayCells"
                 count={row.tomorrow ?? 0}

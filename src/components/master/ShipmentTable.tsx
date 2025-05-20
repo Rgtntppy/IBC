@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import './shipmentDesign.scss';
@@ -14,6 +14,8 @@ import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
 import { onlytodaysData } from './binBlocks/onlytoday/onlytodayInterface';
 
 const ShipmentTable: React.FC = () => {
+  const [userId, setUserId] = useState('');
+  const [userRole, setUserRole] = useState('');
   const [currentDate, setCurrentDate] = useState(dayjs().format('YYYY/MM/DD'));
   const [displayDate, setDisplayDate] = useState(dayjs().format('YYYY年MM月DD日分'));
   const [isDateConfirmed, setIsDateConfirmed] = useState(false)
@@ -24,6 +26,16 @@ const ShipmentTable: React.FC = () => {
   
   const navigate = useNavigate();
   const { amRef, pmRef } = useSyncScroll();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    if (!user.id || !user.role) {
+      navigate('/');
+    } else {
+      setUserId(user.id);
+      setUserRole(user.role);
+    }
+  }, []);
 
   // 初回読み込み処理
   useEffect(() => {
@@ -94,7 +106,8 @@ const ShipmentTable: React.FC = () => {
         tomorrow: 0,
         isLargeDrumToday: item.isLargeDrumTomorrow ?? false,
         isLargeDrumTomorrow: false
-      })
+        }
+      )
     );
 
     const ymd = currentDate.replace(/\D/g, '');
@@ -119,7 +132,7 @@ const ShipmentTable: React.FC = () => {
     [ 68, 69, 810]
   ];
 
-  const TentativeIDs = [ 8, 9];
+  const TentativeIDs = useMemo(() => [ 8, 9], []);
 
   const pmColumns = PMBin.map(col =>
     col.map(id => data.find(d => d.id === id)).filter(Boolean) as ShipmentData[]
@@ -135,6 +148,9 @@ const ShipmentTable: React.FC = () => {
   return (
     <div className='shipmentTable'>
       <h1 className='title'>ドラム出荷数管理表</h1>
+      <div className='userInfo'>
+        <p>ようこそ{userId}さん</p>
+      </div>
       <TodayLabel
         currentDate={currentDate}
         setCurrentDate={setCurrentDate}
@@ -157,6 +173,7 @@ const ShipmentTable: React.FC = () => {
                   row={row}
                   onChange={handleChange}
                   onCheckboxToggle={handleCheckboxToggle}
+                  role={userRole}
                   />
                   ))}
             </div>
@@ -166,6 +183,7 @@ const ShipmentTable: React.FC = () => {
               {...tentative1}
               onChange={handleChangeTentative}
               onCheckboxToggle={handleCheckboxTentative}
+              role={userRole}
             />
           )}
         </div>
@@ -182,6 +200,7 @@ const ShipmentTable: React.FC = () => {
                   row={row}
                   onChange={handleChange}
                   onCheckboxToggle={handleCheckboxToggle}
+                  role={userRole}
                 />
               ))}
             </div>
@@ -191,6 +210,7 @@ const ShipmentTable: React.FC = () => {
               {...tentative2}
               onChange={handleChangeTentative}
               onCheckboxToggle={handleCheckboxTentative}
+              role={userRole}
             />
           )}
           <button className='prepareNextDay' onClick={() => setShowConfirmModal(true)}>

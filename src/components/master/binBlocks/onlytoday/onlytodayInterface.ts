@@ -7,6 +7,7 @@ export interface OnlytodayProps {
     highlight: string;
     onChange: (id: number, field: 'today', delta: number) => void;
     onCheckboxToggle: (id: number, key: 'isLargeDrumToday') => void;
+    role: string;
 }
 
 export const onlytodaysData = [

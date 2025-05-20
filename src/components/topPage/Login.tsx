@@ -12,7 +12,7 @@ const Login = () => {
     const user = users.find(u => u.id === id && u.password === password);
     if (user) {
       localStorage.setItem('currentUser', JSON.stringify(user));
-      if (user.role === 'admin' || 'viewer') {
+      if (user.role === 'admin' || user.role === 'viewer') {
         navigate('/master');
       }
     } else {
@@ -35,6 +35,7 @@ const Login = () => {
           placeholder='ID'
           value={id}
           onChange={(e) => setId(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
         <input
           className='inputPW'
