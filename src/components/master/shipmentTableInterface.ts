@@ -1,4 +1,4 @@
-export type ShipmentData = {
+export interface ShipmentData {
     id: number;
     bin: string;
     today: number;
