@@ -10,4 +10,5 @@ export interface BinDayBlockProps {
     onDecrement: () => void;
     onCheckboxToggle: () => void;
     role: string;
+    authority: number;
 }

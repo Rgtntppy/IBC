@@ -13,6 +13,7 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
     onChange,
     onCheckboxToggle,
     role,
+    authority,
 }) => {
     const [binName, setBinName] = useState(bin);
     const [isEditing, setIsEditing] = useState(false);
@@ -59,6 +60,7 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
             </div>
             <BinDayBlock
                 role={role}
+                authority={authority}
                 label="当日分"
                 className={`todayCells ${highlight ? `highlight-${highlight}` : ''}`}
                 count={today}

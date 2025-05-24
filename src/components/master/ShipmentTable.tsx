@@ -14,8 +14,9 @@ import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
 import { onlytodaysData } from './binBlocks/onlytoday/onlytodayInterface';
 
 const ShipmentTable: React.FC = () => {
-  const [userId, setUserId] = useState('');
+  const [userName, setUserName] = useState('');
   const [userRole, setUserRole] = useState('');
+  const [userAuthority, setUserAuthority] = useState(0);
   const [currentDate, setCurrentDate] = useState(dayjs().format('YYYY/MM/DD'));
   const [displayDate, setDisplayDate] = useState(dayjs().format('YYYY年MM月DD日分'));
   const [isDateConfirmed, setIsDateConfirmed] = useState(false)
@@ -32,8 +33,9 @@ const ShipmentTable: React.FC = () => {
     if (!user.id || !user.role) {
       navigate('/');
     } else {
-      setUserId(user.id);
+      setUserName(user.userName);
       setUserRole(user.role);
+      setUserAuthority(user.authority)
     }
   }, []);
 
@@ -149,7 +151,7 @@ const ShipmentTable: React.FC = () => {
     <div className='shipmentTable'>
       <h1 className='title'>ドラム出荷数管理表</h1>
       <div className='userInfo'>
-        <p>ようこそ{userId}さん</p>
+        <p>ようこそ{userName}さん</p>
       </div>
       <TodayLabel
         currentDate={currentDate}
@@ -159,6 +161,7 @@ const ShipmentTable: React.FC = () => {
         isDateConfirmed={isDateConfirmed}
         setIsDateConfirmed={setIsDateConfirmed}
         prepareNextDay={prepareNextDay}
+        authority={userAuthority}
       />
       <div className='todayBinGrid'>
         <div ref={pmRef} className='binGrid pmBinGrid'>
@@ -174,6 +177,7 @@ const ShipmentTable: React.FC = () => {
                   onChange={handleChange}
                   onCheckboxToggle={handleCheckboxToggle}
                   role={userRole}
+                  authority={userAuthority}
                   />
                   ))}
             </div>
@@ -184,6 +188,7 @@ const ShipmentTable: React.FC = () => {
               onChange={handleChangeTentative}
               onCheckboxToggle={handleCheckboxTentative}
               role={userRole}
+              authority={userAuthority}
             />
           )}
         </div>
@@ -201,6 +206,7 @@ const ShipmentTable: React.FC = () => {
                   onChange={handleChange}
                   onCheckboxToggle={handleCheckboxToggle}
                   role={userRole}
+                  authority={userAuthority}
                 />
               ))}
             </div>
@@ -211,9 +217,14 @@ const ShipmentTable: React.FC = () => {
               onChange={handleChangeTentative}
               onCheckboxToggle={handleCheckboxTentative}
               role={userRole}
+              authority={userAuthority}
             />
           )}
-          <button className='prepareNextDay' onClick={() => setShowConfirmModal(true)}>
+          <button
+            className='prepareNextDay'
+            onClick={userAuthority >= 5 ? () => setShowConfirmModal(true) : undefined}
+            disabled={userAuthority < 5}
+          >
             翌日分準備
           </button>
         </div>

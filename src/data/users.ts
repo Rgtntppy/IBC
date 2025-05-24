@@ -1,4 +1,4 @@
 export const users = [
-    { id: '809617', password: '809617', role: 'admin' },
-    { id: 'IBC_user04', password: '808122', role: 'viewer' },
+    { id: 'IBC_user04', userName: 'IBC_user04', password: '808122', role: 'viewer', authority: 1 },
+    { id: '809617',     userName: 'IBC_user37', password: '809617', role: 'admin', authority: 9 },
 ];

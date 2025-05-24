@@ -2,16 +2,20 @@ import './login.scss';
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { users } from '../../data/users';
+import { saveUserInfoToFirestore } from '../../firebase/firebaseUserAuthentication';
+import { UsersProps } from '../../data/usersInterface';
 
 const Login = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const user = users.find(u => u.id === id && u.password === password);
     if (user) {
       localStorage.setItem('currentUser', JSON.stringify(user));
+      await saveUserInfoToFirestore({ userName: user.userName, role: user.role});
+
       if (user.role === 'admin' || user.role === 'viewer') {
         navigate('/master');
       }

@@ -6,4 +6,5 @@ export interface TodayLabelProps {
     isDateConfirmed: boolean;
     setIsDateConfirmed: (b: boolean) => void;
     prepareNextDay: () => void;
+    authority: number;
 };

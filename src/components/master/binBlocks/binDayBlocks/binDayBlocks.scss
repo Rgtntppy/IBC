@@ -4,110 +4,113 @@ $thinGreen-color: rgb(226, 239, 218);
 $thinBlue-color: rgb(221, 235, 247);
 $white-color: #fff;
 $button-radius: 5px;
-
-.dayCells {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-    height: 100%;
-    width: 64px;
-    overflow: hidden;
-    box-sizing: border-box;
+.binDayCells {
+    display: contents;
     
-    .label {
-        margin: -1px 0 0 0;
-        font-size: 8px;
-    }
-    
-    .count {
-        font-size: 32px;
+    .dayCells {
         display: flex;
-        min-height: 1rem;
-        line-height: 1;
-    }
-
-    .checkboxLabel {
-        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         align-items: center;
-        font-size: 8px;
+        font-weight: bold;
+        height: 100%;
+        width: 64px;
+        overflow: hidden;
+        box-sizing: border-box;
         
-        input[type="checkbox"] {
-            transform: scale(0.8);
-            margin: 0;
-            accent-color: #007bff;
+        .label {
+            margin: -1px 0 0 0;
+            font-size: 8px;
         }
         
-        &:hover {
-            cursor: pointer;
+        .count {
+            font-size: 32px;
+            display: flex;
+            min-height: 1rem;
+            line-height: 1;
+        }
+
+        .checkboxLabel {
+            display: flex;
+            align-items: center;
+            font-size: 8px;
+            
+            input[type="checkbox"] {
+                transform: scale(0.8);
+                margin: 0;
+                accent-color: #007bff;
+            }
+            
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        
+        &.alert {
+            background: linear-gradient(to top, red, transparent);
         }
     }
-    
-    &.alert {
-        background: linear-gradient(to top, red, transparent);
-    }
-}
 
-/* 今日の数量表示 */
-.todayCells {
-    background-color: $thinYellow-color;
-    
-    &.highlight-red {
-        background-color: $thinRed-color;
-    }
-    
-    &.highlight-green {
-        background-color: $thinGreen-color;
+    /* 今日の数量表示 */
+    .todayCells {
+        background-color: $thinYellow-color;
+        
+        &.highlight-red {
+            background-color: $thinRed-color;
+        }
+        
+        &.highlight-green {
+            background-color: $thinGreen-color;
+        }
+
+        &.highlight-blue {
+            background-color: $thinBlue-color;
+        }
+        
+        &.highlight-white {
+            background-color: $white-color;
+        }
     }
 
-    &.highlight-blue {
-        background-color: $thinBlue-color;
-    }
-    
-    &.highlight-white {
+    /* 明日の数量表示 */
+    .nextDayCells {
         background-color: $white-color;
     }
-}
 
-/* 明日の数量表示 */
-.nextDayCells {
-    background-color: $white-color;
-}
-
-/* 上下のカウントボタン */
-.controlButtonCells {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    align-items: center;
-    width: 20px;
-}
-
-.countUpButton,
-.countDownButton {
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: $button-radius;
-    color: white;
-    transition: background-color 0.2s;
-}
-
-.countUpButton {
-    padding: 10px 4px;
-    background-color: #007bff;
-    
-    &:hover {
-        background-color: #0056b3;
+    /* 上下のカウントボタン */
+    .controlButtonCells {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        align-items: center;
+        width: 20px;
     }
-}
 
-.countDownButton {
-    padding: 3px 4px;
-    background-color: #dc3545;
-    
-    &:hover {
-        background-color: #a71d2a;
+    .countUpButton,
+    .countDownButton {
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        border-radius: $button-radius;
+        color: white;
+        transition: background-color 0.2s;
     }
+
+    .countUpButton {
+        padding: 10px 4px;
+        background-color: #007bff;
+        
+        &:hover {
+            background-color: #0056b3;
+        }
     }
+
+    .countDownButton {
+        padding: 3px 4px;
+        background-color: #dc3545;
+        
+        &:hover {
+            background-color: #a71d2a;
+        }
+        }
+}

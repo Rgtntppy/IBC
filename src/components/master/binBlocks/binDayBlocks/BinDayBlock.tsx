@@ -14,47 +14,48 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
     onDecrement,
     onCheckboxToggle,
     role,
+    authority,
 }) => {
     const isAdmin = role === 'admin';
 
     return (
-        <>
-            <div className={`dayCells ${className || ""} ${count > limit ? 'alert' : ''}`}>
-                <p className="label">{label}</p>
+        <div className='binDayCells'>
+            <div className={`dayCells ${className || ''} ${count > limit ? 'alert' : ''}`}>
+                <p className='label'>{label}</p>
                 <div
-                    className="count"
+                    className='count'
                     style={{ visibility: count === 0 ? 'hidden' : 'visible'}}
                 >
                     {count}
                 </div>
                 {showCheckbox && (
-                    <label className="checkboxLabel">
+                    <label className='checkboxLabel'>
                         <input 
-                            type="checkbox"
+                            type='checkbox'
                             checked={checked}
                             onChange={() => onCheckboxToggle()}
-                            disabled={!isAdmin}
+                            disabled={authority < 5}
                         />
                         {checkboxLabel}
                     </label>
                 )}
             </div>
-            <div className="controlButtonCells">
+            <div className='controlButtonCells'>
                 <button
-                    className="countUpButton"
-                    onClick={isAdmin ? onIncrement: undefined}
-                    disabled={!isAdmin}
+                    className='countUpButton'
+                    onClick={authority >= 5 ? onIncrement: undefined}
+                    disabled={authority < 5}
                 >
                     ▲
                 </button>
                 <button
-                    className="countDownButton"
-                    onClick={isAdmin ? onDecrement: undefined}
-                    disabled={!isAdmin}
+                    className='countDownButton'
+                    onClick={authority >= 5 ? onDecrement: undefined}
+                    disabled={authority < 5}
                 >
                     ▼
                 </button>
             </div>
-        </>
+        </div>
     )
 }

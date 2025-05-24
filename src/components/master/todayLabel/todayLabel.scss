@@ -70,5 +70,11 @@
         cursor: pointer;
         padding: 5px;
         font-size: 24px;
+
+    }
+    
+    .disabled {
+        pointer-events: none;
+        user-select: none;
     }
 }
