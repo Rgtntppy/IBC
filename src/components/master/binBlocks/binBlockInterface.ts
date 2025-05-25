@@ -1,4 +1,4 @@
-import { ShipmentData } from "../shipmentTableInterface";
+import { ShipmentData } from "../../../data/binData/shipmentTableInterface";
 
 export interface BinBlockProps {
     row: ShipmentData;

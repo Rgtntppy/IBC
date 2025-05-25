@@ -1,4 +1,4 @@
-export const initialData = [
+export const BinData = [
     { id:  1, bin: "特1", today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 15, highlight: "red" },
     { id:  2, bin: "特2", today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 15, highlight: "red" },
     { id:  3, bin: "S1",  today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 },

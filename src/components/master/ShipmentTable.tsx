@@ -2,9 +2,10 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import './shipmentDesign.scss';
-import { saveDayCells, loadDayCells } from '../../firebase/firestoreService';
-import { ShipmentData } from './shipmentTableInterface'
-import { initialData } from '../../data/initialData';
+import { saveDayCells } from '../../firebase/firestoreDaysData/firestoreSaveDaysData';
+import { loadDayCells } from '../../firebase/firestoreDaysData/firestoreLoadDaysData';
+import { ShipmentData } from '../../data/binData/shipmentTableInterface'
+import { BinData } from '../../data/binData/BinData';
 import { Header } from './header/Header';
 import { BinBlock } from './binBlocks/BinBlock';
 import { useSyncScroll } from './useSyncScroll';
@@ -22,7 +23,7 @@ const ShipmentTable: React.FC = () => {
   const [displayDate, setDisplayDate] = useState(dayjs().format('YYYY年MM月DD日分'));
   const [isDateConfirmed, setIsDateConfirmed] = useState(false)
   const [hasInitialized, setHasInitialized] = useState(false);
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState(BinData);
   const [onlytodaysBinData, setOnlytodaysBinData] = useState(onlytodaysData);
   
   const navigate = useNavigate();
