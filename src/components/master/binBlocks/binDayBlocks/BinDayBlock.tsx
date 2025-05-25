@@ -13,10 +13,8 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
     onIncrement,
     onDecrement,
     onCheckboxToggle,
-    role,
     authority,
 }) => {
-    const isAdmin = role === 'admin';
 
     return (
         <div className='binDayCells'>

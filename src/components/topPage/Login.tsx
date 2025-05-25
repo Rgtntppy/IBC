@@ -1,9 +1,8 @@
 import './login.scss';
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { users } from '../../data/users';
+import { users } from '../../data/users/users';
 import { saveUserInfoToFirestore } from '../../firebase/firebaseUserAuthentication';
-import { UsersProps } from '../../data/usersInterface';
 
 const Login = () => {
   const [id, setId] = useState('');

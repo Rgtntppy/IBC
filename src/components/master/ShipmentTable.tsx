@@ -5,11 +5,12 @@ import './shipmentDesign.scss';
 import { saveDayCells, loadDayCells } from '../../firebase/firestoreService';
 import { ShipmentData } from './shipmentTableInterface'
 import { initialData } from '../../data/initialData';
+import { Header } from './header/Header';
 import { BinBlock } from './binBlocks/BinBlock';
 import { useSyncScroll } from './useSyncScroll';
 import { getNextBusinessDay } from '../../data/getNextBusinessDay';
 import { TodayLabel } from './todayLabel/TodayLabel';
-import { PopUp } from './popUp/PopUp';
+import { PopUp } from './popUp/prepareForTheNextDay/PopUp';
 import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
 import { onlytodaysData } from './binBlocks/onlytoday/onlytodayInterface';
 
@@ -149,10 +150,10 @@ const ShipmentTable: React.FC = () => {
 
   return (
     <div className='shipmentTable'>
-      <h1 className='title'>ドラム出荷数管理表</h1>
-      <div className='userInfo'>
-        <p>ようこそ{userName}さん</p>
-      </div>
+      <Header
+        userName={userName}
+        userAuthority={userAuthority}
+      />
       <TodayLabel
         currentDate={currentDate}
         setCurrentDate={setCurrentDate}
@@ -229,19 +230,6 @@ const ShipmentTable: React.FC = () => {
           </button>
         </div>
       </div>
-
-      {process.env.NODE_ENV === 'development' && (
-        <div>
-          <button onClick={() => navigate('/')}>
-            TopPageへ
-          </button>
-          <button onClick={() => {
-            saveDayCells(initialData)
-          }}>
-            初期データを送信
-          </button>
-        </div>
-      )}
 
       {showConfirmModal && (
         <PopUp

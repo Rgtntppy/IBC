@@ -1,0 +1,24 @@
+export const extensionNumber = [
+    {
+        place:'事務所',
+        number:210,
+    },{
+        place:'事務所',
+        number:211,
+    },{
+        place:'事務所',
+        number:213,
+    },{
+        place:'CVT切断場',
+        number:222,
+    },{
+        place:'仕分場',
+        number:223,
+    },{
+        place:'CV切断場',
+        number:226,
+    },{
+        place:'引取場',
+        number:220,
+    },
+]

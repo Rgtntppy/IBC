@@ -1,7 +1,7 @@
 import { getAuth } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from './firebase';
-import { UsersProps } from '../data/usersInterface';
+import { UsersProps } from '../data/users/usersInterface';
 
 type UserFirestoreData = Pick<UsersProps, 'userName' | 'role'>;
 
