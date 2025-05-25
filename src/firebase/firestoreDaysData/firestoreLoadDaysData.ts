@@ -1,6 +1,5 @@
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase'
-import { DaysCellsData } from './daysDataInterface';
 
 const DAYCELLS_DOC_ID = 'latest'
 
