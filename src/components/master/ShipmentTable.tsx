@@ -10,7 +10,7 @@ import { BinBlock } from './binBlocks/BinBlock';
 import { useSyncScroll } from './useSyncScroll';
 import { getNextBusinessDay } from '../../data/getNextBusinessDay';
 import { TodayLabel } from './todayLabel/TodayLabel';
-import { PopUp } from './popUp/prepareForTheNextDay/PopUp';
+import { PrepareForTheNextDayPopUp } from './popUp/prepareForTheNextDay/PrepareForTheNextDayPopUp';
 import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
 import { onlytodaysData } from './binBlocks/onlytoday/onlytodayInterface';
 
@@ -24,7 +24,6 @@ const ShipmentTable: React.FC = () => {
   const [hasInitialized, setHasInitialized] = useState(false);
   const [data, setData] = useState(initialData);
   const [onlytodaysBinData, setOnlytodaysBinData] = useState(onlytodaysData);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
   
   const navigate = useNavigate();
   const { amRef, pmRef } = useSyncScroll();
@@ -221,22 +220,12 @@ const ShipmentTable: React.FC = () => {
               authority={userAuthority}
             />
           )}
-          <button
-            className='prepareNextDay'
-            onClick={userAuthority >= 5 ? () => setShowConfirmModal(true) : undefined}
-            disabled={userAuthority < 5}
-          >
-            翌日分準備
-          </button>
+          <PrepareForTheNextDayPopUp
+            userAuthority={userAuthority}
+            prepareNextDay={prepareNextDay}
+          />
         </div>
       </div>
-
-      {showConfirmModal && (
-        <PopUp
-          setShowConfirmModal={setShowConfirmModal}
-          prepareNextDay={prepareNextDay}
-        />
-      )}
     </div>
   );
 };

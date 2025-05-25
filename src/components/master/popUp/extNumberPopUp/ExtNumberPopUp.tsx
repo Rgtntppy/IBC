@@ -64,5 +64,5 @@ export const ExtNumberPopUp: React.FC<extNumberProps> = ({
                 </div>
             )}
         </div>
-    )
+    );
 };
