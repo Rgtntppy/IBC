@@ -1,13 +1,16 @@
 import './onlytoday.scss';
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { OnlytodayProps } from './onlytodayInterface';
 import { BinDayBlock } from '../binDayBlocks/BinDayBlock';
+import { saveOnlytodayData } from '../../../../firebase/onlytodaysData/firestoreSaveOnlytodaysData';
+import { loadOnlytodayData } from '../../../../firebase/onlytodaysData/firestoreLoadOnlytodaysData';
+import { OnlytodaysData } from '../../../../firebase/onlytodaysData/onlytodaysDataInterface';
 
 export const Onlytoday: React.FC<OnlytodayProps> = ({
     id,
     bin,
-    today,
-    isLargeDrumToday,
+    today: initialToday,
+    isLargeDrumToday: initialIsLargeDrumToday,
     limit,
     highlight,
     onChange,
@@ -16,9 +19,38 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
     authority,
 }) => {
     const [binName, setBinName] = useState(bin);
-    const [isEditing, setIsEditing] = useState(false);
+    const [today, setToday] = useState(initialToday);
+    const [isLargeDrumToday, setIsLargeDrumToday] = useState(initialIsLargeDrumToday);
 
+    const [isEditing, setIsEditing] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await loadOnlytodayData();
+            if (!data) return;
+            const matched = data.find((item: OnlytodaysData) => item.id === id);
+            if (matched) {
+                setBinName(matched.bin);
+                setToday(matched.today);
+                setIsLargeDrumToday(matched.isLargeDrumToday);
+            }
+        };
+        fetchData();
+    }, [id]);
+
+    useEffect(() => {
+        const saveData = async () => {
+            const saveObj: OnlytodaysData = {
+                id,
+                bin: binName,
+                today,
+                isLargeDrumToday,
+            };
+            await saveOnlytodayData([saveObj]);
+        };
+        saveData();
+    }, [binName, today, isLargeDrumToday]);
 
     const handleBlur = () => {
         setIsEditing(false);

@@ -1,3 +1,7 @@
+import { UsersProps } from "../../../../data/users/usersInterface";
+
+type role = UsersProps['role']
+type authority = UsersProps['authority']
 export interface OnlytodayProps {
     id: number;
     bin: string;
@@ -7,8 +11,8 @@ export interface OnlytodayProps {
     highlight: string;
     onChange: (id: number, field: 'today', delta: number) => void;
     onCheckboxToggle: (id: number, key: 'isLargeDrumToday') => void;
-    role: string;
-    authority: number;
+    role: role;
+    authority: authority;
 }
 
 export const onlytodaysData = [
