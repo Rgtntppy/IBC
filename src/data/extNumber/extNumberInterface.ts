@@ -1,8 +1,8 @@
 import { UsersProps } from "../users/usersInterface";
 
-type Authority = UsersProps['authority']
+type userAuthority = UsersProps['userAuthority'];
 
 export interface extNumberProps {
-    userAuthority: Authority;
+    userAuthority: userAuthority;
     toggleMenu: () => void;
 }

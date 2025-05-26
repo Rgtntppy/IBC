@@ -3,5 +3,5 @@ export interface UsersProps {
     userName: string;
     password: string;
     role: string;
-    authority: number;
+    userAuthority: number;
 }

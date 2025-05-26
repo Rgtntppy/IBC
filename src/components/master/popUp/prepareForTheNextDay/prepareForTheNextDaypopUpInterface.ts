@@ -1,4 +1,8 @@
+import { UsersProps } from "../../../../data/users/usersInterface";
+
+type userAuthority = UsersProps['userAuthority'];
+
 export interface PrepareForTheNextDayPopUpProps {
-    userAuthority: number;
+    userAuthority: userAuthority;
     prepareNextDay: () => void;
 }
