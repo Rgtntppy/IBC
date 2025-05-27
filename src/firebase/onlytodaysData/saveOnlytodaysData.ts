@@ -1,5 +1,5 @@
-import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase'
+import { doc, setDoc } from 'firebase/firestore';
 import { OnlytodaysData } from './onlytodaysDataInterface';
 
 const ONLYTODAY_DOC_ID = 'onlytoday_latest'

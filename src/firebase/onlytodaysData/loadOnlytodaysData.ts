@@ -1,5 +1,5 @@
-import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase'
+import { doc, getDoc } from 'firebase/firestore';
 import { OnlytodayProps } from '../../components/master/binBlocks/onlytoday/onlytodayInterface'; 
 
 const ONLYTODAY_DOC_ID = 'onlytoday_latest'

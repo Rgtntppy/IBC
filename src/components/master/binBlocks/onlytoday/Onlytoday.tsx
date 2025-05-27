@@ -2,8 +2,8 @@ import './onlytoday.scss';
 import { useState, useEffect, useRef } from 'react';
 import { OnlytodayProps } from './onlytodayInterface';
 import { BinDayBlock } from '../binDayBlocks/BinDayBlock';
-import { saveOnlytodayData } from '../../../../firebase/onlytodaysData/firestoreSaveOnlytodaysData';
-import { loadOnlytodayData } from '../../../../firebase/onlytodaysData/firestoreLoadOnlytodaysData';
+import { saveOnlytodayData } from '../../../../firebase/onlytodaysData/saveOnlytodaysData';
+import { loadOnlytodayData } from '../../../../firebase/onlytodaysData/loadOnlytodaysData';
 import { OnlytodaysData } from '../../../../firebase/onlytodaysData/onlytodaysDataInterface';
 
 export const Onlytoday: React.FC<OnlytodayProps> = ({

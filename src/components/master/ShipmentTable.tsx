@@ -2,8 +2,8 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import './shipmentDesign.scss';
-import { saveDayCells } from '../../firebase/firestoreDaysData/firestoreSaveDaysData';
-import { loadDayCells } from '../../firebase/firestoreDaysData/firestoreLoadDaysData';
+import { saveDayCells } from '../../firebase/firestoreDaysData/saveDaysData';
+import { loadDayCells } from '../../firebase/firestoreDaysData/loadDaysData';
 import { ShipmentData } from '../../data/binData/shipmentTableInterface'
 import { BinData } from '../../data/binData/BinData';
 import { Header } from './header/Header';

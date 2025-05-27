@@ -1,6 +1,8 @@
 import './todayLabel.scss';
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
+import { saveTodayLabelData } from '../../../firebase/todayLabelData/loadtodayLabelData';
+import { loadTodayLabelData } from '../../../firebase/todayLabelData/savetodayLabelData';
 import { TodayLabelProps } from './todayLabelInterface';
 import { DayErrorPopup } from './dayErrorPopups/DayErrorPopup';
 
@@ -22,11 +24,34 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
     const yearInputRef = useRef<HTMLInputElement>(null);
     const monthInputRef = useRef<HTMLInputElement>(null);
     const dayInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        const fetchTodayLabelData = async () => {
+            const data = await loadTodayLabelData();
+            if (data) {
+                setCurrentDate(data.currentData);
+                setDisplayDate(data.displayDate);
+                setIsDateConfirmed(true);
+            }
+        };
+        fetchTodayLabelData();
+    }, []);
+    
+    const handleDateConfirm = () => {
+        if (yearInput.length === 4 && monthInput.length === 2 && dayInput.length === 2) {
+            const formattedDisplay = `${yearInput}年${monthInput}月${dayInput}日分`;
+            const formatted = `${yearInput}/${monthInput}/${dayInput}`;
+            setDisplayDate(formattedDisplay);
+            setCurrentDate(formatted);
+            setIsDateConfirmed(true);
+            saveTodayLabelData({ currentData: formatted, displayDate: formattedDisplay });
+        }
+    };
     
     const formatAndSetDate = (year: string, month: string, day: string) => {
         if (year.length === 4 && month.length === 2 && day.length === 2) {
-            const formatted = `${year}/${month}/${day}`;
             const formattedDisplay = `${year}年${month}月${day}日分`;
+            const formatted = `${year}/${month}/${day}`;
             setCurrentDate(formatted);
             setDisplayDate(formattedDisplay);
         }
@@ -76,14 +101,6 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
             formatAndSetDate(yearInput, monthInput, value);
         }
     };
-
-    const handleDateConfirm = () => {
-        if (yearInput.length === 4 && monthInput.length === 2 && dayInput.length === 2) {
-            const formattedDisplay = `${yearInput}年${monthInput}月${dayInput}日分`;
-            setDisplayDate(formattedDisplay);
-            setIsDateConfirmed(true);
-        }
-    }
 
     const handleInputBlur = () => {
         setTimeout(() => {

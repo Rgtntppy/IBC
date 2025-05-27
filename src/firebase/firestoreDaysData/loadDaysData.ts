@@ -1,5 +1,5 @@
-import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase'
+import { doc, getDoc } from 'firebase/firestore';
 
 const DAYCELLS_DOC_ID = 'latest'
 
