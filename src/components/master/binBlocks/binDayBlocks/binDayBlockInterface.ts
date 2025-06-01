@@ -1,8 +1,3 @@
-import { UsersProps } from "../../../../data/users/usersInterface";
-
-type role = UsersProps['role'];
-type userAuthority = UsersProps['userAuthority'];
-
 export interface BinDayBlockProps {
     label: string;
     className: string;
@@ -14,6 +9,4 @@ export interface BinDayBlockProps {
     onIncrement: () => void;
     onDecrement: () => void;
     onCheckboxToggle: () => void;
-    role: role;
-    authority: userAuthority;
 }

@@ -1,56 +1,22 @@
 import './onlytoday.scss';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { OnlytodayProps } from './onlytodayInterface';
 import { BinDayBlock } from '../binDayBlocks/BinDayBlock';
-import { saveOnlytodayData } from '../../../../firebase/onlytodaysData/saveOnlytodaysData';
-import { loadOnlytodayData } from '../../../../firebase/onlytodaysData/loadOnlytodaysData';
-import { OnlytodaysData } from '../../../../firebase/onlytodaysData/onlytodaysDataInterface';
 
 export const Onlytoday: React.FC<OnlytodayProps> = ({
     id,
     bin,
-    today: initialToday,
-    isLargeDrumToday: initialIsLargeDrumToday,
+    today,
+    isLargeDrumToday,
     limit,
     highlight,
     onChange,
     onCheckboxToggle,
-    role,
-    authority,
 }) => {
     const [binName, setBinName] = useState(bin);
-    const [today, setToday] = useState(initialToday);
-    const [isLargeDrumToday, setIsLargeDrumToday] = useState(initialIsLargeDrumToday);
 
     const [isEditing, setIsEditing] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const data = await loadOnlytodayData();
-            if (!data) return;
-            const matched = data.find((item: OnlytodaysData) => item.id === id);
-            if (matched) {
-                setBinName(matched.bin);
-                setToday(matched.today);
-                setIsLargeDrumToday(matched.isLargeDrumToday);
-            }
-        };
-        fetchData();
-    }, [id]);
-
-    useEffect(() => {
-        const saveData = async () => {
-            const saveObj: OnlytodaysData = {
-                id,
-                bin: binName,
-                today,
-                isLargeDrumToday,
-            };
-            await saveOnlytodayData([saveObj]);
-        };
-        saveData();
-    }, [binName, today, isLargeDrumToday]);
 
     const handleBlur = () => {
         setIsEditing(false);
@@ -91,8 +57,6 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
                 )}
             </div>
             <BinDayBlock
-                role={role}
-                authority={authority}
                 label="当日分"
                 className={`todayCells ${highlight ? `highlight-${highlight}` : ''}`}
                 count={today}

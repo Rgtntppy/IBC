@@ -5,7 +5,7 @@ import './shipmentDesign.scss';
 import { saveDayCells } from '../../firebase/firestoreDaysData/saveDaysData';
 import { loadDayCells } from '../../firebase/firestoreDaysData/loadDaysData';
 import { ShipmentData } from '../../data/binData/shipmentTableInterface'
-import { BinData } from '../../data/binData/BinData';
+import { BinData } from '../../data/binData/binData';
 import { Header } from './header/Header';
 import { BinBlock } from './binBlocks/BinBlock';
 import { useSyncScroll } from './useSyncScroll';
@@ -13,7 +13,10 @@ import { getNextBusinessDay } from '../../data/getNextBusinessDay';
 import { TodayLabel } from './todayLabel/TodayLabel';
 import { PrepareForTheNextDayPopUp } from './popUp/prepareForTheNextDay/PrepareForTheNextDayPopUp';
 import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
-import { onlytodaysData } from './binBlocks/onlytoday/onlytodayInterface';
+import { OnlytodaysBinData } from '../../data/binData/onlytodayBinData/onlytodaysBinData';
+import { OnlytodayProps } from './binBlocks/onlytoday/onlytodayInterface';
+import { saveOnlytodayData } from '../../firebase/onlytodaysData/saveOnlytodaysData';
+import { loadOnlytodayData } from '../../firebase/onlytodaysData/loadOnlytodaysData';
 
 const ShipmentTable: React.FC = () => {
   const [userName, setUserName] = useState('');
@@ -23,43 +26,51 @@ const ShipmentTable: React.FC = () => {
   const [displayDate, setDisplayDate] = useState(dayjs().format('YYYY年MM月DD日分'));
   const [isDateConfirmed, setIsDateConfirmed] = useState(false)
   const [hasInitialized, setHasInitialized] = useState(false);
-  const [data, setData] = useState(BinData);
-  const [onlytodaysBinData, setOnlytodaysBinData] = useState(onlytodaysData);
+  const [binData, setBinData] = useState(BinData);
+  const [onlytodaysBinData, setOnlytodaysBinData] = useState(OnlytodaysBinData);
   
   const navigate = useNavigate();
   const { amRef, pmRef } = useSyncScroll();
 
+  // 初回読み込み処理
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    if (!user.id || !user.role) {
-      navigate('/');
-    } else {
+    const initialize = async () => {
+      const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      if (!user.id || !user.role) {
+        navigate('/');
+        return;
+      }
+      
       setUserName(user.userName);
       setUserRole(user.role);
       setUserAuthority(user.authority)
-    }
-  }, []);
-
-  // 初回読み込み処理
-  useEffect(() => {
-    const fetchData = async () => {
+      
+      //通常便データの取得
       const loaded = await loadDayCells();
-      if (loaded) setData(loaded);
+      if (loaded) setBinData(loaded);
+
+      //仮便データの取得
+      const loadedOnlytoday = await loadOnlytodayData();
+      if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
+      
       setHasInitialized(true);
     };
-    fetchData();
+
+    initialize();
   },[]);
 
   //初期化後の data 更新時のみ保存
   useEffect(() => {
     if (hasInitialized) {
-      saveDayCells(data);
+      saveDayCells(binData);
+      saveOnlytodayData(onlytodaysBinData);
     }
-  }, [data, hasInitialized]);
+  }, [binData, onlytodaysBinData, hasInitialized]);
 
   
   const handleChange = (id: number, key: 'today' | 'tomorrow', diff: number) => {
-    setData(prev =>
+    if (userAuthority < 5) return;
+    setBinData(prev =>
       prev.map(item =>
         item.id === id
         ? { ...item, [key]: Math.max(0, (item[key] ?? 0) + diff) }
@@ -69,7 +80,8 @@ const ShipmentTable: React.FC = () => {
   };
 
   const handleCheckboxToggle = (id: number, key: 'isLargeDrumToday' | 'isLargeDrumTomorrow') => {
-    setData(prev => 
+    if (userAuthority < 5) return;
+    setBinData(prev => 
       prev.map(item =>
         item.id === id
           ? { ...item, [key]: !item[key] }
@@ -79,6 +91,7 @@ const ShipmentTable: React.FC = () => {
   };
 
   const handleChangeTentative = (id: number, key: 'today', diff: number) => {
+    if (userAuthority < 5) return;
     setOnlytodaysBinData(prev =>
       prev.map(item =>
         item.id === id
@@ -89,6 +102,7 @@ const ShipmentTable: React.FC = () => {
   };
 
   const handleCheckboxTentative = (id: number, key: 'isLargeDrumToday') => {
+    if (userAuthority < 5) return;
     setOnlytodaysBinData(prev =>
       prev.map(item =>
         item.id === id
@@ -99,7 +113,8 @@ const ShipmentTable: React.FC = () => {
   };
 
   const prepareNextDay = () => {
-    setData(prev =>
+    if (userAuthority < 5) return;
+    setBinData(prev =>
       prev.map(item => 
         TentativeIDs.includes(item.id)
         ? item
@@ -122,14 +137,14 @@ const ShipmentTable: React.FC = () => {
   };
 
   const PMBin = [
-    [  1, 80,  3,  8],
+    [  1, 80,  3],
     [ 70, 71, 72, 73],
     [ 74, 75, 76, 77],
     [ 78, 79, 81, 95, 96]
   ];
 
   const AMBin = [
-    [  2,  5,  4, 9],
+    [  2,  5,  4],
     [ 61, 62, 63],
     [ 64, 65, 66, 67],
     [ 68, 69, 810]
@@ -138,11 +153,11 @@ const ShipmentTable: React.FC = () => {
   const TentativeIDs = useMemo(() => [ 8, 9], []);
 
   const pmColumns = PMBin.map(col =>
-    col.map(id => data.find(d => d.id === id)).filter(Boolean) as ShipmentData[]
+    col.map(id => binData.find(d => d.id === id)).filter(Boolean) as ShipmentData[]
   );
 
   const amColumns = AMBin.map(col =>
-    col.map(id => data.find(d => d.id === id)).filter(Boolean) as ShipmentData[]
+    col.map(id => binData.find(d => d.id === id)).filter(Boolean) as ShipmentData[]
   );
 
   const tentative1 = onlytodaysBinData.find(d => d.id === 8);
@@ -177,8 +192,6 @@ const ShipmentTable: React.FC = () => {
                   row={row}
                   onChange={handleChange}
                   onCheckboxToggle={handleCheckboxToggle}
-                  role={userRole}
-                  authority={userAuthority}
                   />
                   ))}
             </div>
@@ -188,8 +201,6 @@ const ShipmentTable: React.FC = () => {
               {...tentative1}
               onChange={handleChangeTentative}
               onCheckboxToggle={handleCheckboxTentative}
-              role={userRole}
-              authority={userAuthority}
             />
           )}
         </div>
@@ -206,8 +217,6 @@ const ShipmentTable: React.FC = () => {
                   row={row}
                   onChange={handleChange}
                   onCheckboxToggle={handleCheckboxToggle}
-                  role={userRole}
-                  authority={userAuthority}
                 />
               ))}
             </div>
@@ -217,8 +226,6 @@ const ShipmentTable: React.FC = () => {
               {...tentative2}
               onChange={handleChangeTentative}
               onCheckboxToggle={handleCheckboxTentative}
-              role={userRole}
-              authority={userAuthority}
             />
           )}
           <PrepareForTheNextDayPopUp

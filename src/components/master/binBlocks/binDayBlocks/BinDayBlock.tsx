@@ -13,7 +13,6 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
     onIncrement,
     onDecrement,
     onCheckboxToggle,
-    authority,
 }) => {
 
     return (
@@ -31,8 +30,9 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
                         <input 
                             type='checkbox'
                             checked={checked}
-                            onChange={() => onCheckboxToggle()}
-                            disabled={authority < 5}
+                            onChange={() => {   
+                                onCheckboxToggle();
+                            }}
                         />
                         {checkboxLabel}
                     </label>
@@ -41,15 +41,17 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
             <div className='controlButtonCells'>
                 <button
                     className='countUpButton'
-                    onClick={authority >= 5 ? onIncrement: undefined}
-                    disabled={authority < 5}
+                    onClick={() => {
+                            onIncrement();
+                    }}
                 >
                     ▲
                 </button>
                 <button
                     className='countDownButton'
-                    onClick={authority >= 5 ? onDecrement: undefined}
-                    disabled={authority < 5}
+                    onClick={() => {
+                        onDecrement();
+                    }}
                 >
                     ▼
                 </button>
