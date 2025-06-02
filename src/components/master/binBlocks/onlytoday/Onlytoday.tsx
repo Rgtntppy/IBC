@@ -1,5 +1,5 @@
 import './onlytoday.scss';
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { OnlytodayProps } from './onlytodayInterface';
 import { BinDayBlock } from '../binDayBlocks/BinDayBlock';
 
@@ -12,14 +12,19 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
     highlight,
     onChange,
     onCheckboxToggle,
+    onNameChange,
 }) => {
     const [binName, setBinName] = useState(bin);
-
     const [isEditing, setIsEditing] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
+    useEffect(() => {
+        setBinName(bin);
+    }, [bin]);
+
     const handleBlur = () => {
         setIsEditing(false);
+        onNameChange(id, binName);
     };
     
     return (

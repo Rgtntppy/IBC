@@ -14,9 +14,9 @@ import { TodayLabel } from './todayLabel/TodayLabel';
 import { PrepareForTheNextDayPopUp } from './popUp/prepareForTheNextDay/PrepareForTheNextDayPopUp';
 import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
 import { OnlytodaysBinData } from '../../data/binData/onlytodayBinData/onlytodaysBinData';
-import { OnlytodayProps } from './binBlocks/onlytoday/onlytodayInterface';
 import { saveOnlytodayData } from '../../firebase/onlytodaysData/saveOnlytodaysData';
 import { loadOnlytodayData } from '../../firebase/onlytodaysData/loadOnlytodaysData';
+import { OnlytodayProps } from './binBlocks/onlytoday/onlytodayInterface';
 
 const ShipmentTable: React.FC = () => {
   const [userName, setUserName] = useState('');
@@ -27,6 +27,7 @@ const ShipmentTable: React.FC = () => {
   const [isDateConfirmed, setIsDateConfirmed] = useState(false)
   const [hasInitialized, setHasInitialized] = useState(false);
   const [binData, setBinData] = useState(BinData);
+  const [onlytodaysBinName, setOnlytodaysBinName] = useState<OnlytodayProps[]>([]);
   const [onlytodaysBinData, setOnlytodaysBinData] = useState(OnlytodaysBinData);
   
   const navigate = useNavigate();
@@ -88,6 +89,20 @@ const ShipmentTable: React.FC = () => {
           : item
       )
     );
+  };
+
+  const handleNameChangeTentative = (id: number, newName: string) => {
+    if (userAuthority < 5) return;
+
+    setOnlytodaysBinData(prev => {
+      const updated = prev.map(item =>
+        item.id === id ? { ...item, bin: newName } : item
+      );
+
+      saveOnlytodayData(updated);
+
+      return updated;
+    });
   };
 
   const handleChangeTentative = (id: number, key: 'today', diff: number) => {
@@ -201,6 +216,7 @@ const ShipmentTable: React.FC = () => {
               {...tentative1}
               onChange={handleChangeTentative}
               onCheckboxToggle={handleCheckboxTentative}
+              onNameChange={handleNameChangeTentative}
             />
           )}
         </div>
@@ -226,6 +242,7 @@ const ShipmentTable: React.FC = () => {
               {...tentative2}
               onChange={handleChangeTentative}
               onCheckboxToggle={handleCheckboxTentative}
+              onNameChange={handleNameChangeTentative}
             />
           )}
           <PrepareForTheNextDayPopUp
