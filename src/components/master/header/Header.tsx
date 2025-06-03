@@ -5,6 +5,7 @@ import { HeaderTabProps } from './headerInterface';
 export const Header: React.FC<HeaderTabProps> = ({
     userName,
     userAuthority,
+    reloadData
 }) => {
     return (
         <div className='header'>
@@ -15,6 +16,14 @@ export const Header: React.FC<HeaderTabProps> = ({
                 <p>
                     ようこそ{userName}さん
                 </p>
+            </div>
+            <div className='reloadButtonWrapper'>
+                <button
+                onClick={reloadData}
+                className='reloadButton'
+                >
+                更新
+                </button>
             </div>
             <HamburgerMenu
                 userAuthority={userAuthority}

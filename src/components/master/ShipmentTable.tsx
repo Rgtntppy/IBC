@@ -68,6 +68,15 @@ const ShipmentTable: React.FC = () => {
     }
   }, [binData, onlytodaysBinData, hasInitialized]);
 
+  const reloadData = async () => {
+    if (userAuthority < 1) return;
+    const loaded = await loadDayCells();
+    if (loaded) setBinData(loaded);
+
+    const loadedOnlytoday = await loadOnlytodayData();
+    if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
+    console.log('更新されました')
+  };
   
   const handleChange = (id: number, key: 'today' | 'tomorrow', diff: number) => {
     if (userAuthority < 5) return;
@@ -183,6 +192,7 @@ const ShipmentTable: React.FC = () => {
       <Header
         userName={userName}
         userAuthority={userAuthority}
+        reloadData={reloadData}
       />
       <TodayLabel
         currentDate={currentDate}

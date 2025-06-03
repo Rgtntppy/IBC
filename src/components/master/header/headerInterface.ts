@@ -4,4 +4,5 @@ type userAuthority = UsersProps['userAuthority'];
 export interface HeaderTabProps {
     userName: string;
     userAuthority: userAuthority;
+    reloadData: () => Promise<void>;
 }

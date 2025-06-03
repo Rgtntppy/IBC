@@ -2,6 +2,30 @@
     position: relative;
     width: 700px;
 
+    .reloadButtonWrapper {
+        position: absolute;
+        top: 5px;
+        right: 40px;
+        display: flex;
+        justify-content: flex-end;
+        padding: 0.5rem 1rem;
+    }
+
+    .reloadButton {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 0.4rem 0.8rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background-color: #0056b3;
+        }
+    }
+
     .title {
         position: relative;
         font-size: 20px;
