@@ -1,12 +1,18 @@
 import { db } from '../firebase';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { TodayLabelData } from './todayLabelDataInterface';
 
-export const saveTodayLabelData = async (data: TodayLabelData) => {
+export const loadTodayLabelData = async (): Promise<TodayLabelData | null> => {
     try {
         const ref = doc(db, 'todayLabel', 'dataInfo');
-        await setDoc(ref, data);
+        const docSnap = await getDoc(ref);
+        if (docSnap.exists()) {
+            return docSnap.data() as TodayLabelData;
+        } else {
+            return null;
+        }
     } catch (error) {
-        console.error('Error saving TodayLabel data:', error);
+        console.error('Error loading TodayLabel data:', error);
+        return null;
     }
 };

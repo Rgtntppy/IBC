@@ -1,8 +1,8 @@
 import './todayLabel.scss';
 import React, { useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
-import { saveTodayLabelData } from '../../../firebase/todayLabelData/loadtodayLabelData';
-import { loadTodayLabelData } from '../../../firebase/todayLabelData/savetodayLabelData';
+import { loadTodayLabelData } from '../../../firebase/todayLabelData/loadtodayLabelData';
+import { saveTodayLabelData } from '../../../firebase/todayLabelData/savetodayLabelData';
 import { TodayLabelProps } from './todayLabelInterface';
 import { DayErrorPopup } from './dayErrorPopups/DayErrorPopup';
 
@@ -32,6 +32,11 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
                 setCurrentDate(data.currentData);
                 setDisplayDate(data.displayDate);
                 setIsDateConfirmed(true);
+
+                const parsed = dayjs(data.currentData);
+                setYearInput(parsed.format('YYYY'));
+                setMonthInput(parsed.format('MM'));
+                setDayInput(parsed.format('DD'));
             }
         };
         fetchTodayLabelData();
@@ -109,7 +114,15 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
             const isDayFocused = document.activeElement === dayInputRef.current;
 
             if (!isYearFocused && !isMonthFocused && !isDayFocused) {
-            handleDateConfirm();
+                if (yearInput.length === 4 && monthInput.length === 2 && dayInput.length === 2) {
+                    const valid = dayjs(`${yearInput}/${monthInput}/${dayInput}`, 'yyyy/MM/DD', true).isValid();
+                    if (!valid) {
+                        setErrorMessage('存在しない日付です');
+                        setShowError(true);
+                        return;
+                    }
+                    handleDateConfirm();
+                }
             }
         }, 0);
     };
