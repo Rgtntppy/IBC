@@ -13,6 +13,7 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
     onChange,
     onCheckboxToggle,
     onNameChange,
+    userAuthority,
 }) => {
     const [binName, setBinName] = useState(bin);
     const [isEditing, setIsEditing] = useState(false);
@@ -50,8 +51,10 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
                     <p
                         className='binNameText'
                         onClick={() => {
+                            if (userAuthority > 5) {
                             setIsEditing(true);
                             setTimeout(() => inputRef.current?.focus(), 0);
+                            }
                         }}
                     >
                         {binName.length >= 3

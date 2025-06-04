@@ -16,18 +16,15 @@ import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
 import { OnlytodaysBinData } from '../../data/binData/onlytodayBinData/onlytodaysBinData';
 import { saveOnlytodayData } from '../../firebase/onlytodaysData/saveOnlytodaysData';
 import { loadOnlytodayData } from '../../firebase/onlytodaysData/loadOnlytodaysData';
-import { OnlytodayProps } from './binBlocks/onlytoday/onlytodayInterface';
 
 const ShipmentTable: React.FC = () => {
   const [userName, setUserName] = useState('');
-  const [userRole, setUserRole] = useState('');
   const [userAuthority, setUserAuthority] = useState(0);
   const [currentDate, setCurrentDate] = useState(dayjs().format('YYYY/MM/DD'));
   const [displayDate, setDisplayDate] = useState(dayjs().format('YYYY年MM月DD日分'));
   const [isDateConfirmed, setIsDateConfirmed] = useState(false)
   const [hasInitialized, setHasInitialized] = useState(false);
   const [binData, setBinData] = useState(BinData);
-  const [onlytodaysBinName, setOnlytodaysBinName] = useState<OnlytodayProps[]>([]);
   const [onlytodaysBinData, setOnlytodaysBinData] = useState(OnlytodaysBinData);
   
   const navigate = useNavigate();
@@ -43,7 +40,6 @@ const ShipmentTable: React.FC = () => {
       }
       
       setUserName(user.userName);
-      setUserRole(user.role);
       setUserAuthority(user.authority)
       
       //通常便データの取得
@@ -227,6 +223,7 @@ const ShipmentTable: React.FC = () => {
               onChange={handleChangeTentative}
               onCheckboxToggle={handleCheckboxTentative}
               onNameChange={handleNameChangeTentative}
+              userAuthority={userAuthority}
             />
           )}
         </div>
@@ -253,6 +250,7 @@ const ShipmentTable: React.FC = () => {
               onChange={handleChangeTentative}
               onCheckboxToggle={handleCheckboxTentative}
               onNameChange={handleNameChangeTentative}
+              userAuthority={userAuthority}
             />
           )}
           <PrepareForTheNextDayPopUp
