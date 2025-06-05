@@ -75,6 +75,7 @@ const ShipmentTable: React.FC = () => {
   };
 
   const handleColorChange = (id: number) => {
+    if (userAuthority < 5) return;
     setBinData(prev =>
       prev.map(item =>
         item.id === id
