@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/IBC/docs/static/css/main.fd05a3fa.css",
-    "main.js": "/IBC/docs/static/js/main.0e4e5b0d.js",
+    "main.css": "/IBC/docs/static/css/main.b62ece14.css",
+    "main.js": "/IBC/docs/static/js/main.b85fb25e.js",
     "index.html": "/IBC/docs/index.html",
-    "main.fd05a3fa.css.map": "/IBC/docs/static/css/main.fd05a3fa.css.map",
-    "main.0e4e5b0d.js.map": "/IBC/docs/static/js/main.0e4e5b0d.js.map"
+    "main.b62ece14.css.map": "/IBC/docs/static/css/main.b62ece14.css.map",
+    "main.b85fb25e.js.map": "/IBC/docs/static/js/main.b85fb25e.js.map"
   },
   "entrypoints": [
-    "static/css/main.fd05a3fa.css",
-    "static/js/main.0e4e5b0d.js"
+    "static/css/main.b62ece14.css",
+    "static/js/main.b85fb25e.js"
   ]
 }
