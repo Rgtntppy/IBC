@@ -36,17 +36,28 @@ $button-radius: 5px;
         white-space: normal;
         border-radius: $block-radius/1.1 0 0 $block-radius/1.1;
         border-right: $border-color;
+        user-select: none;
+        cursor: default;
         
         &.highlight-red {
             background-color: $thinRed-color;
         }
-
         &.highlight-green {
             background-color: $thinGreen-color;
         }
-        
         &.highlight-blue {
             background-color: $thinBlue-color;
         }
+
+        &.alert-white {
+            background-color: white;
+        }
+        &.alert-yellow {
+            background-color: yellow;
+        }
+        &.alert-red {
+            background-color: red;
+        }
+
     }
 }

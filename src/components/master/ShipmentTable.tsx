@@ -73,6 +73,24 @@ const ShipmentTable: React.FC = () => {
     if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
     console.log('更新されました')
   };
+
+  const handleColorChange = (id: number) => {
+    setBinData(prev =>
+      prev.map(item =>
+        item.id === id
+        ? {
+          ...item,
+          binAlert:
+            item.binAlert === 'white'
+              ? 'yellow'
+              : item.binAlert === 'yellow'
+              ? 'red'
+              : 'white',
+        }
+        : item
+      )
+    );
+  };
   
   const handleChange = (id: number, key: 'today' | 'tomorrow', diff: number) => {
     if (userAuthority < 5) return;
@@ -213,6 +231,7 @@ const ShipmentTable: React.FC = () => {
                   row={row}
                   onChange={handleChange}
                   onCheckboxToggle={handleCheckboxToggle}
+                  onColorChange={handleColorChange}
                   />
                   ))}
             </div>
@@ -240,6 +259,7 @@ const ShipmentTable: React.FC = () => {
                   row={row}
                   onChange={handleChange}
                   onCheckboxToggle={handleCheckboxToggle}
+                  onColorChange={handleColorChange}
                 />
               ))}
             </div>

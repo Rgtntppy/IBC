@@ -6,13 +6,22 @@ export const BinBlock: React.FC<BinBlockProps> = ({
     row,
     onChange,
     onCheckboxToggle,
+    onColorChange,
 }) => {
     return (
         <div className='binBlock'>
-            <div className={`binName ${row.highlight ? `highlight-${row.highlight}` : ''}`}>
+            <div
+                className={`binName ${row.highlight ? `highlight-${row.highlight}` : ''} alert-${row.binAlert}`}
+                onContextMenu={(e) => {
+                    e.preventDefault();
+                    onColorChange(row.id);
+                }}
+            >
                 {row.bin.length >= 4
                     ? <>
-                        {row.bin.slice(0, 2)}<br/>{row.bin.slice(2)}
+                        {row.bin.slice(0, 2)}
+                        <br/>
+                        {row.bin.slice(2)}
                     </>
                     : row.bin
                 }
