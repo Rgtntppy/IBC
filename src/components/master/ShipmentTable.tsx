@@ -11,6 +11,7 @@ import { BinBlock } from './binBlocks/BinBlock';
 import { useSyncScroll } from './useSyncScroll';
 import { getNextBusinessDay } from '../../data/getNextBusinessDay';
 import { TodayLabel } from './todayLabel/TodayLabel';
+import { MemoArea } from './memoArea/MemoArea';
 import { PrepareForTheNextDayPopUp } from './popUp/prepareForTheNextDay/PrepareForTheNextDayPopUp';
 import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
 import { OnlytodaysBinData } from '../../data/binData/onlytodayBinData/onlytodaysBinData';
@@ -225,6 +226,7 @@ const ShipmentTable: React.FC = () => {
         prepareNextDay={prepareNextDay}
         authority={userAuthority}
       />
+      <MemoArea/>
       <div className='todayBinGrid'>
         <div ref={pmRef} className='binGrid pmBinGrid'>
           {pmColumns.map((col, colIndex) => (
