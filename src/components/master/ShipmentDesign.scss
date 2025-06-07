@@ -13,7 +13,7 @@ $binBlockHight: 60px;
         flex-wrap: nowrap;
         overflow-x: auto;
         width: fit-content;
-        zoom: 0.75;
+        zoom: 0.65;
         
         &::-webkit-scrollbar {
             display: none;
@@ -37,7 +37,8 @@ $binBlockHight: 60px;
         transform: translateY(-30px);
         .amBinGrid {
             position: relative;
-            padding: 15px;
+            padding: 5px 15px;
+            border-top: 2px dashed #000;
             
             .prepareNextDay {
                 position: absolute;
@@ -56,7 +57,8 @@ $binBlockHight: 60px;
             }
         }
         
-        // .pmBinGrid {
-        // }
+        .pmBinGrid {
+            padding: 5px 15px;
+        }
     }
 }
