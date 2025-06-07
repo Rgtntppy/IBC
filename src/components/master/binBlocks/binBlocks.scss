@@ -39,13 +39,23 @@ $button-radius: 5px;
         user-select: none;
         cursor: default;
         
-        &.highlight-red {
+        &.highlight-red.alert-white {
             background-color: $thinRed-color;
         }
-        &.highlight-green {
+        &.highlight-green.alert-white {
             background-color: $thinGreen-color;
         }
-        &.highlight-blue {
+        &.highlight-blue.alert-white {
+            background-color: $thinBlue-color;
+        }
+
+        &.highlight-red:not([class*='alert-']) {
+            background-color: $thinRed-color;
+        }
+        &.highlight-green:not([class*='alert-']) {
+            background-color: $thinGreen-color;
+        }
+        &.highlight-blue:not([class*='alert-']) {
             background-color: $thinBlue-color;
         }
 

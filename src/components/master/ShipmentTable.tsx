@@ -74,6 +74,16 @@ const ShipmentTable: React.FC = () => {
     console.log('更新されました')
   };
 
+  function getNextAlert(current: string, hasHighlight: boolean): string {
+    const normalCycle = ['white', 'yellow', 'red'];
+    const highlightedCycle = ['white', 'yellow', 'red'];
+
+    const cycle = hasHighlight ? highlightedCycle : normalCycle;
+    const idx = cycle.indexOf(current);
+    const next = idx === -1 ? 'white' : cycle[(idx + 1) % cycle.length];
+    return next;
+  }
+
   const handleColorChange = (id: number) => {
     if (userAuthority < 5) return;
     setBinData(prev =>
@@ -82,11 +92,7 @@ const ShipmentTable: React.FC = () => {
         ? {
           ...item,
           binAlert:
-            item.binAlert === 'white'
-              ? 'yellow'
-              : item.binAlert === 'yellow'
-              ? 'red'
-              : 'white',
+            getNextAlert(item.binAlert, !!item.highlight)
         }
         : item
       )
