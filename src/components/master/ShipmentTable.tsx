@@ -1,3 +1,5 @@
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -73,6 +75,15 @@ const ShipmentTable: React.FC = () => {
     const loadedOnlytoday = await loadOnlytodayData();
     if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
     console.log('更新されました')
+
+    toast.success('更新されました', {
+      position: 'top-center',
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+    });
   };
 
   function getNextAlert(current: string, hasHighlight: boolean): string {
@@ -216,6 +227,7 @@ const ShipmentTable: React.FC = () => {
         userAuthority={userAuthority}
         reloadData={reloadData}
       />
+      <ToastContainer/>
       <TodayLabel
         currentDate={currentDate}
         setCurrentDate={setCurrentDate}
