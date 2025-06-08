@@ -31,7 +31,11 @@ const Login = () => {
 
   return (
     <div className='loginForm'>
-      <h1 className='title'>Title</h1>
+      <h1 className='title'>
+        IBC北関東
+        <br/>
+        ドラム出荷数管理表
+      </h1>
       <div className='inputForm'>
         <input
           className='inputID'

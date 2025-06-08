@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
 .loginForm {
     display: flex;
     flex-direction: column;
@@ -6,6 +8,11 @@
 
     .title {
         font-size: 50px;
+        text-align: center;
+        font-family: "Playfair Display", serif;
+        font-optical-sizing: auto;
+        font-weight: bold;
+        font-style: normal;
     }
 
     .inputForm {
@@ -25,7 +32,15 @@
         }
 
         .submitButton {
+            background-color: #fff;
+            width: 100px;
+            height: 30px;        
+            border-radius: 12px;
             font-size: 18px;
+            
+            &:hover {
+                background-color: greenyellow;
+            }
         }
     }
 }
