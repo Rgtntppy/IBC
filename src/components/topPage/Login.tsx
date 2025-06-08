@@ -42,7 +42,6 @@ const Login = () => {
           placeholder='ID'
           value={id}
           onChange={(e) => setId(e.target.value)}
-          onKeyDown={handleKeyDown}
         />
         <input
           className='inputPW'
