@@ -4,6 +4,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import './shipmentDesign.scss';
+import { importAll } from '../img/importImages';
 import { saveDayCells } from '../../firebase/firestoreDaysData/saveDaysData';
 import { loadDayCells } from '../../firebase/firestoreDaysData/loadDaysData';
 import { ShipmentData } from '../../data/binData/shipmentTableInterface'
@@ -86,7 +87,7 @@ const ShipmentTable: React.FC = () => {
     });
   };
 
-  function getNextAlert(current: string, hasHighlight: boolean): string {
+  const getNextAlert = (current: string, hasHighlight: boolean): string => {
     const normalCycle = ['white', 'yellow', 'red'];
     const highlightedCycle = ['white', 'yellow', 'red'];
 
@@ -220,6 +221,12 @@ const ShipmentTable: React.FC = () => {
   const tentative1 = onlytodaysBinData.find(d => d.id === 8);
   const tentative2 = onlytodaysBinData.find(d => d.id === 9);
 
+  const images = importAll(
+    require.context('../img/cat', false, /\.(png|jpe?g|gif)$/)
+  );
+
+  const yarnCat = images['2481223.jpg'];
+
   return (
     <div className='shipmentTable'>
       <Header
@@ -294,6 +301,15 @@ const ShipmentTable: React.FC = () => {
               userAuthority={userAuthority}
             />
           )}
+          <div>
+            {yarnCat && 
+              <img
+                className='yarnCat'
+                src={yarnCat}
+                alt='毛糸猫'
+              />
+            }
+          </div>
           <PrepareForTheNextDayPopUp
             userAuthority={userAuthority}
             prepareNextDay={prepareNextDay}
