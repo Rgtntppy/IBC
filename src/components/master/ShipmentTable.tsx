@@ -117,7 +117,15 @@ const ShipmentTable: React.FC = () => {
     setBinData(prev =>
       prev.map(item =>
         item.id === id
-        ? { ...item, [key]: Math.max(0, (item[key] ?? 0) + diff) }
+        ? { 
+          ...item,
+          [key]: (() => {
+            const newVal = (item[key] ?? 0) + diff;
+            if (newVal <  0) return  0;
+            if (newVal > 50) return 50;
+            return newVal;
+          })(),
+        }
         : item
       )
     );
