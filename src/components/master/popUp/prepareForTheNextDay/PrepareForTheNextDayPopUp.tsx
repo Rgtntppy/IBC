@@ -1,5 +1,6 @@
 import './prepareForTheNextDaypopUp.scss';
 import { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { PrepareForTheNextDayPopUpProps } from './prepareForTheNextDaypopUpInterface';
 
 export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayPopUpProps> = ({
@@ -28,7 +29,7 @@ export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayPopUpProps>
       >
         翌日分準備
       </button>
-      {showConfirmModal && (
+      {showConfirmModal && ReactDOM.createPortal (
         <div className='nextDayModalOverlay'>
           <div className='nextDayModalContent'>
             <p>
@@ -54,7 +55,8 @@ export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayPopUpProps>
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
