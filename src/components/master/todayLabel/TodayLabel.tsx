@@ -7,6 +7,7 @@ import { TodayLabelProps } from './todayLabelInterface';
 import { DayErrorPopup } from './dayErrorPopups/DayErrorPopup';
 
 export const TodayLabel: React.FC<TodayLabelProps> = ({
+    hasInitialized,
     currentDate,
     setCurrentDate,
     displayDate,
@@ -29,11 +30,11 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
         const fetchTodayLabelData = async () => {
             const data = await loadTodayLabelData();
             if (data) {
-                setCurrentDate(data.currentData);
+                setCurrentDate(data.currentDate);
                 setDisplayDate(data.displayDate);
                 setIsDateConfirmed(true);
 
-                const parsed = dayjs(data.currentData);
+                const parsed = dayjs(data.currentDate);
                 setYearInput(parsed.format('YYYY'));
                 setMonthInput(parsed.format('MM'));
                 setDayInput(parsed.format('DD'));
@@ -41,6 +42,12 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
         };
         fetchTodayLabelData();
     }, []);
+
+    useEffect(() => {
+        if(hasInitialized){
+            saveTodayLabelData({currentDate, displayDate});
+        }
+    }, [currentDate, displayDate]);
     
     const handleDateConfirm = () => {
         if (yearInput.length === 4 && monthInput.length === 2 && dayInput.length === 2) {
@@ -49,7 +56,7 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
             setDisplayDate(formattedDisplay);
             setCurrentDate(formatted);
             setIsDateConfirmed(true);
-            saveTodayLabelData({ currentData: formatted, displayDate: formattedDisplay });
+            saveTodayLabelData({ currentDate: formatted, displayDate: formattedDisplay });
         }
     };
     

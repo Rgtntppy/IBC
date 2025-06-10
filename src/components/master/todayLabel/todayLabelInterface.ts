@@ -2,11 +2,12 @@ import { UsersProps } from "../../../data/users/usersInterface";
 import { TodayLabelData } from '../../../firebase/todayLabelData/todayLabelDataInterface';
 
 type userAuthority = UsersProps['userAuthority'];
-type currentData = TodayLabelData['currentData'];
+type currentDate = TodayLabelData['currentDate'];
 type displayDate = TodayLabelData['displayDate']
 
 export interface TodayLabelProps {
-    currentDate: currentData;
+    hasInitialized: boolean;
+    currentDate: currentDate;
     setCurrentDate: (date: string) => void;
     displayDate: displayDate;
     setDisplayDate: (display: string) => void;

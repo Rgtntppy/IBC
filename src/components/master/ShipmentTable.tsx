@@ -75,7 +75,6 @@ const ShipmentTable: React.FC = () => {
 
     const loadedOnlytoday = await loadOnlytodayData();
     if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
-    console.log('更新されました')
 
     toast.success('更新されました', {
       position: 'top-center',
@@ -200,6 +199,15 @@ const ShipmentTable: React.FC = () => {
 
     setCurrentDate(dayjs(nextYMD).format('YYYY/MM/DD'));
     setDisplayDate(nextDateDisplay);
+    
+    // toast.success('更新されました', {
+    //   position: 'top-center',
+    //   autoClose: 1000,
+    //   hideProgressBar: true,
+    //   closeOnClick: true,
+    //   pauseOnHover: false,
+    //   draggable: false,
+    // });
   };
 
   const PMBin = [
@@ -244,6 +252,7 @@ const ShipmentTable: React.FC = () => {
       />
       <ToastContainer/>
       <TodayLabel
+        hasInitialized={hasInitialized}
         currentDate={currentDate}
         setCurrentDate={setCurrentDate}
         displayDate={displayDate}

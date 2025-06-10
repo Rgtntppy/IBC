@@ -1,4 +1,4 @@
 export interface TodayLabelData {
-    currentData: string;
+    currentDate: string;
     displayDate: string;
 }
