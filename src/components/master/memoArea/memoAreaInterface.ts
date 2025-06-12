@@ -1,7 +1,5 @@
-import { MemoAreaData } from "../../../firebase/memoAreaData/memoAreaInterface";
-
-type memo = MemoAreaData['content'];
-
 export interface MemoAreaProps {
-    content: memo;
+    memo: string;
+    setMemo: React.Dispatch<React.SetStateAction<string>>;
+    handleBlur: () => Promise<void>;
 }

@@ -1,25 +1,16 @@
 import './memoArea.scss';
-import React, { useState, useEffect, useRef } from 'react';
-import { loadMemoData } from '../../../firebase/memoAreaData/loadMemoData';
-import { saveMemoData } from '../../../firebase/memoAreaData/saveMemoData';
+import React, { useEffect, useRef } from 'react';
+import { MemoAreaProps } from './memoAreaInterface';
 
-export const MemoArea: React.FC = () => {
+export const MemoArea: React.FC<MemoAreaProps> = ({
+    memo,
+    setMemo,
+    handleBlur,
+}) => {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const initialSize = useRef<{ width: string; height: string; }>({ width: '', height: '' });
 
-    const [memo, setMemo] = useState('');
-
     useEffect(() => {
-        const fetchMemo = async () => {
-            const data = await loadMemoData();
-            if (data && typeof data.content === 'string') {
-                setMemo(data.content);
-            } else {
-                setMemo('');
-            }
-        };
-        fetchMemo();
-
         const ta = textareaRef.current;
         if (!ta) return;
 
@@ -52,9 +43,7 @@ export const MemoArea: React.FC = () => {
         };
     }, []);
 
-    const handleBlur = async () => {
-        await saveMemoData({ content: memo });
-    };
+
 
     return (
         <textarea

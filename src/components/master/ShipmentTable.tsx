@@ -14,6 +14,8 @@ import { BinBlock } from './binBlocks/BinBlock';
 import { useSyncScroll } from './useSyncScroll';
 import { getNextBusinessDay } from '../../data/getNextBusinessDay';
 import { TodayLabel } from './todayLabel/TodayLabel';
+import { saveMemoData } from '../../firebase/memoAreaData/saveMemoData';
+import { loadMemoData } from '../../firebase/memoAreaData/loadMemoData';
 import { MemoArea } from './memoArea/MemoArea';
 import { PrepareForTheNextDayPopUp } from './popUp/prepareForTheNextDay/PrepareForTheNextDayPopUp';
 import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
@@ -28,6 +30,9 @@ const ShipmentTable: React.FC = () => {
   const [displayDate, setDisplayDate] = useState(dayjs().format('YYYY年MM月DD日分'));
   const [isDateConfirmed, setIsDateConfirmed] = useState(false)
   const [hasInitialized, setHasInitialized] = useState(false);
+  
+  const [memo, setMemo] = useState('');
+  
   const [binData, setBinData] = useState(BinData);
   const [onlytodaysBinData, setOnlytodaysBinData] = useState(OnlytodaysBinData);
   
@@ -45,6 +50,11 @@ const ShipmentTable: React.FC = () => {
       
       setUserName(user.userName);
       setUserAuthority(user.authority)
+
+      //メモデータの取得
+      loadMemoData().then(data => {
+        if (data?.memo) setMemo(data.memo);
+      });
       
       //通常便データの取得
       const loaded = await loadDayCells();
@@ -68,6 +78,16 @@ const ShipmentTable: React.FC = () => {
     }
   }, [binData, onlytodaysBinData, hasInitialized]);
 
+  useEffect(() => {
+    reloadData();
+
+    const ATreload = setInterval(() => {
+      reloadData();
+    }, 15 * 60 * 1000);
+
+    return () => clearInterval(ATreload);
+  },[hasInitialized]);
+
   const reloadData = async () => {
     if (userAuthority < 1) return;
     const loaded = await loadDayCells();
@@ -75,6 +95,9 @@ const ShipmentTable: React.FC = () => {
 
     const loadedOnlytoday = await loadOnlytodayData();
     if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
+
+    const loadedmemoArea = await loadMemoData();
+    if (loadedmemoArea) setMemo(loadedmemoArea.memo);
 
     toast.success('更新されました', {
       position: 'top-center',
@@ -84,6 +107,10 @@ const ShipmentTable: React.FC = () => {
       pauseOnHover: false,
       draggable: false,
     });
+  };
+
+  const handleBlur = async () => {
+    await saveMemoData({ content: memo });
   };
 
   const getNextAlert = (current: string, hasHighlight: boolean): string => {
@@ -262,7 +289,11 @@ const ShipmentTable: React.FC = () => {
         prepareNextDay={prepareNextDay}
         authority={userAuthority}
       />
-      <MemoArea/>
+      <MemoArea
+        memo={memo}
+        setMemo={setMemo}
+        handleBlur={handleBlur}
+      />
       <div className='todayBinGrid'>
         <div ref={pmRef} className='binGrid pmBinGrid'>
           {pmColumns.map((col, colIndex) => (
