@@ -208,7 +208,7 @@ const ShipmentTable: React.FC = () => {
   };
 
   const prepareNextDay = () => {
-    if (userAuthority < 9) return;
+    if (userAuthority < 8) return;
     setBinData(prev =>
       prev.map(item => 
         TentativeIDs.includes(item.id)
