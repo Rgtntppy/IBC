@@ -43,8 +43,6 @@ export const MemoArea: React.FC<MemoAreaProps> = ({
         };
     }, []);
 
-
-
     return (
         <textarea
             ref={textareaRef}

@@ -24,8 +24,8 @@ export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayPopUpProps>
     <div className='prepareNextDayContents'>
       <button
         className='prepareNextDay'
-        onClick={userAuthority >= 5 ? () => setShowConfirmModal(true) : undefined}
-        disabled={userAuthority < 5}
+        onClick={userAuthority >= 8 ? () => setShowConfirmModal(true) : undefined}
+        disabled={userAuthority < 8}
       >
         翌日分準備
       </button>

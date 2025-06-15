@@ -53,7 +53,7 @@ const ShipmentTable: React.FC = () => {
 
       //メモデータの取得
       loadMemoData().then(data => {
-        if (data?.memo) setMemo(data.memo);
+        if (data?.content) setMemo(data.content);
       });
       
       //通常便データの取得
@@ -97,7 +97,7 @@ const ShipmentTable: React.FC = () => {
     if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
 
     const loadedmemoArea = await loadMemoData();
-    if (loadedmemoArea) setMemo(loadedmemoArea.memo);
+    if (loadedmemoArea) setMemo(loadedmemoArea.content);
 
     toast.success('更新されました', {
       position: 'top-center',
@@ -114,6 +114,9 @@ const ShipmentTable: React.FC = () => {
   };
 
   const getNextAlert = (current: string, hasHighlight: boolean): string => {
+    if (userAuthority < 7) {
+      return current;
+    }
     const normalCycle = ['white', 'yellow', 'red'];
     const highlightedCycle = ['white', 'yellow', 'red'];
 
@@ -121,7 +124,7 @@ const ShipmentTable: React.FC = () => {
     const idx = cycle.indexOf(current);
     const next = idx === -1 ? 'white' : cycle[(idx + 1) % cycle.length];
     return next;
-  }
+  };
 
   const handleColorChange = (id: number) => {
     if (userAuthority < 5) return;
@@ -205,7 +208,7 @@ const ShipmentTable: React.FC = () => {
   };
 
   const prepareNextDay = () => {
-    if (userAuthority < 5) return;
+    if (userAuthority < 9) return;
     setBinData(prev =>
       prev.map(item => 
         TentativeIDs.includes(item.id)
@@ -227,14 +230,14 @@ const ShipmentTable: React.FC = () => {
     setCurrentDate(dayjs(nextYMD).format('YYYY/MM/DD'));
     setDisplayDate(nextDateDisplay);
     
-    // toast.success('更新されました', {
-    //   position: 'top-center',
-    //   autoClose: 1000,
-    //   hideProgressBar: true,
-    //   closeOnClick: true,
-    //   pauseOnHover: false,
-    //   draggable: false,
-    // });
+    toast.success('保存が完了しました', {
+      position: 'top-center',
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+    });
   };
 
   const PMBin = [

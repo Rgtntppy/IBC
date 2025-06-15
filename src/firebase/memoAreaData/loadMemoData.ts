@@ -1,8 +1,8 @@
 import { db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import { MemoAreaProps } from '../../components/master/memoArea/memoAreaInterface';
+import { MemoAreaData } from './memoAreaInterface';
 
-export const loadMemoData = async (): Promise<MemoAreaProps | null> => {
+export const loadMemoData = async (): Promise<MemoAreaData | null> => {
     try {
         const docRef = doc(db, 'memos', 'sharedMemo');
         const docSnap = await getDoc(docRef);
