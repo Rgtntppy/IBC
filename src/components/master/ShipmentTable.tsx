@@ -92,7 +92,7 @@ const ShipmentTable: React.FC = () => {
 
     const ATreload = setInterval(() => {
       reloadData();
-    }, 15 * 60 * 1000);
+    }, 10);
 
     return () => clearInterval(ATreload);
   },[hasInitialized]);
@@ -114,15 +114,6 @@ const ShipmentTable: React.FC = () => {
 
     const loadedOnlytoday = await loadOnlytodayData();
     if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
-
-    toast.success('更新されました', {
-      position: 'top-center',
-      autoClose: 1000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: false,
-    });
   };
 
   useEffect(() => {
