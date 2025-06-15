@@ -51,13 +51,13 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
             {/* メニュー */}
             <nav className={`menu ${isOpen ? 'open' : ''}`}>
                 <ul>
-                    <button onClick={() => navigate('/')}>
-                    TopPageへ
-                    </button>
                     <ExtNumberPopUp
                         userAuthority={userAuthority}
                         toggleMenu={() => setIsOpen(false)}
                     />
+                    <button onClick={() => navigate('/')}>
+                        ログアウト
+                    </button>
                 </ul>
             </nav>
         </div>
