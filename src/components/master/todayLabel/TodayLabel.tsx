@@ -42,12 +42,6 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
         };
         fetchTodayLabelData();
     }, []);
-
-    useEffect(() => {
-        if(hasInitialized){
-            saveTodayLabelData({currentDate, displayDate});
-        }
-    }, [currentDate, displayDate]);
     
     const handleDateConfirm = () => {
         if (yearInput.length === 4 && monthInput.length === 2 && dayInput.length === 2) {

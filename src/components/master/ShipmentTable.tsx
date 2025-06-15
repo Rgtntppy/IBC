@@ -13,15 +13,17 @@ import { Header } from './header/Header';
 import { BinBlock } from './binBlocks/BinBlock';
 import { useSyncScroll } from './useSyncScroll';
 import { getNextBusinessDay } from '../../data/getNextBusinessDay';
+import { loadTodayLabelData } from '../../firebase/todayLabelData/loadtodayLabelData';
+import { saveTodayLabelData } from '../../firebase/todayLabelData/savetodayLabelData';
 import { TodayLabel } from './todayLabel/TodayLabel';
-import { saveMemoData } from '../../firebase/memoAreaData/saveMemoData';
 import { loadMemoData } from '../../firebase/memoAreaData/loadMemoData';
+import { saveMemoData } from '../../firebase/memoAreaData/saveMemoData';
 import { MemoArea } from './memoArea/MemoArea';
 import { PrepareForTheNextDayPopUp } from './popUp/prepareForTheNextDay/PrepareForTheNextDayPopUp';
 import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
 import { OnlytodaysBinData } from '../../data/binData/onlytodayBinData/onlytodaysBinData';
-import { saveOnlytodayData } from '../../firebase/onlytodaysData/saveOnlytodaysData';
 import { loadOnlytodayData } from '../../firebase/onlytodaysData/loadOnlytodaysData';
+import { saveOnlytodayData } from '../../firebase/onlytodaysData/saveOnlytodaysData';
 
 const ShipmentTable: React.FC = () => {
   const [userName, setUserName] = useState('');
@@ -50,6 +52,13 @@ const ShipmentTable: React.FC = () => {
       
       setUserName(user.userName);
       setUserAuthority(user.authority)
+
+      const data = await loadTodayLabelData();
+      if (data) {
+        setCurrentDate(data.currentDate);
+        setDisplayDate(data.displayDate);
+        setIsDateConfirmed(true);
+      }
 
       //メモデータの取得
       loadMemoData().then(data => {
@@ -90,15 +99,21 @@ const ShipmentTable: React.FC = () => {
 
   const reloadData = async () => {
     if (userAuthority < 1) return;
+
+    const todayLabel = await loadTodayLabelData();
+    if (todayLabel) {
+      setCurrentDate(todayLabel.currentDate);
+      setDisplayDate(todayLabel.displayDate);
+    };
+
+    const loadedmemoArea = await loadMemoData();
+    if (loadedmemoArea) setMemo(loadedmemoArea.content);
     
     const loaded = await loadDayCells();
     if (loaded) setBinData(loaded);
 
     const loadedOnlytoday = await loadOnlytodayData();
     if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
-
-    const loadedmemoArea = await loadMemoData();
-    if (loadedmemoArea) setMemo(loadedmemoArea.content);
 
     toast.success('更新されました', {
       position: 'top-center',
@@ -109,6 +124,12 @@ const ShipmentTable: React.FC = () => {
       draggable: false,
     });
   };
+
+  useEffect(() => {
+    if(hasInitialized){
+      saveTodayLabelData({currentDate, displayDate});
+    }
+  }, [currentDate, displayDate]);
 
   const handleBlur = async () => {
     await saveMemoData({ content: memo });
