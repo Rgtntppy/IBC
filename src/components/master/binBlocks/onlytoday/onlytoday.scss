@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+
 $binBlockHight: 68px;
 $border-color: 1px solid rgb(200, 200, 200);
 $thinRed-color: rgb(252, 228, 214);
@@ -91,7 +93,7 @@ $button-radius: 5px;
         }
         
         .count {
-            font-size: 32px;
+            font-size: 54px;
             display: flex;
             min-height: 1rem;
             line-height: 1;
@@ -162,13 +164,65 @@ $button-radius: 5px;
             background-color: #0056b3;
         }
     }
-    
+
     .countDownButton {
         padding: 3px 4px;
-        background-color: #dc3545;
+        background-color: #dc3546;
         
         &:hover {
             background-color: #a71d2a;
         }
+    }
+    
+    .crimson-text-regular {
+        font-family: "Crimson Text", serif;
+        font-weight: 400;
+        font-style: normal;
+    } 
+    .crimson-text-semibold {
+        font-family: "Crimson Text", serif;
+        font-weight: 600;
+        font-style: normal;
+    }
+    .crimson-text-bold {
+        font-family: "Crimson Text", serif;
+        font-weight: 700;
+        font-style: normal;
+    }
+    .crimson-text-regular-italic {
+        font-family: "Crimson Text", serif;
+        font-weight: 400;
+        font-style: italic;
+    }
+    .crimson-text-semibold-italic {
+        font-family: "Crimson Text", serif;
+        font-weight: 600;
+        font-style: italic;
+    }
+    .crimson-text-bold-italic {
+        font-family: "Crimson Text", serif;
+        font-weight: 700;
+        font-style: italic;
+    }
+
+    .pt-serif-regular {
+        font-family: "PT Serif", serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+    .pt-serif-bold {
+        font-family: "PT Serif", serif;
+        font-weight: 700;
+        font-style: normal;
+    }
+    .pt-serif-regular-italic {
+        font-family: "PT Serif", serif;
+        font-weight: 400;
+        font-style: italic;
+    }
+    .pt-serif-bold-italic {
+        font-family: "PT Serif", serif;
+        font-weight: 700;
+        font-style: italic;
     }
 }
