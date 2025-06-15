@@ -136,7 +136,7 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
 
     return (
         <div className='todayLabel'>
-            {!isDateConfirmed && authority >=5 ? (
+            {!isDateConfirmed && authority >= 5 ? (
                 <div className='todayDate'>
                     <input
                         className='yearInput noto-serif-jp'
@@ -183,7 +183,7 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
                     tabIndex={authority < 5 ? -1 : 0}
                     className={`daysText noto-serif-jp ${authority < 5 ? 'disabled' : ''}`}
                     onClick={() => {
-                        if (authority < 5) return;
+                        if (authority < 8) return;
                         const parsed = dayjs(currentDate);
                         setYearInput(parsed.format('YYYY'));
                         setMonthInput(parsed.format('MM')); 

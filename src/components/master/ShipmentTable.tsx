@@ -90,6 +90,7 @@ const ShipmentTable: React.FC = () => {
 
   const reloadData = async () => {
     if (userAuthority < 1) return;
+    
     const loaded = await loadDayCells();
     if (loaded) setBinData(loaded);
 
