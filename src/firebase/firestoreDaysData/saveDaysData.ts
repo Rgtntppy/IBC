@@ -10,7 +10,6 @@ export const saveDayCells = async (dayCells: DaysCellsData[]) => {
             data: dayCells,
             createdAt: new Date(),
         });
-        console.log('Document saved with fixed ID: ');
     } catch (e) {
         console.error('Error saving document: ', e);
     }

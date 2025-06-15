@@ -10,7 +10,6 @@ export const saveOnlytodayData = async (onlytodaysData: OnlytodaysData[]) => {
             data: onlytodaysData,
             createdAt: new Date(),
         });
-        console.log('Document saved with fixed ID: ');
     } catch (e) {
         console.error('Error saving document: ', e);
     }
