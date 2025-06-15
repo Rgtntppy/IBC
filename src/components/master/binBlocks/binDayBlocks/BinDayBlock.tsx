@@ -20,7 +20,7 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
             <div className={`dayCells ${className || ''} ${count > limit ? 'alert' : ''}`}>
                 <p className='label'>{label}</p>
                 <div
-                    className='count'
+                    className='count crimson-text-semibold'
                     style={{ visibility: count === 0 ? 'hidden' : 'visible'}}
                 >
                     {count}

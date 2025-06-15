@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+
 $thinRed-color: rgb(252, 228, 214);
 $thinYellow-color: rgb(255, 242, 204);
 $thinGreen-color: rgb(226, 239, 218);
 $thinBlue-color: rgb(221, 235, 247);
 $white-color: #fff;
 $button-radius: 5px;
+
 .binDayCells {
     display: contents;
     
@@ -24,8 +27,8 @@ $button-radius: 5px;
         }
         
         .count {
-            font-size: 32px;
             display: flex;
+            font-size: 54px;
             min-height: 1rem;
             line-height: 1;
         }
@@ -98,7 +101,7 @@ $button-radius: 5px;
 
     .countUpButton {
         padding: 12px 4px;
-        background-color: #007bff;
+        background-color: #007bffda;
         
         &:hover {
             background-color: #0056b3;
@@ -107,10 +110,46 @@ $button-radius: 5px;
 
     .countDownButton {
         padding: 3px 4px;
-        background-color: #dc3545;
+        background-color: #dc3546d7;
         
         &:hover {
             background-color: #a71d2a;
         }
-        }
+    }
+
+    .crimson-text-regular {
+        font-family: "Crimson Text", serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+      
+    .crimson-text-semibold {
+        font-family: "Crimson Text", serif;
+        font-weight: 600;
+        font-style: normal;
+    }
+    
+    .crimson-text-bold {
+        font-family: "Crimson Text", serif;
+        font-weight: 700;
+        font-style: normal;
+    }
+    
+    .crimson-text-regular-italic {
+        font-family: "Crimson Text", serif;
+        font-weight: 400;
+        font-style: italic;
+    }
+    
+    .crimson-text-semibold-italic {
+        font-family: "Crimson Text", serif;
+        font-weight: 600;
+        font-style: italic;
+    }
+    
+    .crimson-text-bold-italic {
+        font-family: "Crimson Text", serif;
+        font-weight: 700;
+        font-style: italic;
+    }
 }

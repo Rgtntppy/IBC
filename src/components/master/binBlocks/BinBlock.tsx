@@ -11,7 +11,7 @@ export const BinBlock: React.FC<BinBlockProps> = ({
     return (
         <div className='binBlock'>
             <div
-                className={`binName ${
+                className={`binName pt-serif-bold ${
                     row.highlight
                     ? `highlight-${row.highlight}` : ''
                 } alert-${row.binAlert}`}

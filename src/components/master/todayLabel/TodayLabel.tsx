@@ -139,7 +139,7 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
             {!isDateConfirmed && authority >=5 ? (
                 <div className='todayDate'>
                     <input
-                        className='yearInput'
+                        className='yearInput noto-serif-jp'
                         type='text'
                         value={yearInput}
                         onChange={handleYearChange}
@@ -152,7 +152,7 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
                         ref={yearInputRef}
                     />
                     <input
-                        className='monthInput'
+                        className='monthInput noto-serif-jp'
                         type='text'
                         value={monthInput}
                         onChange={handleMonthChange}
@@ -165,7 +165,7 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
                         ref={monthInputRef}
                     />
                     <input
-                        className='dayInput'
+                        className='dayInput noto-serif-jp'
                         type='text'
                         value={dayInput}
                         onChange={handleDayChange}
@@ -181,7 +181,7 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
             ) : (
                 <p
                     tabIndex={authority < 5 ? -1 : 0}
-                    className={`daysText ${authority < 5 ? 'disabled' : ''}`}
+                    className={`daysText noto-serif-jp ${authority < 5 ? 'disabled' : ''}`}
                     onClick={() => {
                         if (authority < 5) return;
                         const parsed = dayjs(currentDate);

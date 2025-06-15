@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Noto+Serif+JP:wght@200..900&display=swap');
+
 .todayLabel {
     display: inline-block;
     position: relative;
@@ -77,5 +79,12 @@
     .disabled {
         pointer-events: none;
         user-select: none;
+    }
+
+    .noto-serif-jp {
+        font-family: "Noto Serif JP", serif;
+        font-optical-sizing: auto;
+        font-weight: bold;
+        font-style: normal;
     }
 }
