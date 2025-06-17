@@ -83,16 +83,20 @@ const ShipmentTable: React.FC = () => {
   //初期化後の data 更新時のみ保存
   useEffect(() => {
     if (hasInitialized) {
-      saveDayCells(binData);
-      saveOnlytodayData(onlytodaysBinData);
-      console.log('保存したよ')
+      const timeout = setTimeout(() => {
+        saveDayCells(binData);
+        saveOnlytodayData(onlytodaysBinData);
+        console.log('保存したよ')
+      }, 200);
+
+      return () => clearTimeout(timeout);
     }
   }, [binData, onlytodaysBinData, hasInitialized]);
 
   useEffect(() => {
     reloadData();
 
-    const ATreload = setInterval(() => {
+    const ATreload = setInterval(async () => {
       reloadData();
     });
     
