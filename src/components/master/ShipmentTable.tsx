@@ -95,10 +95,6 @@ const ShipmentTable: React.FC = () => {
 
   useEffect(() => {
     reloadData();
-
-    const ATreload = setInterval(async () => {
-      reloadData();
-    });
     
     const ATreloadMemo = setInterval(async () => {
       await reloadMemoData();
@@ -113,7 +109,6 @@ const ShipmentTable: React.FC = () => {
     }, 15 * 60 * 1000);
 
     return () => {
-      clearInterval(ATreload);
       clearInterval(ATreloadMemo);
     }
   },[]);
