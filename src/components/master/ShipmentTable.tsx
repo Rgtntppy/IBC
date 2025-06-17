@@ -28,10 +28,11 @@ import { saveOnlytodayData } from '../../firebase/onlytodaysData/saveOnlytodaysD
 const ShipmentTable: React.FC = () => {
   const [userName, setUserName] = useState('');
   const [userAuthority, setUserAuthority] = useState(0);
+  const [hasInitialized, setHasInitialized] = useState(false);
+
   const [currentDate, setCurrentDate] = useState(dayjs().format('YYYY/MM/DD'));
   const [displayDate, setDisplayDate] = useState(dayjs().format('YYYY年MM月DD日分'));
   const [isDateConfirmed, setIsDateConfirmed] = useState(false)
-  const [hasInitialized, setHasInitialized] = useState(false);
   
   const [memo, setMemo] = useState('');
   
@@ -84,6 +85,7 @@ const ShipmentTable: React.FC = () => {
     if (hasInitialized) {
       saveDayCells(binData);
       saveOnlytodayData(onlytodaysBinData);
+      console.log('保存したよ')
     }
   }, [binData, onlytodaysBinData, hasInitialized]);
 
@@ -92,10 +94,25 @@ const ShipmentTable: React.FC = () => {
 
     const ATreload = setInterval(() => {
       reloadData();
-    }, 10);
+    });
+    
+    const ATreloadMemo = setInterval(async () => {
+      await reloadMemoData();
+      toast.success('メモ内容が更新されました', {
+        position: 'top-center',
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+      });
+    }, 15 * 60 * 1000);
 
-    return () => clearInterval(ATreload);
-  },[hasInitialized]);
+    return () => {
+      clearInterval(ATreload);
+      clearInterval(ATreloadMemo);
+    }
+  },[]);
 
   const reloadData = async () => {
     if (userAuthority < 1) return;
@@ -106,15 +123,19 @@ const ShipmentTable: React.FC = () => {
       setDisplayDate(todayLabel.displayDate);
     };
 
-    const loadedmemoArea = await loadMemoData();
-    if (loadedmemoArea) setMemo(loadedmemoArea.content);
-    
     const loaded = await loadDayCells();
     if (loaded) setBinData(loaded);
-
+    
     const loadedOnlytoday = await loadOnlytodayData();
     if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
   };
+  
+  const reloadMemoData = async () => {
+    if (userAuthority < 1) return;
+
+    const loadedmemoArea = await loadMemoData();
+    if (loadedmemoArea) setMemo(loadedmemoArea.content);
+  }
 
   useEffect(() => {
     if(hasInitialized){
