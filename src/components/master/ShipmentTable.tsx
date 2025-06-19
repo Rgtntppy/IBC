@@ -91,7 +91,7 @@ const ShipmentTable: React.FC = () => {
 
       return () => clearTimeout(timeout);
     }
-  }, [binData, onlytodaysBinData, hasInitialized]);
+  }, [binData, onlytodaysBinData]);
 
   useEffect(() => {
     reloadData();
@@ -111,7 +111,7 @@ const ShipmentTable: React.FC = () => {
     return () => {
       clearInterval(ATreloadMemo);
     }
-  },[]);
+  },[hasInitialized]);
 
   const reloadData = async () => {
     if (userAuthority < 1) return;
@@ -138,7 +138,12 @@ const ShipmentTable: React.FC = () => {
 
   useEffect(() => {
     if(hasInitialized){
-      saveTodayLabelData({currentDate, displayDate});
+      const timeout = setTimeout(() => {
+        saveTodayLabelData({currentDate, displayDate});
+        console.log('やばいかも')
+      }, 200)
+
+      return () => clearTimeout(timeout);
     }
   }, [currentDate, displayDate]);
 
