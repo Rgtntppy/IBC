@@ -122,11 +122,16 @@ const ShipmentTable: React.FC = () => {
       setDisplayDate(todayLabel.displayDate);
     };
 
+    loadMemoData().then(data => {
+      if (data?.content) setMemo(data.content);
+    });
+
     const loaded = await loadDayCells();
     if (loaded) setBinData(loaded);
     
     const loadedOnlytoday = await loadOnlytodayData();
     if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
+
   };
   
   const reloadMemoData = async () => {
@@ -140,15 +145,17 @@ const ShipmentTable: React.FC = () => {
     if(hasInitialized){
       const timeout = setTimeout(() => {
         saveTodayLabelData({currentDate, displayDate});
-        console.log('やばいかも')
+        console.log('日付情報保存')
       }, 200)
 
       return () => clearTimeout(timeout);
     }
   }, [currentDate, displayDate]);
 
+  
   const handleBlur = async () => {
     await saveMemoData({ content: memo });
+    console.log('メモメモ')
   };
 
   const getNextAlert = (current: string, hasHighlight: boolean): string => {
