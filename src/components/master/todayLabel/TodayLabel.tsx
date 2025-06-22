@@ -7,7 +7,6 @@ import { TodayLabelProps } from './todayLabelInterface';
 import { DayErrorPopup } from './dayErrorPopups/DayErrorPopup';
 
 export const TodayLabel: React.FC<TodayLabelProps> = ({
-    hasInitialized,
     currentDate,
     setCurrentDate,
     displayDate,
