@@ -6,7 +6,10 @@ import { HeaderTabProps } from './headerInterface';
 export const Header: React.FC<HeaderTabProps> = ({
     userName,
     userAuthority,
-    reloadData
+    reloadData,
+    memo,
+    setMemo,
+    handleBlur,
 }) => {
     const reloadMessage = async () => {
         toast.success('更新されました', {
@@ -44,6 +47,9 @@ export const Header: React.FC<HeaderTabProps> = ({
             </div>
             <HamburgerMenu
                 userAuthority={userAuthority}
+                memo={memo}
+                setMemo={setMemo}
+                handleBlur={handleBlur}
             />
         </div>
     );

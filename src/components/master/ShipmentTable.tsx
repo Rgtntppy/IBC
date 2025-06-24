@@ -324,6 +324,9 @@ const ShipmentTable: React.FC = () => {
         userName={userName}
         userAuthority={userAuthority}
         reloadData={reloadData}
+        memo={memo}
+        setMemo={setMemo}
+        handleBlur={handleBlur}
       />
       <ToastContainer/>
       <TodayLabel

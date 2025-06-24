@@ -3,10 +3,15 @@ import React, { useState, useCallback, MouseEventHandler, useRef, useEffect } fr
 import { useNavigate } from 'react-router-dom';
 import { HamburgerProps } from './hamburgerMenuInterface';
 import { ExtNumberPopUp } from '../../popUp/extNumberPopUp/ExtNumberPopUp';
+import { MemoArea } from '../../memoArea/MemoArea';
 
 export const HamburgerMenu: React.FC<HamburgerProps> = ({
     userAuthority,
+    memo,
+    setMemo,
+    handleBlur,
 }) => {
+    const [showMemoArea, setShowMemoArea] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -51,15 +56,46 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
             {/* メニュー */}
             <nav className={`menu ${isOpen ? 'open' : ''}`}>
                 <ul>
+                    <button
+                        onClick={() => {
+                            setShowMemoArea(true);
+                            setIsOpen(false);
+                        }}
+                    >
+                        メモ欄
+                    </button>
                     <ExtNumberPopUp
                         userAuthority={userAuthority}
                         toggleMenu={() => setIsOpen(false)}
                     />
-                    <button onClick={() => navigate('/')}>
+                    <button
+                        onClick={() => navigate('/')}
+                    >
                         ログアウト
                     </button>
                 </ul>
             </nav>
+            {showMemoArea && (
+                <div className='overlay'>
+                    <div className='memoAreaContent'>
+                        <h2 className='memoAreaTitle'>メモ欄</h2>
+                        <button
+                            className='closeButton'
+                            onClick={() => {
+                                setShowMemoArea(false);
+                                setIsOpen(false);
+                            }}
+                        >
+                            x
+                        </button>
+                        <MemoArea
+                            memo={memo}
+                            setMemo={setMemo}
+                            handleBlur={handleBlur}
+                        />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
