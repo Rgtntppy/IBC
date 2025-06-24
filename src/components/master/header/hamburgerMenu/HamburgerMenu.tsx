@@ -86,7 +86,7 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
                                 setIsOpen(false);
                             }}
                         >
-                            x
+                            X
                         </button>
                         <MemoArea
                             memo={memo}
