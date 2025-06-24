@@ -6,6 +6,7 @@ export const MemoArea: React.FC<MemoAreaProps> = ({
     memo,
     setMemo,
     handleBlur,
+    userAuthority,
 }) => {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const initialSize = useRef<{ width: string; height: string; }>({ width: '', height: '' });
@@ -43,15 +44,23 @@ export const MemoArea: React.FC<MemoAreaProps> = ({
         };
     }, []);
 
+    const preventFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+        if (userAuthority < 3) {
+            e.target.blur();
+        }
+    };
+
     return (
         <textarea
             ref={textareaRef}
             className='memoTextarea'
             value={memo}
-            onChange={(e) => setMemo(e.target.value)}
-            onBlur={handleBlur}
+            onChange={(e) => userAuthority >=3 && setMemo(e.target.value)}
+            onBlur={ userAuthority >= 3 ? handleBlur : undefined}
             placeholder='メモ欄'
             maxLength={300}
+            readOnly={userAuthority < 3}
+            onFocus={preventFocus}
         />
     );
 };

@@ -92,6 +92,7 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
                             memo={memo}
                             setMemo={setMemo}
                             handleBlur={handleBlur}
+                            userAuthority={userAuthority}
                         />
                     </div>
                 </div>

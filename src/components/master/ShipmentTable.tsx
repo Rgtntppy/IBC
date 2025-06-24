@@ -155,7 +155,6 @@ const ShipmentTable: React.FC = () => {
   
   const handleBlur = async () => {
     await saveMemoData({ content: memo });
-    console.log('メモメモ')
   };
 
   const getNextAlert = (current: string, hasHighlight: boolean): string => {
@@ -344,6 +343,7 @@ const ShipmentTable: React.FC = () => {
         memo={memo}
         setMemo={setMemo}
         handleBlur={handleBlur}
+        userAuthority={userAuthority}
       />
       <div className='todayBinGrid'>
         <div ref={pmRef} className='binGrid pmBinGrid'>
