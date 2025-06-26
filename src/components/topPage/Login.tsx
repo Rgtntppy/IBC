@@ -1,5 +1,5 @@
 import './login.scss';
-import React, {useState} from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { users } from '../../data/users/users';
 import { saveUserInfoToFirestore } from '../../firebase/firebaseUserAuthentication';
@@ -7,6 +7,7 @@ import { saveUserInfoToFirestore } from '../../firebase/firebaseUserAuthenticati
 const Login = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
+  const passwordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -29,6 +30,14 @@ const Login = () => {
     }
   };
 
+  const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setId(value);
+    if (value.length === 6) {
+      passwordRef.current?.focus();
+    }
+  };
+
   return (
     <div className='loginForm'>
       <h1 className='title'>
@@ -41,7 +50,7 @@ const Login = () => {
           className='inputID'
           placeholder='ID'
           value={id}
-          onChange={(e) => setId(e.target.value)}
+          onChange={handleIdChange}
         />
         <input
           className='inputPW'
@@ -50,6 +59,7 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           onKeyDown={handleKeyDown}
+          ref={passwordRef}
         />
         <button 
           className='submitButton'
