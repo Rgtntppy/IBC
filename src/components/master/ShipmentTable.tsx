@@ -100,14 +100,6 @@ const ShipmentTable: React.FC = () => {
     const memoInterval = setInterval(async () => {
       await reloadMemoData();
       await reloadData();
-      toast.success('内容が更新されました', {
-        position: 'top-center',
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-      });
     }, 15 * 60 * 1000);
 
     let binDataInterval: NodeJS.Timeout | null = null;
@@ -153,6 +145,14 @@ const ShipmentTable: React.FC = () => {
     const loadedOnlytoday = await loadOnlytodayData();
     if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
 
+    toast.success('更新されました', {
+      position: 'top-center',
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+    });
   };
   
   const reloadMemoData = async () => {

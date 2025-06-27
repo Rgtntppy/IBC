@@ -1,5 +1,6 @@
 import { toast } from 'react-toastify';
 import './header.scss';
+import React, { useState } from 'react';
 import { HamburgerMenu } from './hamburgerMenu/HamburgerMenu';
 import { HeaderTabProps } from './headerInterface';
 
@@ -11,22 +12,38 @@ export const Header: React.FC<HeaderTabProps> = ({
     setMemo,
     handleBlur,
 }) => {
-    const reloadMessage = async () => {
-        toast.success('更新されました', {
-        position: 'top-center',
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-      });
-    };
+    const [isReloading, setIsReloading] = useState(false);
 
-    const handleReload = async () => {
-        await reloadData();
-        reloadMessage();
-    };
+    const handleClick = async () => {
+        if (isReloading) {
+            toast.info('再読み込み中です。しばらくお待ちください。', {
+                position:'top-center',
+                autoClose: 1000,
+                hideProgressBar: true,
+            });
+            return;
+        }
 
+        setIsReloading(true);
+
+        try {
+            await reloadData();
+            toast.success('最新データを読み込みました。', {
+                position: 'top-center',
+                autoClose: 1000,
+                hideProgressBar: true,
+            });
+        } catch (e) {
+            toast.error('更新に失敗しました。', {
+                position: 'top-center',
+                autoClose: 1500,
+                hideProgressBar: true,
+            });
+        } finally {
+            setTimeout(() => setIsReloading(false), 3000);
+        }
+    };
+    
     return (
         <div className='header'>
             <h1 className='title'>
@@ -39,10 +56,11 @@ export const Header: React.FC<HeaderTabProps> = ({
             </div>
             <div className='reloadButtonWrapper'>
                 <button
-                onClick={handleReload}
+                onClick={handleClick}
                 className='reloadButton'
+                disabled={isReloading}
                 >
-                更新
+                {isReloading ? '更新中...' : '更新'}
                 </button>
             </div>
             <HamburgerMenu
