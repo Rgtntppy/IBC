@@ -86,7 +86,6 @@ const ShipmentTable: React.FC = () => {
       const timeout = setTimeout(() => {
         saveDayCells(binData);
         saveOnlytodayData(onlytodaysBinData);
-        console.log('保存したよ')
       }, 200);
 
       return () => clearTimeout(timeout);
@@ -94,11 +93,14 @@ const ShipmentTable: React.FC = () => {
   }, [binData, onlytodaysBinData]);
 
   useEffect(() => {
-    reloadData();
+    if (!hasInitialized) return;
+
+    let previousBinData: any = null;
     
-    const ATreloadMemo = setInterval(async () => {
+    const memoInterval = setInterval(async () => {
       await reloadMemoData();
-      toast.success('メモ内容が更新されました', {
+      await reloadData();
+      toast.success('内容が更新されました', {
         position: 'top-center',
         autoClose: 1000,
         hideProgressBar: true,
@@ -108,8 +110,27 @@ const ShipmentTable: React.FC = () => {
       });
     }, 15 * 60 * 1000);
 
+    let binDataInterval: NodeJS.Timeout | null = null;
+
+    if (userAuthority >= 5) {
+      binDataInterval = setInterval(async () => {
+        try {
+          const updated = await loadDayCells();
+          
+          if (updated && JSON.stringify(updated) !== JSON.stringify(previousBinData)) {
+            setBinData(updated);
+            previousBinData = updated;
+            console.log('更新したよ〜')
+          }
+        } catch (e) {
+          console.error('ポーリング中にエラー:', e);
+        }
+      }, 10 * 1000)
+    }
+
     return () => {
-      clearInterval(ATreloadMemo);
+      clearInterval(memoInterval);
+      if (binDataInterval) clearInterval(binDataInterval);
     }
   },[hasInitialized]);
 

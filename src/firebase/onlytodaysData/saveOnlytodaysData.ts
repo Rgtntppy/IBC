@@ -11,7 +11,6 @@ const _saveOnlytodayData = async (onlytodaysData: OnlytodaysData[]) => {
             data: onlytodaysData,
             createdAt: new Date(),
         });
-        console.log('saveOnlytodayData実行')
     } catch (e) {
         console.error('Error saving document: ', e);
     }
