@@ -9,6 +9,8 @@ type userAuthority = UsersProps['userAuthority'];
 export interface HeaderTabProps {
     userName: string;
     userAuthority: userAuthority;
+    addCountFlag: boolean;
+    setAddCountFlag: React.Dispatch<React.SetStateAction<boolean>>;
     reloadData: () => Promise<void>;
     memo: memo;
     setMemo: setMemo;

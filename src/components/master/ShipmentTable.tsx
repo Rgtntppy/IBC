@@ -30,6 +30,8 @@ const ShipmentTable: React.FC = () => {
   const [userAuthority, setUserAuthority] = useState(0);
   const [hasInitialized, setHasInitialized] = useState(false);
 
+  const [addCountFlag, setAddCountFlag] = useState(false);
+
   const [currentDate, setCurrentDate] = useState(dayjs().format('YYYY/MM/DD'));
   const [displayDate, setDisplayDate] = useState(dayjs().format('YYYY年MM月DD日分'));
   const [isDateConfirmed, setIsDateConfirmed] = useState(false)
@@ -83,18 +85,9 @@ const ShipmentTable: React.FC = () => {
   //初期化後の data 更新時のみ保存
   useEffect(() => {
     if (hasInitialized) {
-      const timeout = setTimeout(async () => {
-        await saveDayCells(binData);
-        await saveOnlytodayData(onlytodaysBinData);
-
-        toast.success('保存が完了しました', {
-          position: 'top-center',
-          autoClose: 1000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: false,
-        });
+      const timeout = setTimeout(() => {
+        saveDayCells(binData);
+        saveOnlytodayData(onlytodaysBinData);
       }, 200);
 
       return () => clearTimeout(timeout);
@@ -121,12 +114,11 @@ const ShipmentTable: React.FC = () => {
           if (updated && JSON.stringify(updated) !== JSON.stringify(previousBinData)) {
             setBinData(updated);
             previousBinData = updated;
-            console.log('更新したよ〜')
           }
         } catch (e) {
           console.error('ポーリング中にエラー:', e);
         }
-      }, 10 * 1000)
+      }, 15 * 60 * 1000)
     }
 
     return () => {
@@ -153,15 +145,6 @@ const ShipmentTable: React.FC = () => {
     
     const loadedOnlytoday = await loadOnlytodayData();
     if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
-
-    toast.success('更新されました', {
-      position: 'top-center',
-      autoClose: 1000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: false,
-    });
   };
   
   const reloadMemoData = async () => {
@@ -216,7 +199,7 @@ const ShipmentTable: React.FC = () => {
   };
   
   const handleChange = (id: number, key: 'today' | 'tomorrow', diff: number) => {
-    if (userAuthority < 5) return;
+    if (userAuthority < 5 || !addCountFlag) return;
     setBinData(prev =>
       prev.map(item =>
         item.id === id
@@ -235,7 +218,7 @@ const ShipmentTable: React.FC = () => {
   };
 
   const handleCheckboxToggle = (id: number, key: 'isLargeDrumToday' | 'isLargeDrumTomorrow') => {
-    if (userAuthority < 5) return;
+    if (userAuthority < 5 || !addCountFlag) return;
     setBinData(prev => 
       prev.map(item =>
         item.id === id
@@ -260,7 +243,7 @@ const ShipmentTable: React.FC = () => {
   };
 
   const handleChangeTentative = (id: number, key: 'today', diff: number) => {
-    if (userAuthority < 5) return;
+    if (userAuthority < 5 || !addCountFlag) return;
     setOnlytodaysBinData(prev =>
       prev.map(item =>
         item.id === id
@@ -271,7 +254,7 @@ const ShipmentTable: React.FC = () => {
   };
 
   const handleCheckboxTentative = (id: number, key: 'isLargeDrumToday') => {
-    if (userAuthority < 5) return;
+    if (userAuthority < 5 || !addCountFlag) return;
     setOnlytodaysBinData(prev =>
       prev.map(item =>
         item.id === id
@@ -281,7 +264,7 @@ const ShipmentTable: React.FC = () => {
     );
   };
 
-  const prepareNextDay = () => {
+  const prepareNextDay = async () => {
     if (userAuthority < 8) return;
     setBinData(prev =>
       prev.map(item => 
@@ -303,6 +286,18 @@ const ShipmentTable: React.FC = () => {
 
     setCurrentDate(dayjs(nextYMD).format('YYYY/MM/DD'));
     setDisplayDate(nextDateDisplay);
+
+    await saveDayCells(binData);
+    await saveOnlytodayData(onlytodaysBinData);
+
+    toast.success('保存が完了しました', {
+      position: 'top-center',
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+    });
   };
 
   const PMBin = [
@@ -343,6 +338,8 @@ const ShipmentTable: React.FC = () => {
       <Header
         userName={userName}
         userAuthority={userAuthority}
+        addCountFlag={addCountFlag}
+        setAddCountFlag={setAddCountFlag}
         reloadData={reloadData}
         memo={memo}
         setMemo={setMemo}

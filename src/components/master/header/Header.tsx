@@ -7,12 +7,22 @@ import { HeaderTabProps } from './headerInterface';
 export const Header: React.FC<HeaderTabProps> = ({
     userName,
     userAuthority,
+    addCountFlag,
+    setAddCountFlag,
     reloadData,
     memo,
     setMemo,
     handleBlur,
 }) => {
     const [isReloading, setIsReloading] = useState(false);
+
+    const addCount = async () => {
+        if (userAuthority < 5) return;
+        await reloadData();
+        setAddCountFlag(true);
+
+        setTimeout(() => setAddCountFlag(false), 5 * 1000);
+    };
 
     const handleClick = async () => {
         if (isReloading) {
@@ -28,10 +38,13 @@ export const Header: React.FC<HeaderTabProps> = ({
 
         try {
             await reloadData();
-            toast.success('最新データを読み込みました。', {
-                position: 'top-center',
-                autoClose: 1000,
-                hideProgressBar: true,
+                toast.success('更新されました', {
+            position: 'top-center',
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
             });
         } catch (e) {
             toast.error('更新に失敗しました。', {
@@ -54,7 +67,17 @@ export const Header: React.FC<HeaderTabProps> = ({
                     ようこそ{userName}さん
                 </p>
             </div>
-            <div className='reloadButtonWrapper'>
+            <div className='ButtonsWrapper'>
+                <button
+                onClick={addCount}
+                className={`addCountButton ${
+                    addCountFlag ? 'addCounting' : '' 
+                }`}
+                disabled={addCountFlag}
+                >
+                {addCountFlag ? '編集中...' : '追加・変更'}
+                </button>
+
                 <button
                 onClick={handleClick}
                 className='reloadButton'
