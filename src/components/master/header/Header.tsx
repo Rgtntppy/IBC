@@ -40,7 +40,7 @@ export const Header: React.FC<HeaderTabProps> = ({
                 hideProgressBar: true,
             });
         } finally {
-            setTimeout(() => setIsReloading(false), 3000);
+            setTimeout(() => setIsReloading(false), 2000);
         }
     };
     
