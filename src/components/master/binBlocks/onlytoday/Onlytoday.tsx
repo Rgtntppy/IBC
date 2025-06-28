@@ -35,7 +35,7 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
                     <input
                         ref={inputRef}
                         type='text'
-                        className='binNameInput pt-serif-bold'
+                        className='binNameInput noto-serif-jp'
                         value={binName}
                         maxLength={4}
                         onChange={(e) => setBinName(e.target.value)}
@@ -49,7 +49,7 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
                     />
                 ) : (
                     <p
-                        className='binNameText pt-serif-bold'
+                        className='binNameText noto-serif-jp'
                         onClick={() => {
                             if (userAuthority > 4) {
                             setIsEditing(true);
