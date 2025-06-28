@@ -83,9 +83,18 @@ const ShipmentTable: React.FC = () => {
   //初期化後の data 更新時のみ保存
   useEffect(() => {
     if (hasInitialized) {
-      const timeout = setTimeout(() => {
-        saveDayCells(binData);
-        saveOnlytodayData(onlytodaysBinData);
+      const timeout = setTimeout(async () => {
+        await saveDayCells(binData);
+        await saveOnlytodayData(onlytodaysBinData);
+
+        toast.success('保存が完了しました', {
+          position: 'top-center',
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+        });
       }, 200);
 
       return () => clearTimeout(timeout);
@@ -294,15 +303,6 @@ const ShipmentTable: React.FC = () => {
 
     setCurrentDate(dayjs(nextYMD).format('YYYY/MM/DD'));
     setDisplayDate(nextDateDisplay);
-    
-    toast.success('保存が完了しました', {
-      position: 'top-center',
-      autoClose: 1000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: false,
-    });
   };
 
   const PMBin = [
