@@ -66,6 +66,13 @@ $binBlockHight: 60px;
             top: 3px;
             left: 300px;
             height: 75px;
+            cursor: grab;
+            user-select: none;
+            -webkit-user-drag: none;
+
+            &:active {
+                cursor: grabbing;
+            }
         }
     }
 }
