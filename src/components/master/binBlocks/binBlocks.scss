@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+JP:wght@200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Serif+JP:wght@200..900&display=swap');
 
 $binBlockHight: 68px;
 $border-color: 1px solid rgb(200, 200, 200);
@@ -70,6 +70,14 @@ $button-radius: 5px;
             background-color: red;
         }
 
+    }
+
+    // <weight>: Use a value from 100 to 900
+    .noto-sans-jp {
+        font-family: "Noto Sans JP", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 600;
+        font-style: normal;
     }
 
     // <weight>: Use a value from 200 to 900

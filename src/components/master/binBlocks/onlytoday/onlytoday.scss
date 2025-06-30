@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Serif+JP:wght@200..900&display=swap');
 
 $binBlockHight: 68px;
 $border-color: 1px solid rgb(200, 200, 200);
@@ -93,7 +93,7 @@ $button-radius: 5px;
         }
         
         .count {
-            font-size: 54px;
+            font-size: 48px;
             display: flex;
             min-height: 1rem;
             line-height: 1;
@@ -174,11 +174,19 @@ $button-radius: 5px;
         }
     }
     
+    // <weight>: Use a value from 100 to 900
+    .noto-sans-jp {
+        font-family: "Noto Sans JP", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 600;
+        font-style: normal;
+    }
+
     // <weight>: Use a value from 200 to 900
     .noto-serif-jp {
         font-family: "Noto Serif JP", serif;
         font-optical-sizing: auto;
-        font-weight: 900;
+        font-weight: 600;
         font-style: normal;
     }
 }
