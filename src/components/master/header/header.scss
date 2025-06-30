@@ -4,6 +4,26 @@
     position: relative;
     width: 650px;
     height: 40px;
+    
+    .title {
+        position: relative;
+        font-size: 20px;
+        padding: 10px 20px;
+        margin: 0;
+        text-align: left;
+        font-family: "Playfair Display", serif;
+        font-optical-sizing: auto;
+        font-weight: bold;
+        font-style: normal;
+    }
+    
+    .userInfo {
+        position: absolute;
+        top: 0px;
+        left: 240px;
+        font-size: 14px;
+        color: #333;
+    }
 
     .ButtonsWrapper {
         position: absolute;
@@ -11,7 +31,7 @@
         right: 40px;
         display: flex;
         justify-content: flex-end;
-        padding: 0.5rem 1rem;
+        margin: 10px ;
         gap: 8px;
     }
 
@@ -19,7 +39,7 @@
         background-color: #007bff;
         color: white;
         border: none;
-        padding: 0.4rem 0.8rem;
+        padding: 4px 1px;
         border-radius: 4px;
         cursor: pointer;
         font-size: 0.9rem;
@@ -40,7 +60,7 @@
         background-color: #007bff;
         color: white;
         border: none;
-        padding: 0.4rem 0.8rem;
+        padding: 4px 1px;
         border-radius: 4px;
         cursor: pointer;
         font-size: 0.9rem;
@@ -52,24 +72,4 @@
             background-color: #0056b3;
         }
     }
-
-    .title {
-        position: relative;
-        font-size: 20px;
-        padding: 10px 20px;
-        margin: 0;
-        text-align: left;
-        font-family: "Playfair Display", serif;
-        font-optical-sizing: auto;
-        font-weight: bold;
-        font-style: normal;
-    }
-    
-    .userInfo {
-        position: absolute;
-        top: 0px;
-        left: 240px;
-        font-size: 14px;
-        color: #333;
-    }   
 }
