@@ -282,7 +282,7 @@ const ShipmentTable: React.FC = () => {
 
     const ymd = currentDate.replace(/\D/g, '');
     const nextYMD = getNextBusinessDay(ymd);
-    const nextDateDisplay = dayjs(nextYMD, 'YYYYMMDD').format('YYYY年MM月DD日');
+    const nextDateDisplay = dayjs(nextYMD, 'YYYYMMDD').format('YYYY年MM月DD日分');
 
     setCurrentDate(dayjs(nextYMD).format('YYYY/MM/DD'));
     setDisplayDate(nextDateDisplay);
