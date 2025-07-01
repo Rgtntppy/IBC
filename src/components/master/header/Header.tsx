@@ -63,8 +63,12 @@ export const Header: React.FC<HeaderTabProps> = ({
                 ドラム出荷数管理表
             </h1>
             <div className='userInfo'>
-                <p>
-                    ようこそ{userName}さん
+                <p className='welcomeText'>
+                    ようこそ
+                    <span className='userName'>
+                    {userName}    
+                    </span>
+                    さん
                 </p>
             </div>
             <div className='ButtonsWrapper'>

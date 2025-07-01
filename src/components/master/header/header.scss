@@ -22,9 +22,16 @@ $buttonhightpadding: 4px 0;
     .userInfo {
         position: absolute;
         top: 0px;
-        left: 240px;
-        font-size: 14px;
+        left: 210px;
         color: #333;
+
+        .welcomeText {
+            font-size: 12px;
+            
+            .userName {
+                font-size: 1.2rem;
+            }
+        }
     }
 
     .ButtonsWrapper {
