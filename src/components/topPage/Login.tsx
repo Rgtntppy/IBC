@@ -45,20 +45,31 @@ const Login = () => {
 
   return (
     <div className='loginForm'>
-      <h1 className='title'>
-        IBC北関東
-        <br/>
-        ドラム出荷数管理表
-      </h1>
+      <div className='titleContainer'>
+        <h1 className='title'>
+          LUMO
+        </h1>
+        <p className='subTitle'>VolumeObject</p>
+      </div>
       <div className='inputForm'>
+        <div className='inputLabel'>
+          <p>
+            ID:
+          </p>
+        </div>
         <input
           className='inputID'
-          placeholder='ID'
+          placeholder='IDを入力'
           value={id}
           maxLength={6}
           onChange={handleIdChange}
           ref={idRef}
         />
+        <div className='inputLabel'>
+          <p>
+            password:
+          </p>
+        </div>
         <input
           className='inputPW'
           type='password'
