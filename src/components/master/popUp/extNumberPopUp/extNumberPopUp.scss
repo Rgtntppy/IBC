@@ -1,60 +1,47 @@
 $white-color: #fff;
 
-.extModalOverlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
+.extModalContent {
+    background-color: $white-color;
+    padding: 24px 32px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    max-width: 90%;
+    text-align: center;
 
-    .extModalContent {
-        background-color: $white-color;
-        padding: 24px 32px;
-        border-radius: 12px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        max-width: 90%;
-        text-align: center;
+    .extNumberList {
+        margin-bottom: 20px;
+        font-size: 16px;
 
-        .extNumberList {
-            margin-bottom: 20px;
-            font-size: 16px;
+        .extNumber {
+            font-family: monospace;
+            line-height: 1.6;
+            padding-right: 40px;
 
-            .extNumber {
-                font-family: monospace;
-                line-height: 1.6;
-                padding-right: 40px;
-
-                .place {
-                    display: inline-block;
-                    width: 6em;
-                    text-align: right;
-                    padding-right: 0.1em;
-                }
+            .place {
+                display: inline-block;
+                width: 6em;
+                text-align: right;
+                padding-right: 0.1em;
             }
         }
-        .extModalButtons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
+    }
+    .extModalButtons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
 
-            button {
-                padding: 8px 20px;
-                font-size: 14px;
-                border: none;
-                border-radius: 6px;
-                cursor: pointer;
-                max-width: 180px;
-            }
+        button {
+            padding: 8px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            max-width: 180px;
+        }
 
-            .yesAnswer {
-                background-color: #007bff;
-                color: $white-color;
-            }
+        .yesAnswer {
+            background-color: #007bff;
+            color: $white-color;
         }
     }
 }

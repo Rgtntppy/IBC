@@ -4,5 +4,6 @@ type userAuthority = UsersProps['userAuthority'];
 
 export interface extNumberProps {
     userAuthority: userAuthority;
-    toggleMenu: () => void;
+    onOpen: () => void;
+    onClose: () => void;
 }

@@ -11,9 +11,13 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
     setMemo,
     handleBlur,
 }) => {
-    const [showMemoArea, setShowMemoArea] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [showMemoArea, setShowMemoArea] = useState(false);
+    const [showExtNumber, setShowExtNumber] = useState(false);
+
     const menuRef = useRef<HTMLDivElement>(null);
+    const memoRef = useRef<HTMLDivElement>(null);
+    const  extRef = useRef<HTMLDivElement>(null);
 
     const navigate = useNavigate();
 
@@ -32,10 +36,6 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
             document.removeEventListener('mousedown', handleClickOutsid);
         };
     }, []);
-    
-    const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback((event) => {
-        setIsOpen(!isOpen);
-    },[ isOpen ]);
 
     const toggleMenu = useCallback (() => {
         setIsOpen(!isOpen);
@@ -64,10 +64,14 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
                     >
                         メモ欄
                     </button>
-                    <ExtNumberPopUp
-                        userAuthority={userAuthority}
-                        toggleMenu={() => setIsOpen(false)}
-                    />
+                    <button
+                        onClick={() =>{
+                            setShowExtNumber(true);
+                            setIsOpen(false);
+                        }}
+                    >
+                        内線番号
+                    </button>
                     <button
                         onClick={() => navigate('/')}
                     >
@@ -76,9 +80,21 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
                 </ul>
             </nav>
             {showMemoArea && (
-                <div className='overlay'>
-                    <div className='memoAreaContent'>
-                        <h2 className='memoAreaTitle'>メモ欄</h2>
+                <div
+                    className='overlay'
+                    onClick={(e) => {
+                        if (memoRef.current && !memoRef.current.contains(e.target as Node)) {
+                            setShowMemoArea(false);
+                        }
+                    }}
+                >
+                    <div
+                        className='memoAreaContent'
+                        ref={memoRef}
+                    >
+                        <h2 className='memoAreaTitle'>
+                            メモ欄
+                        </h2>
                         <button
                             className='closeButton'
                             onClick={() => {
@@ -93,6 +109,26 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
                             setMemo={setMemo}
                             handleBlur={handleBlur}
                             userAuthority={userAuthority}
+                        />
+                    </div>
+                </div>
+            )}
+            {showExtNumber && (
+                <div
+                    className='overlay'
+                    onClick={(e) => {
+                        if (extRef.current && !extRef.current.contains(e.target as Node)) {
+                            setShowExtNumber(false);
+                        }
+                    }}
+                >
+                    <div
+                        ref={extRef}
+                    >
+                        <ExtNumberPopUp
+                            userAuthority={userAuthority}
+                            onOpen={() => setIsOpen(false)}
+                            onClose={() => setShowExtNumber(false)}
                         />
                     </div>
                 </div>
