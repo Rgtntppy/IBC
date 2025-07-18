@@ -7,6 +7,7 @@ export const BinBlock: React.FC<BinBlockProps> = ({
     onChange,
     onCheckboxToggle,
     onColorChange,
+    addCountFlag,
 }) => {
     return (
         <div className='binBlock'>
@@ -40,6 +41,7 @@ export const BinBlock: React.FC<BinBlockProps> = ({
                 onIncrement={() => onChange(row.id, 'today', 1)}
                 onDecrement={() => onChange(row.id, 'today', -1)}
                 onCheckboxToggle={() => onCheckboxToggle(row.id, 'isLargeDrumToday')}
+                addCountFlag={addCountFlag}
             />
 
             <BinDayBlock
@@ -53,6 +55,7 @@ export const BinBlock: React.FC<BinBlockProps> = ({
                 onIncrement={() => onChange(row.id, 'tomorrow', 1)}
                 onDecrement={() => onChange(row.id, 'tomorrow', -1)}
                 onCheckboxToggle={() => onCheckboxToggle(row.id, 'isLargeDrumTomorrow')}
+                addCountFlag={addCountFlag}
             />
         </div>
     );

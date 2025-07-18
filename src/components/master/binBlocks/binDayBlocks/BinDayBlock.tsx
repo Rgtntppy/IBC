@@ -13,6 +13,7 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
     onIncrement,
     onDecrement,
     onCheckboxToggle,
+    addCountFlag,
 }) => {
 
     return (
@@ -44,6 +45,7 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
                     onClick={() => {
                             onIncrement();
                     }}
+                    disabled={!addCountFlag}
                 >
                     ▲
                 </button>
@@ -52,6 +54,7 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
                     onClick={() => {
                         onDecrement();
                     }}
+                    disabled={!addCountFlag}
                 >
                     ▼
                 </button>

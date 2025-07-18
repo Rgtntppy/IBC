@@ -1,3 +1,6 @@
+import { HeaderTabProps } from '../../header/headerInterface';
+
+type addCountFlag=HeaderTabProps['addCountFlag']
 export interface BinDayBlockProps {
     label: string;
     className: string;
@@ -9,4 +12,5 @@ export interface BinDayBlockProps {
     onIncrement: () => void;
     onDecrement: () => void;
     onCheckboxToggle: () => void;
+    addCountFlag: addCountFlag;
 }

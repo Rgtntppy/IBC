@@ -97,6 +97,16 @@ $button-radius: 5px;
         border-radius: $button-radius;
         color: white;
         transition: background-color 0.2s;
+
+        &:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+
+            &:hover {
+                background-color: #ccc;
+            }
+        }
     }
 
     .countUpButton {

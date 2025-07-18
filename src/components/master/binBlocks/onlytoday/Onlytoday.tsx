@@ -14,6 +14,7 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
     onCheckboxToggle,
     onNameChange,
     userAuthority,
+    addCountFlag,
 }) => {
     const [binName, setBinName] = useState(bin);
     const [isEditing, setIsEditing] = useState(false);
@@ -75,6 +76,7 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
                 onIncrement={() => onChange(id, 'today', 1)}
                 onDecrement={() => onChange(id, 'today', -1)}
                 onCheckboxToggle={() => onCheckboxToggle(id, 'isLargeDrumToday')}
+                addCountFlag={addCountFlag}
             />
         </div>
     );
