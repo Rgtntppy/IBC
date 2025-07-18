@@ -266,6 +266,9 @@ const ShipmentTable: React.FC = () => {
 
   const prepareNextDay = async () => {
     if (userAuthority < 8) return;
+
+    await reloadData();
+    
     setBinData(prev =>
       prev.map(item => 
         TentativeIDs.includes(item.id)
@@ -377,6 +380,7 @@ const ShipmentTable: React.FC = () => {
                   onChange={handleChange}
                   onCheckboxToggle={handleCheckboxToggle}
                   onColorChange={handleColorChange}
+                  addCountFlag={addCountFlag}
                   />
                   ))}
             </div>
@@ -388,6 +392,7 @@ const ShipmentTable: React.FC = () => {
               onCheckboxToggle={handleCheckboxTentative}
               onNameChange={handleNameChangeTentative}
               userAuthority={userAuthority}
+              addCountFlag={addCountFlag}
             />
           )}
         </div>
@@ -405,6 +410,7 @@ const ShipmentTable: React.FC = () => {
                   onChange={handleChange}
                   onCheckboxToggle={handleCheckboxToggle}
                   onColorChange={handleColorChange}
+                  addCountFlag={addCountFlag}
                 />
               ))}
             </div>
@@ -416,6 +422,7 @@ const ShipmentTable: React.FC = () => {
               onCheckboxToggle={handleCheckboxTentative}
               onNameChange={handleNameChangeTentative}
               userAuthority={userAuthority}
+              addCountFlag={addCountFlag}
             />
           )}
           <div>
