@@ -24,6 +24,7 @@ import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
 import { OnlytodaysBinData } from '../../data/binData/onlytodayBinData/onlytodaysBinData';
 import { loadOnlytodayData } from '../../firebase/onlytodaysData/loadOnlytodaysData';
 import { saveOnlytodayData } from '../../firebase/onlytodaysData/saveOnlytodaysData';
+import { YarnCat } from './accessaories/yarnCat/YarnCat';
 
 const ShipmentTable: React.FC = () => {
   const [userName, setUserName] = useState('');
@@ -427,10 +428,8 @@ const ShipmentTable: React.FC = () => {
           )}
           <div>
             {yarnCat && 
-              <img
-                className='yarnCat'
-                src={yarnCat}
-                alt='毛糸猫'
+              <YarnCat
+                yarnCat={yarnCat}
               />
             }
           </div>
