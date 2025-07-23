@@ -24,7 +24,7 @@ export const BinData = [
     { id: 78, bin: "78", binAlert: 'white', today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 },
     { id: 79, bin: "79", binAlert: 'white', today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 },
     { id: 80, bin: "80", binAlert: 'white', today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 10 },
-    { id: 810, bin: "AM81", binAlert: 'white', today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 },
+    { id: 810, bin: "AM81", binAlert: 'white', today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3, highlight: "blue" },
     { id: 81,  bin: "PM81", binAlert: 'white', today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 },
     { id: 95, bin: "95", binAlert: 'white', today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 },
     { id: 96, bin: "96", binAlert: 'white', today: 0, isLargeDrumToday: false, tomorrow: 0, isLargeDrumTomorrow: false, limit: 3 }
