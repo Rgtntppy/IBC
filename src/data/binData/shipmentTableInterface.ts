@@ -7,5 +7,5 @@ export interface ShipmentData {
     tomorrow: number;
     isLargeDrumTomorrow:boolean;
     limit: number;
-    highlight?: "red" | "blue" | "green" | "white";
+    highlight?: 'red' | 'blue' | 'green' | 'white';
 }

@@ -6,7 +6,7 @@ const ONLYTODAY_DOC_ID = 'onlytoday_latest'
 
 export const loadOnlytodayData = async (): Promise<OnlytodayProps[] | null> => {
     try {
-        const docSnap = await getDoc(doc(db, 'dayCells', ONLYTODAY_DOC_ID));
+        const docSnap = await getDoc(doc(db, 'onlyDayCells', ONLYTODAY_DOC_ID));
         if (docSnap.exists()) {
             return docSnap.data().data;
         } else {

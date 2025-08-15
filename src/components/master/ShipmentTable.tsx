@@ -1,3 +1,5 @@
+import { doc, onSnapshot } from 'firebase/firestore';
+import { db } from '../../firebase/firebase';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import React, { useEffect, useState, useMemo } from 'react';
@@ -24,7 +26,9 @@ import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
 import { OnlytodaysBinData } from '../../data/binData/onlytodayBinData/onlytodaysBinData';
 import { loadOnlytodayData } from '../../firebase/onlytodaysData/loadOnlytodaysData';
 import { saveOnlytodayData } from '../../firebase/onlytodaysData/saveOnlytodaysData';
+import { updateOnlytodayValue } from '../../firebase/onlytodaysData/updateOnlytodayValue';
 import { YarnCat } from './accessaories/yarnCat/YarnCat';
+import { OnlytodaysData } from '../../data/binData/onlytodayBinData/onlytodaysBinDataInterface';
 
 const ShipmentTable: React.FC = () => {
   const [userName, setUserName] = useState('');
@@ -72,12 +76,39 @@ const ShipmentTable: React.FC = () => {
       //通常便データの取得
       const loaded = await loadDayCells();
       if (loaded) setBinData(loaded);
-
+      
       //仮便データの取得
       const loadedOnlytoday = await loadOnlytodayData();
       if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
-      
+
+      const unsubscribe = onSnapshot(doc(db, 'onlyDayCells', 'onlytoday_latest'), (docSnapshot) => {
+        if (!docSnapshot.exists()) {
+          console.log('ドキュメントが存在しません: dayCells/onlytoday_latest');
+          return;
+        }
+
+        const onlytodayData = docSnapshot.data();
+        const rawArray = onlytodayData?.data;
+
+        if (!Array.isArray(rawArray)) {
+          console.error('onlytodayData フィールドが配列ではありません:', rawArray);
+          return;
+        }
+
+        const loadedData: OnlytodaysData[] = rawArray.map((item: any) => ({
+          id: Number(item.id),
+          bin: item.bin ?? '',
+          today: item.today ?? 0,
+          isLargeDrumToday: item.isLargeDrumToday ?? false,
+        } as OnlytodaysData
+        ));
+
+        setOnlytodaysBinData(loadedData);
+      });
+
       setHasInitialized(true);
+      
+      return () => unsubscribe();
     };
 
     initialize();
@@ -88,7 +119,6 @@ const ShipmentTable: React.FC = () => {
     if (hasInitialized) {
       const timeout = setTimeout(() => {
         saveDayCells(binData);
-        saveOnlytodayData(onlytodaysBinData);
       }, 200);
 
       return () => clearTimeout(timeout);
@@ -229,7 +259,10 @@ const ShipmentTable: React.FC = () => {
     );
   };
 
-  const handleNameChangeTentative = (id: number, newName: string) => {
+  const handleNameChangeTentative = (
+    id: number,
+    newName: string,
+    ) => {
     if (userAuthority < 5) return;
 
     setOnlytodaysBinData(prev => {
@@ -243,26 +276,23 @@ const ShipmentTable: React.FC = () => {
     });
   };
 
-  const handleChangeTentative = (id: number, key: 'today', diff: number) => {
+  const handleChangeTentative = async (
+    id: number,
+    key: 'today',
+    diff: number,
+    ) => {
     if (userAuthority < 5 || !addCountFlag) return;
-    setOnlytodaysBinData(prev =>
-      prev.map(item =>
-        item.id === id
-        ? { ...item, [key]: Math.max(0, (item[key] ?? 0) + diff) }
-        : item
-      )
-    );
+
+    await updateOnlytodayValue(id, key, diff);
   };
 
-  const handleCheckboxTentative = (id: number, key: 'isLargeDrumToday') => {
+  const handleCheckboxTentative = async (
+    id: number,
+    key: 'isLargeDrumToday',
+    ) => {
     if (userAuthority < 5 || !addCountFlag) return;
-    setOnlytodaysBinData(prev =>
-      prev.map(item =>
-        item.id === id
-        ? { ...item, [key]: !item[key] }
-      : item
-      )
-    );
+
+    await updateOnlytodayValue(id, key);
   };
 
   const prepareNextDay = async () => {

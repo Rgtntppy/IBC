@@ -7,10 +7,11 @@ const ONLYTODAY_DOC_ID = 'onlytoday_latest'
 
 const _saveOnlytodayData = async (onlytodaysData: OnlytodaysData[]) => {
     try {
-        await setDoc(doc(db, 'dayCells', ONLYTODAY_DOC_ID), {
+        await setDoc(doc(db, 'onlyDayCells', ONLYTODAY_DOC_ID), {
             data: onlytodaysData,
             createdAt: new Date(),
         });
+        console.log('仮便データ保存')
     } catch (e) {
         console.error('Error saving document: ', e);
     }

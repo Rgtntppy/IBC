@@ -11,6 +11,7 @@ const _saveDayCells = async (dayCells: DaysCellsData[]) => {
             data: dayCells,
             createdAt: new Date(),
         });
+        console.log('通常便データ保存')
     } catch (e) {
         console.error('Error saving document: ', e);
     }
