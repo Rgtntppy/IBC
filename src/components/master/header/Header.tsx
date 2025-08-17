@@ -21,7 +21,7 @@ export const Header: React.FC<HeaderTabProps> = ({
         await reloadData();
         setAddCountFlag(true);
 
-        setTimeout(() => setAddCountFlag(false), 5 * 1000);
+        setTimeout(() => setAddCountFlag(false), 8 * 1000);
     };
 
     const handleClick = async () => {

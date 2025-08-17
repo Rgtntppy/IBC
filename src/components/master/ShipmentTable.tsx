@@ -9,6 +9,7 @@ import './shipmentDesign.scss';
 import { importAll } from '../img/importImages';
 import { saveDayCells } from '../../firebase/firestoreDaysData/saveDaysData';
 import { loadDayCells } from '../../firebase/firestoreDaysData/loadDaysData';
+import { prepareNextDay } from '../../firebase/firestoreDaysData/prepareNextDay';
 import { ShipmentData } from '../../data/binData/shipmentTableInterface'
 import { BinData } from '../../data/binData/binData';
 import { Header } from './header/Header';
@@ -26,6 +27,7 @@ import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
 import { OnlytodaysBinData } from '../../data/binData/onlytodayBinData/onlytodaysBinData';
 import { loadOnlytodayData } from '../../firebase/onlytodaysData/loadOnlytodaysData';
 import { saveOnlytodayData } from '../../firebase/onlytodaysData/saveOnlytodaysData';
+import { updateTodayValue } from '../../firebase/firestoreDaysData/updateTodayValue';
 import { updateOnlytodayValue } from '../../firebase/onlytodaysData/updateOnlytodayValue';
 import { YarnCat } from './accessaories/yarnCat/YarnCat';
 import { OnlytodaysData } from '../../data/binData/onlytodayBinData/onlytodaysBinDataInterface';
@@ -76,12 +78,44 @@ const ShipmentTable: React.FC = () => {
       //通常便データの取得
       const loaded = await loadDayCells();
       if (loaded) setBinData(loaded);
+
+      const unscribe = onSnapshot(doc(db, 'dayCells', 'latest'),
+      (docSnapshot) => {
+        if (!docSnapshot.exists()) {
+          console.log('ドキュメントが存在しません: dayCells/latest');
+          return;
+        }
+
+        const dayCellsData = docSnapshot.data();
+        const rawArray = dayCellsData.data;
+
+        if (!Array.isArray(rawArray)) {
+          console.error('dayCellsData.data フィールドが配列ではありません:', rawArray);
+          return;
+        }
+        
+        const loadedData: ShipmentData[] = rawArray.map((item: any) => ({
+          id: Number(item.id),
+          bin: item.bin ?? '',
+          today: item.today ?? 0,
+          isLargeDrumToday: item.isLargeDrumToday ?? false,
+          tomorrow: item.tomorrow ?? 0,
+          isLargeDrumTomorrow: item.isLargeDrumTomorrow ?? false,
+          binAlert: item.binAlert ?? 'white',
+          highlight: item.highlight,
+          limit: item.limit,
+        }));
+
+        setBinData(loadedData);
+      }
+      );
       
       //仮便データの取得
       const loadedOnlytoday = await loadOnlytodayData();
       if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
 
-      const unsubscribe = onSnapshot(doc(db, 'onlyDayCells', 'onlytoday_latest'), (docSnapshot) => {
+      const unsubscribe = onSnapshot(doc(db, 'onlyDayCells', 'onlytoday_latest'),
+      (docSnapshot) => {
         if (!docSnapshot.exists()) {
           console.log('ドキュメントが存在しません: dayCells/onlytoday_latest');
           return;
@@ -108,22 +142,21 @@ const ShipmentTable: React.FC = () => {
 
       setHasInitialized(true);
       
-      return () => unsubscribe();
+      return () => {
+        unscribe();
+        unsubscribe();
+      };
     };
 
     initialize();
   },[]);
 
   //初期化後の data 更新時のみ保存
-  useEffect(() => {
-    if (hasInitialized) {
-      const timeout = setTimeout(() => {
-        saveDayCells(binData);
-      }, 200);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [binData, onlytodaysBinData]);
+  // useEffect(() => {
+  //   if (hasInitialized) {
+  //     
+  //   }
+  // }, [binData, onlytodaysBinData]);
 
   useEffect(() => {
     if (!hasInitialized) return;
@@ -132,7 +165,6 @@ const ShipmentTable: React.FC = () => {
     
     const memoInterval = setInterval(async () => {
       await reloadMemoData();
-      await reloadData();
     }, 15 * 60 * 1000);
 
     let binDataInterval: NodeJS.Timeout | null = null;
@@ -201,62 +233,22 @@ const ShipmentTable: React.FC = () => {
     await saveMemoData({ content: memo });
   };
 
-  const getNextAlert = (current: string, hasHighlight: boolean): string => {
-    if (userAuthority < 7) {
-      return current;
-    }
-    const normalCycle = ['white', 'yellow', 'red'];
-    const highlightedCycle = ['white', 'yellow', 'red'];
-
-    const cycle = hasHighlight ? highlightedCycle : normalCycle;
-    const idx = cycle.indexOf(current);
-    const next = idx === -1 ? 'white' : cycle[(idx + 1) % cycle.length];
-    return next;
-  };
-
-  const handleColorChange = (id: number) => {
+  const handleColorChange = async (id: number) => {
     if (userAuthority < 5) return;
-    setBinData(prev =>
-      prev.map(item =>
-        item.id === id
-        ? {
-          ...item,
-          binAlert:
-            getNextAlert(item.binAlert, !!item.highlight)
-        }
-        : item
-      )
-    );
+
+    await updateTodayValue(id, 'binAlert');
   };
   
-  const handleChange = (id: number, key: 'today' | 'tomorrow', diff: number) => {
+  const handleChange = async (id: number, key: 'today' | 'tomorrow', diff: number) => {
     if (userAuthority < 5 || !addCountFlag) return;
-    setBinData(prev =>
-      prev.map(item =>
-        item.id === id
-        ? { 
-          ...item,
-          [key]: (() => {
-            const newVal = (item[key] ?? 0) + diff;
-            if (newVal <  0) return  0;
-            if (newVal > 50) return 50;
-            return newVal;
-          })(),
-        }
-        : item
-      )
-    );
+    
+    await updateTodayValue(id, key, diff);
   };
 
-  const handleCheckboxToggle = (id: number, key: 'isLargeDrumToday' | 'isLargeDrumTomorrow') => {
+  const handleCheckboxToggle = async (id: number, key: 'isLargeDrumToday' | 'isLargeDrumTomorrow') => {
     if (userAuthority < 5 || !addCountFlag) return;
-    setBinData(prev => 
-      prev.map(item =>
-        item.id === id
-          ? { ...item, [key]: !item[key] }
-          : item
-      )
-    );
+    
+    await updateTodayValue(id, key);
   };
 
   const handleNameChangeTentative = (
@@ -295,24 +287,11 @@ const ShipmentTable: React.FC = () => {
     await updateOnlytodayValue(id, key);
   };
 
-  const prepareNextDay = async () => {
+  const handlePrepareNextDay = async () => {
     if (userAuthority < 8) return;
 
     await reloadData();
-    
-    setBinData(prev =>
-      prev.map(item => 
-        TentativeIDs.includes(item.id)
-        ? item
-        : {
-        ...item,
-        today: item.tomorrow ?? 0,
-        tomorrow: 0,
-        isLargeDrumToday: item.isLargeDrumTomorrow ?? false,
-        isLargeDrumTomorrow: false
-        }
-      )
-    );
+    await prepareNextDay();
 
     const ymd = currentDate.replace(/\D/g, '');
     const nextYMD = getNextBusinessDay(ymd);
@@ -320,9 +299,6 @@ const ShipmentTable: React.FC = () => {
 
     setCurrentDate(dayjs(nextYMD).format('YYYY/MM/DD'));
     setDisplayDate(nextDateDisplay);
-
-    await saveDayCells(binData);
-    await saveOnlytodayData(onlytodaysBinData);
 
     toast.success('保存が完了しました', {
       position: 'top-center',
@@ -388,7 +364,7 @@ const ShipmentTable: React.FC = () => {
         setDisplayDate={setDisplayDate}
         isDateConfirmed={isDateConfirmed}
         setIsDateConfirmed={setIsDateConfirmed}
-        prepareNextDay={prepareNextDay}
+        handlePrepareNextDay={handlePrepareNextDay}
         authority={userAuthority}
       />
       <MemoArea
@@ -465,7 +441,7 @@ const ShipmentTable: React.FC = () => {
           </div>
           <PrepareForTheNextDayPopUp
             userAuthority={userAuthority}
-            prepareNextDay={prepareNextDay}
+            handlePrepareNextDay={handlePrepareNextDay}
           />
         </div>
       </div>

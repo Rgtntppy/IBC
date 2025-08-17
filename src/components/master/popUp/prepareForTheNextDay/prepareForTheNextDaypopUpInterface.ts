@@ -4,5 +4,5 @@ type userAuthority = UsersProps['userAuthority'];
 
 export interface PrepareForTheNextDayPopUpProps {
     userAuthority: userAuthority;
-    prepareNextDay: () => void;
+    handlePrepareNextDay: () => void;
 }

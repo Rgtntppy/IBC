@@ -5,7 +5,7 @@ import { PrepareForTheNextDayPopUpProps } from './prepareForTheNextDaypopUpInter
 
 export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayPopUpProps> = ({
     userAuthority,
-    prepareNextDay,
+    handlePrepareNextDay,
 }) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
@@ -41,7 +41,7 @@ export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayPopUpProps>
               <button
                 className='yesAnswer'
                 onClick={() => {
-                  prepareNextDay();
+                  handlePrepareNextDay();
                   setShowConfirmModal(false);
                 }}
               >

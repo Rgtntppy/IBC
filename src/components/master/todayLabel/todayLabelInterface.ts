@@ -13,6 +13,6 @@ export interface TodayLabelProps {
     setDisplayDate: (display: string) => void;
     isDateConfirmed: boolean;
     setIsDateConfirmed: (b: boolean) => void;
-    prepareNextDay: () => void;
+    handlePrepareNextDay: () => void;
     authority: userAuthority;
 };
