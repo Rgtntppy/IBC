@@ -1,13 +1,19 @@
 export const extensionNumber = [
     {
-        place:'事務所',
+        place:'事務所(サブ)',
         number:210,
     },{
-        place:'事務所',
+        place:'事務所(引取用)',
         number:211,
     },{
-        place:'事務所',
+        place:'事務所(EX)',
+        number:212,
+    },{
+        place:'事務所(メイン)',
         number:213,
+    },{
+        place:'引取場',
+        number:220,
     },{
         place:'CVT切断場',
         number:222,
@@ -17,8 +23,5 @@ export const extensionNumber = [
     },{
         place:'CV切断場',
         number:226,
-    },{
-        place:'引取場',
-        number:220,
     },
 ]
