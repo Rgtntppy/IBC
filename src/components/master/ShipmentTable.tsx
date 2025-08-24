@@ -287,6 +287,22 @@ const ShipmentTable: React.FC = () => {
     await updateOnlytodayValue(id, key);
   };
 
+  const handleDeleteTentative = (
+    id: number
+    ) => {
+    const initialValue = OnlytodaysBinData.find(item => item.id === id);
+    if (!initialValue) return;
+
+    setOnlytodaysBinData(prev => {
+      const updated = prev.map(item =>
+        item.id === id ? { ...initialValue } : item
+      );
+
+      saveOnlytodayData(updated);
+      return updated;
+    });
+  };
+
   const handlePrepareNextDay = async () => {
     if (userAuthority < 8) return;
 
@@ -400,6 +416,7 @@ const ShipmentTable: React.FC = () => {
               onNameChange={handleNameChangeTentative}
               userAuthority={userAuthority}
               addCountFlag={addCountFlag}
+              onDelete={handleDeleteTentative}
             />
           )}
         </div>
@@ -430,6 +447,7 @@ const ShipmentTable: React.FC = () => {
               onNameChange={handleNameChangeTentative}
               userAuthority={userAuthority}
               addCountFlag={addCountFlag}
+              onDelete={handleDeleteTentative}
             />
           )}
           <div>

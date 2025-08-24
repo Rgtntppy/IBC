@@ -13,4 +13,5 @@ export interface OnlytodayProps extends OnlytodaysData {
     onCheckboxToggle: (id: number, key: 'isLargeDrumToday') => void;
     userAuthority: userAuthority;
     addCountFlag: addCountFlag;
+    onDelete: (id: number) => void; 
 }

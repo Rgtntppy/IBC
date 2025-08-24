@@ -178,6 +178,14 @@ $button-radius: 5px;
             background-color: #a71d2a;
         }
     }
+
+    .deleteButton {
+        border-radius: $button-radius;
+        background-color: #CB2E46;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 700;
+    }
     
     // <weight>: Use a value from 100 to 900
     .noto-sans-jp {

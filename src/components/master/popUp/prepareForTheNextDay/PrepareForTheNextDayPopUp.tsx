@@ -1,7 +1,7 @@
 import './prepareForTheNextDaypopUp.scss';
-import { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import { useState } from 'react';
 import { PrepareForTheNextDayPopUpProps } from './prepareForTheNextDaypopUpInterface';
+import { ConfirmDialog } from '../../popUp/confirmDialog/ConfirmDialog';
 
 export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayPopUpProps> = ({
     userAuthority,
@@ -9,55 +9,37 @@ export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayPopUpProps>
 }) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-  useEffect(() => {
-    if (showConfirmModal) {
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = '';
-    }
-    return () => {
-        document.body.style.overflow = '';
-    };
-  }, [showConfirmModal]);
+  const handleDeleteClick = () => {
+    setShowConfirmModal(true);
+  };
+
+  const handleConfirmDelete = () => {
+    handlePrepareNextDay();
+    setShowConfirmModal(false);
+  };
+
+  const handleCancelDelete = () => {
+    setShowConfirmModal(false);
+  };
 
   return (
     <div className='prepareNextDayContents'>
       <button
         className='prepareNextDay'
-        onClick={userAuthority >= 8 ? () => setShowConfirmModal(true) : undefined}
+        onClick={handleDeleteClick}
         disabled={userAuthority < 8}
       >
         翌日分準備
       </button>
-      {showConfirmModal && ReactDOM.createPortal (
-        <div className='nextDayModalOverlay'>
-          <div className='nextDayModalContent'>
-            <p>
-              本日分のデータは失われますが
-              <br/>
-              よろしいでしょうか？
-            </p>
-            <div className='nextDayModalButtons'>
-              <button
-                className='yesAnswer'
-                onClick={() => {
-                  handlePrepareNextDay();
-                  setShowConfirmModal(false);
-                }}
-              >
-                はい
-              </button>
-              <button
-                className='noAnswer'
-                onClick={() => setShowConfirmModal(false)}
-              >
-                いいえ
-              </button>
-            </div>
-          </div>
-        </div>,
-        document.body
-      )}
+      <ConfirmDialog
+        isOpen={showConfirmModal}
+        title='注意!'
+        message={
+          `本日分のデータは失われますが\nよろしいでしょうか？`
+        }
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelDelete}
+      />
     </div>
   );
 };

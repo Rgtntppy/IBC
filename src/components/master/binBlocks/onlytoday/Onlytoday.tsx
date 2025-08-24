@@ -2,6 +2,7 @@ import './onlytoday.scss';
 import { useState, useEffect, useRef } from 'react';
 import { OnlytodayProps } from './onlytodayInterface';
 import { BinDayBlock } from '../binDayBlocks/BinDayBlock';
+import { ConfirmDialog } from '../../popUp/confirmDialog/ConfirmDialog';
 
 export const Onlytoday: React.FC<OnlytodayProps> = ({
     id,
@@ -15,9 +16,11 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
     onNameChange,
     userAuthority,
     addCountFlag,
+    onDelete,
 }) => {
     const [binName, setBinName] = useState(bin);
     const [isEditing, setIsEditing] = useState(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -27,6 +30,19 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
     const handleBlur = () => {
         setIsEditing(false);
         onNameChange(id, binName);
+    };
+
+    const handleDeleteClick = () => {
+        setIsDialogOpen(true);
+    };
+
+    const handleConfirmDelete = () => {
+        onDelete(id);
+        setIsDialogOpen(false);
+    };
+
+    const handleCancelDelete = () => {
+        setIsDialogOpen(false);
     };
     
     return (
@@ -66,17 +82,31 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
                 )}
             </div>
             <BinDayBlock
-                label="当日分"
+                label=''
                 className={`todayCells ${highlight ? `highlight-${highlight}` : ''}`}
                 count={today}
                 limit={limit}
                 showCheckbox={true}
                 checked={isLargeDrumToday}
-                checkboxLabel="大ドラム"
+                checkboxLabel='大ドラム'
                 onIncrement={() => onChange(id, 'today', 1)}
                 onDecrement={() => onChange(id, 'today', -1)}
                 onCheckboxToggle={() => onCheckboxToggle(id, 'isLargeDrumToday')}
                 addCountFlag={addCountFlag}
+            />
+            <button
+                className='deleteButton'
+                onClick={handleDeleteClick}
+            >
+                削除
+            </button>
+
+            <ConfirmDialog
+                isOpen={isDialogOpen}
+                title='削除の確認'
+                message={`「 ${bin} 」の内容を削除してもよろしいでしょうか？`}
+                onConfirm={handleConfirmDelete}
+                onCancel={handleCancelDelete}
             />
         </div>
     );
