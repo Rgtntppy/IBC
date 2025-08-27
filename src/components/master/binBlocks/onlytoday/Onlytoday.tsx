@@ -33,6 +33,8 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
     };
 
     const handleDeleteClick = () => {
+        if (userAuthority < 5) return;
+        
         setIsDialogOpen(true);
     };
 

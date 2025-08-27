@@ -31,6 +31,7 @@ import { updateTodayValue } from '../../firebase/firestoreDaysData/updateTodayVa
 import { updateOnlytodayValue } from '../../firebase/onlytodaysData/updateOnlytodayValue';
 import { YarnCat } from './accessaories/yarnCat/YarnCat';
 import { OnlytodaysData } from '../../data/binData/onlytodayBinData/onlytodaysBinDataInterface';
+import { ProhititionText } from './accessaories/prohibitionText/ProhibitionText';
 
 const ShipmentTable: React.FC = () => {
   const [userName, setUserName] = useState('');
@@ -450,6 +451,7 @@ const ShipmentTable: React.FC = () => {
               onDelete={handleDeleteTentative}
             />
           )}
+          <ProhititionText />
           <div>
             {yarnCat && 
               <YarnCat

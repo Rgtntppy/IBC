@@ -181,10 +181,14 @@ $button-radius: 5px;
 
     .deleteButton {
         border-radius: $button-radius;
-        background-color: #CB2E46;
+        color: #000;
         cursor: pointer;
         font-size: 16px;
         font-weight: 700;
+
+        &:hover {
+            background-color: #CB2E46;
+        }
     }
     
     // <weight>: Use a value from 100 to 900
