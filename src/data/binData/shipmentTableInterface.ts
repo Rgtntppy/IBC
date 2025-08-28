@@ -6,6 +6,6 @@ export interface ShipmentData {
     isLargeDrumToday:boolean;
     tomorrow: number;
     isLargeDrumTomorrow:boolean;
-    limit: number;
+    alertborder: number;
     highlight?: 'red' | 'blue' | 'green' | 'white';
 }

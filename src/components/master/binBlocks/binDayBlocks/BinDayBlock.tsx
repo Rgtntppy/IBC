@@ -6,7 +6,7 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
     label,
     className,
     count,
-    limit,
+    alertborder,
     showCheckbox = false,
     checked = false,
     checkboxLabel = "",
@@ -18,7 +18,7 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
 
     return (
         <div className='binDayCells'>
-            <div className={`dayCells ${className || ''} ${count > limit ? 'alert' : ''}`}>
+            <div className={`dayCells ${className || ''} ${count > alertborder ? 'alert' : ''}`}>
                 <p className='label'>{label}</p>
                 <div
                     className='count noto-serif-jp'

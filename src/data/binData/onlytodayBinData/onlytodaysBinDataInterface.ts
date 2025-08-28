@@ -3,6 +3,6 @@ export interface OnlytodaysData {
     bin: string;
     today: number;
     isLargeDrumToday:boolean;
-    limit: number;
+    alertborder: number;
     highlight: string;
 }

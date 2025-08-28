@@ -9,7 +9,7 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
     bin,
     today,
     isLargeDrumToday,
-    limit,
+    alertborder,
     highlight,
     onChange,
     onCheckboxToggle,
@@ -34,7 +34,7 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
 
     const handleDeleteClick = () => {
         if (userAuthority < 5) return;
-        
+
         setIsDialogOpen(true);
     };
 
@@ -87,7 +87,7 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
                 label=''
                 className={`todayCells ${highlight ? `highlight-${highlight}` : ''}`}
                 count={today}
-                limit={limit}
+                alertborder={alertborder}
                 showCheckbox={true}
                 checked={isLargeDrumToday}
                 checkboxLabel='大ドラム'

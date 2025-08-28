@@ -1,6 +1,6 @@
 import './binBlocks.scss';
-import { BinBlockProps } from "./binBlockInterface";
-import { BinDayBlock } from "./binDayBlocks/BinDayBlock";
+import { BinBlockProps } from './binBlockInterface';
+import { BinDayBlock } from './binDayBlocks/BinDayBlock';
 
 export const BinBlock: React.FC<BinBlockProps> = ({ 
     row,
@@ -31,13 +31,13 @@ export const BinBlock: React.FC<BinBlockProps> = ({
                 }
             </div>
             <BinDayBlock
-                label="当日分"
+                label='当日分'
                 className={`todayCells ${row.highlight ? `highlight-${row.highlight}` : ''}`}
                 count={row.today}
-                limit={row.limit}
+                alertborder={row.alertborder}
                 showCheckbox={true}
                 checked={row.isLargeDrumToday}
-                checkboxLabel="大ドラム"
+                checkboxLabel='大ドラム'
                 onIncrement={() => onChange(row.id, 'today', 1)}
                 onDecrement={() => onChange(row.id, 'today', -1)}
                 onCheckboxToggle={() => onCheckboxToggle(row.id, 'isLargeDrumToday')}
@@ -45,13 +45,13 @@ export const BinBlock: React.FC<BinBlockProps> = ({
             />
 
             <BinDayBlock
-                label="翌日分"
-                className="nextDayCells"
+                label='翌日分'
+                className='nextDayCells'
                 count={row.tomorrow ?? 0}
-                limit={row.limit}
+                alertborder={row.alertborder}
                 showCheckbox={true}
                 checked={row.isLargeDrumTomorrow ?? false}
-                checkboxLabel="大ドラム"
+                checkboxLabel='大ドラム'
                 onIncrement={() => onChange(row.id, 'tomorrow', 1)}
                 onDecrement={() => onChange(row.id, 'tomorrow', -1)}
                 onCheckboxToggle={() => onCheckboxToggle(row.id, 'isLargeDrumTomorrow')}

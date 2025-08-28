@@ -5,7 +5,7 @@ export interface BinDayBlockProps {
     label: string;
     className: string;
     count: number;
-    limit: number;
+    alertborder: number;
     showCheckbox: boolean;
     checked: boolean;
     checkboxLabel?: string;
