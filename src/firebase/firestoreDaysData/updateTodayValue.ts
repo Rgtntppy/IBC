@@ -9,7 +9,7 @@ const getNextAlert = (current: string, hasHighlight: boolean): string => {
     const idx = cycle.indexOf(current);
     const next = idx === -1 ? 'white' : cycle[(idx + 1) % cycle.length];
     return next;
-  };
+};
 
 export const updateTodayValue = async (
     id: number,

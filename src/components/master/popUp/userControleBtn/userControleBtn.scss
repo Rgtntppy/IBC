@@ -1,0 +1,26 @@
+.btn {
+    position: absolute;
+    right: 30px;
+    padding: 6px 12px;
+    background-color: rgb(220, 220, 220);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.resetAllAlertsButton {
+    bottom: 42px;
+    
+    &:hover {
+        background-color: #facc15;
+    }
+}
+
+.prepareNextDay {
+    bottom: 8px;
+    
+    &:hover {
+        background-color: red;
+    }    
+}

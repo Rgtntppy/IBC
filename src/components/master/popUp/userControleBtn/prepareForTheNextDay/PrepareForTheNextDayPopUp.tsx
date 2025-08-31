@@ -1,9 +1,9 @@
-import './prepareForTheNextDaypopUp.scss';
+import '../userControleBtn.scss';
 import { useState } from 'react';
-import { PrepareForTheNextDayPopUpProps } from './prepareForTheNextDaypopUpInterface';
-import { ConfirmDialog } from '../../popUp/confirmDialog/ConfirmDialog';
+import { PrepareForTheNextDayProps } from './prepareForTheNextDaypopUpInterface';
+import { ConfirmDialog } from '../../confirmDialog/ConfirmDialog';
 
-export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayPopUpProps> = ({
+export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayProps> = ({
     userAuthority,
     handlePrepareNextDay,
 }) => {
@@ -25,7 +25,7 @@ export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayPopUpProps>
   return (
     <div className='prepareNextDayContents'>
       <button
-        className='prepareNextDay'
+        className='btn prepareNextDay'
         onClick={handleDeleteClick}
         disabled={userAuthority < 8}
       >

@@ -22,7 +22,7 @@ import { TodayLabel } from './todayLabel/TodayLabel';
 import { loadMemoData } from '../../firebase/memoAreaData/loadMemoData';
 import { saveMemoData } from '../../firebase/memoAreaData/saveMemoData';
 import { MemoArea } from './memoArea/MemoArea';
-import { PrepareForTheNextDayPopUp } from './popUp/prepareForTheNextDay/PrepareForTheNextDayPopUp';
+import { PrepareForTheNextDayPopUp } from './popUp/userControleBtn/prepareForTheNextDay/PrepareForTheNextDayPopUp';
 import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
 import { OnlytodaysBinData } from '../../data/binData/onlytodayBinData/onlytodaysBinData';
 import { loadOnlytodayData } from '../../firebase/onlytodaysData/loadOnlytodaysData';
@@ -32,6 +32,8 @@ import { updateOnlytodayValue } from '../../firebase/onlytodaysData/updateOnlyto
 import { YarnCat } from './accessaories/yarnCat/YarnCat';
 import { OnlytodaysData } from '../../data/binData/onlytodayBinData/onlytodaysBinDataInterface';
 import { ProhititionText } from './accessaories/prohibitionText/ProhibitionText';
+import { resetAllAlerts } from '../../firebase/firestoreDaysData/resetAllAlerts';
+import { ResetAllAlertsPopUp } from './popUp/userControleBtn/resetAllAlerts/ResetAllAlerts';
 
 const ShipmentTable: React.FC = () => {
   const [userName, setUserName] = useState('');
@@ -235,10 +237,16 @@ const ShipmentTable: React.FC = () => {
   };
 
   const handleColorChange = async (id: number) => {
-    if (userAuthority < 5) return;
+    if (userAuthority < 7) return;
 
     await updateTodayValue(id, 'binAlert');
   };
+
+  const handleResetAllAlerts = async () => {
+    if (userAuthority < 7) return;
+
+    await resetAllAlerts();
+  }
   
   const handleChange = async (id: number, key: 'today' | 'tomorrow', diff: number) => {
     if (userAuthority < 5 || !addCountFlag) return;
@@ -459,6 +467,10 @@ const ShipmentTable: React.FC = () => {
               />
             }
           </div>
+          <ResetAllAlertsPopUp
+            userAuthority={userAuthority}
+            handleResetAllAlerts={handleResetAllAlerts}
+          />
           <PrepareForTheNextDayPopUp
             userAuthority={userAuthority}
             handlePrepareNextDay={handlePrepareNextDay}

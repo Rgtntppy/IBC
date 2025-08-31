@@ -1,11 +1,12 @@
 .prohibitionText {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
     position: absolute;
-    top: -12px;
+    top: -5px;
     left: 250px;
 
     .prohibition {
+        font-size: 1.5rem;
         color: red;
     }
 }

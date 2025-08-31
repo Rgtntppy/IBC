@@ -6,9 +6,9 @@ export const ProhititionText = () =>{
             <p
                 className='prohibitionText'
             >
-                引当情報確認からの
+                引当情報確認からの切断
             <br/>
-                切断の指定外は
+                の指定変えは原則
             <span
                 className='prohibition'
             >
