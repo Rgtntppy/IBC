@@ -35,7 +35,11 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
                                 onCheckboxToggle();
                             }}
                         />
-                        {checkboxLabel}
+                        <p
+                            className='checkboxLabelText'
+                        >
+                            {checkboxLabel}
+                        </p>
                     </label>
                 )}
             </div>

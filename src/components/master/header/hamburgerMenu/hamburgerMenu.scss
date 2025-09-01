@@ -2,13 +2,13 @@ $iconColor: #333;
 
 .hamburgerMenu {
   position: absolute;
-  top: 12px;
+  top: 17px;
   right: 10px;
 
   // ハンバーガーボタンのスタイル
   .hamburgerIcon {
     position: absolute;
-    top: 0;
+    top: -4px;
     right: 0;
     background: none;
     border: none;
@@ -88,7 +88,7 @@ $iconColor: #333;
       button {
         cursor: pointer;
         font-size: 24px;
-        padding: 0;
+        padding: 10px;
         background-color: #d6d6d6;
         border-style: none;
         margin: 30px 0; 

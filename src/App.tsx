@@ -1,4 +1,5 @@
 import React from 'react';
+import './reset.scss';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/topPage/Login';
 import ShipmentTable from './components/master/ShipmentTable';
