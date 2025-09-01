@@ -1,7 +1,7 @@
 .btn {
     position: absolute;
     right: 30px;
-    padding: 6px 12px;
+    padding: 4px 10px;
     background-color: rgb(220, 220, 220);
     font-size: 16px;
     font-weight: 700;
@@ -10,7 +10,7 @@
 }
 
 .resetAllAlertsButton {
-    bottom: 42px;
+    bottom: 38px;
     
     &:hover {
         background-color: #facc15;
@@ -18,7 +18,7 @@
 }
 
 .prepareNextDay {
-    bottom: 8px;
+    bottom: 4px;
     
     &:hover {
         background-color: red;
