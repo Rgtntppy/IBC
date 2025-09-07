@@ -106,7 +106,7 @@ const ShipmentTable: React.FC = () => {
           isLargeDrumTomorrow: item.isLargeDrumTomorrow ?? false,
           binAlert: item.binAlert ?? 'white',
           highlight: item.highlight,
-          alertborder: item.limit,
+          alertborder: item.alertborder,
         }));
 
         setBinData(loadedData);
