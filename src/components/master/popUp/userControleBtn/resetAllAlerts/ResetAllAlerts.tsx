@@ -23,7 +23,7 @@ export const ResetAllAlertsPopUp: React.FC<ResetAllAlertsProps> = ({
     };
 
     return (
-        <div>
+        <div className='userControle'>
             <button
                 className='btn resetAllAlertsButton'
                 onClick={handleDeleteClick}

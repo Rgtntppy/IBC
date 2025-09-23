@@ -1,0 +1,105 @@
+$hoverTextcolor: #ffffff;
+$hovergreen:rgb(30, 230, 40); 
+$bluemarker: linear-gradient(transparent 80%, rgba(0, 0, 255, 0.6) 80%);
+$redmarker: linear-gradient(transparent 80%, rgba(255, 0, 0, 0.6) 80%);
+
+.ruleBookContent {
+    width: 600px;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
+    padding: 1.5rem;
+    max-width: 24rem;
+
+    .indexlist {
+        display: flex;
+        flex-direction: column;
+        font-size: 1.2rem;
+
+        .indexbtn {
+            all: unset;
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &:hover {
+                color: $hoverTextcolor;
+                cursor: pointer;
+                background-color: $hovergreen;
+            }
+        }
+    }
+
+    .ruleContent {
+        .ruleBookTextTitle {
+            font-size: 1.2rem;
+        }
+        .ruleBookTextSubTitle {
+            display: inline-block;
+            margin: 10px;
+            font-size: 1.2rem;
+            background: $bluemarker;
+        }
+        .ruleBookText {
+            font-size: 1.1rem;
+            font-weight: 600;
+            
+            .redmarker {
+                background: $redmarker;
+            }
+
+            .redback {
+                padding: 2px;
+                background-color: red;
+            }
+
+            .yellowback {
+                padding: 2px;
+                background-color: yellow;
+            }
+        }
+    }
+
+    .userControle {
+
+        .btn {
+
+            &:hover {
+                color: $hoverTextcolor;
+                background-color: $hovergreen;
+            }
+        }
+
+        .listbtn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+        }
+
+        .pageControlebtn {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            height: 35px;
+            gap: 20px;
+        }
+        
+        .backbtn,
+        .nextbtn{
+            width: 160px;
+        }
+    }
+}

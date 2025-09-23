@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { HamburgerProps } from './hamburgerMenuInterface';
 import { ExtNumberPopUp } from '../../popUp/extNumberPopUp/ExtNumberPopUp';
 import { MemoArea } from '../../memoArea/MemoArea';
+import { RuleBook } from '../../popUp/ruleBook/RuleBook';
 
 export const HamburgerMenu: React.FC<HamburgerProps> = ({
     userAuthority,
@@ -14,10 +15,12 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
     const [isOpen, setIsOpen] = useState(false);
     const [showMemoArea, setShowMemoArea] = useState(false);
     const [showExtNumber, setShowExtNumber] = useState(false);
+    const [showRuleBook, setShowRuleBook] = useState(false);
 
     const menuRef = useRef<HTMLDivElement>(null);
     const memoRef = useRef<HTMLDivElement>(null);
     const  extRef = useRef<HTMLDivElement>(null);
+    const ruleRef = useRef<HTMLDivElement>(null);
 
     const navigate = useNavigate();
 
@@ -40,6 +43,20 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
     const toggleMenu = useCallback (() => {
         setIsOpen(!isOpen);
     },[ isOpen ]);
+
+    useEffect(() => {
+        const hasOverlay = showMemoArea || showExtNumber || showRuleBook;
+        if (hasOverlay) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [showMemoArea, showExtNumber, showRuleBook]);
+
 
     return (
         <div
@@ -79,6 +96,14 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
                         内線番号
                     </button>
                     <button
+                        onClick={() =>{
+                            setShowRuleBook(true);
+                            setIsOpen(false);
+                        }}
+                    >
+                        運用ルール
+                    </button>
+                    <button
                         onClick={() => navigate('/')}
                     >
                         ログアウト
@@ -95,7 +120,7 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
                     }}
                 >
                     <div
-                        className='memoAreaContent'
+                        className='memoAreaContent overlayContent'
                         ref={memoRef}
                     >
                         <h2 className='memoAreaTitle'>
@@ -129,12 +154,34 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
                     }}
                 >
                     <div
+                        className='overlayContent'
                         ref={extRef}
                     >
                         <ExtNumberPopUp
                             userAuthority={userAuthority}
                             onOpen={() => setIsOpen(false)}
                             onClose={() => setShowExtNumber(false)}
+                        />
+                    </div>
+                </div>
+            )}
+            {showRuleBook && (
+                <div
+                    className='overlay'
+                    onClick={(e) => {
+                        if (ruleRef.current && !ruleRef.current.contains(e.target as Node)) {
+                            setShowRuleBook(false);
+                        }
+                    }}
+                >
+                    <div
+                        className='overlayContent'
+                        ref={ruleRef}
+                    >
+                        <RuleBook
+                            userAuthority={userAuthority}
+                            onOpen={() => setIsOpen(false)}
+                            onClose={() => setShowRuleBook(false)}
                         />
                     </div>
                 </div>

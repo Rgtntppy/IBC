@@ -23,7 +23,7 @@ export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayProps> = ({
   };
 
   return (
-    <div className='prepareNextDayContents'>
+    <div className='userControle'>
       <button
         className='btn prepareNextDay'
         onClick={handleDeleteClick}
