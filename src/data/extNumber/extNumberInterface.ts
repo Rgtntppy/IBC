@@ -1,4 +1,4 @@
-import { UsersProps } from "../users/usersInterface";
+import { UsersProps } from '../users/usersInterface';
 
 type userAuthority = UsersProps['userAuthority'];
 

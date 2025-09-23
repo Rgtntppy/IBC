@@ -1,3 +1,5 @@
+$redmarker: linear-gradient(transparent 80%, rgba(255, 0, 0, 0.6) 80%);
+
 // 背景のオーバーレイ
 .modalOverlay {
     position: fixed;
@@ -30,6 +32,10 @@
 .modalMessage {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
+
+    .redmarker {
+        background: $redmarker;
+    }
 }
 
 // ボタンを右寄せで並べる
@@ -39,13 +45,21 @@
     gap: 1rem;
 }
 
-// キャンセルボタン
-.btnCancel {
+.btnCancel,
+.btnConfirm {
     padding: 0.5rem 1rem;
     border-radius: 0.375rem;
-    background-color: #d1d5db;
     transition: background-color 0.2s ease;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
+
+// キャンセルボタン
+.btnCancel {
+    background-color: #d1d5db;
+    }
 
 .btnCancel:hover {
     background-color: #9ca3af;
@@ -53,11 +67,8 @@
 
 // OKボタン
 .btnConfirm {
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
     background-color: #ef4444;
     color: white;
-    transition: background-color 0.2s ease;
 }
 
 .btnConfirm:hover {

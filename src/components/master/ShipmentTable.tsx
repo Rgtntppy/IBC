@@ -34,8 +34,10 @@ import { OnlytodaysData } from '../../data/binData/onlytodayBinData/onlytodaysBi
 import { ProhititionText } from './accessaories/prohibitionText/ProhibitionText';
 import { resetAllAlerts } from '../../firebase/firestoreDaysData/resetAllAlerts';
 import { ResetAllAlertsPopUp } from './popUp/userControleBtn/resetAllAlerts/ResetAllAlerts';
+import { WarningPopup } from './popUp/userControleBtn/warningPopup/WarningPopup';
 
 const ShipmentTable: React.FC = () => {
+  const [userId, setUserId] = useState('');
   const [userName, setUserName] = useState('');
   const [userAuthority, setUserAuthority] = useState(0);
   const [hasInitialized, setHasInitialized] = useState(false);
@@ -50,6 +52,8 @@ const ShipmentTable: React.FC = () => {
   
   const [binData, setBinData] = useState(BinData);
   const [onlytodaysBinData, setOnlytodaysBinData] = useState(OnlytodaysBinData);
+
+  const [showWarningPopup, setShowWarningPopup] = useState(true);
   
   const navigate = useNavigate();
   const { amRef, pmRef } = useSyncScroll();
@@ -63,6 +67,7 @@ const ShipmentTable: React.FC = () => {
         return;
       }
       
+      setUserId(user.id)
       setUserName(user.userName);
       setUserAuthority(user.authority)
 
@@ -477,6 +482,12 @@ const ShipmentTable: React.FC = () => {
           />
         </div>
       </div>
+      {showWarningPopup && (
+        <WarningPopup
+          userId={userId}
+          onClose={() => setShowWarningPopup(false)}
+        />
+      )}
     </div>
   );
 };

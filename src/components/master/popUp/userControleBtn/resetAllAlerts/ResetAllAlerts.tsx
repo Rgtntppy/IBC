@@ -35,7 +35,11 @@ export const ResetAllAlertsPopUp: React.FC<ResetAllAlertsProps> = ({
                 isOpen={showConfirmModal}
                 title='注意!'
                 message={
-                `全てのAlertを解除します\nよろしいでしょうか？`
+                <>
+                全てのAlertを解除します
+                <br/>
+                よろしいでしょうか？
+                </>
                 }
                 onConfirm={handleConfirmDelete}
                 onCancel={handleCancelDelete}

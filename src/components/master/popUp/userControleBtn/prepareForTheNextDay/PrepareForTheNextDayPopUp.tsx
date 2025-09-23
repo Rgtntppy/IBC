@@ -35,7 +35,11 @@ export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayProps> = ({
         isOpen={showConfirmModal}
         title='注意!'
         message={
-          `本日分のデータは失われますが\nよろしいでしょうか？`
+          <>
+          本日分のデータは失われますが
+          <br/>
+          よろしいでしょうか？
+          </>
         }
         onConfirm={handleConfirmDelete}
         onCancel={handleCancelDelete}
