@@ -1,5 +1,6 @@
 import { txtsProps } from './txtsInterface';
 import { CommonText1Page1 } from './txts/commonTexts/commonText1Page1';
+import { CommonText2Page1 } from './txts/commonTexts/commonText2Page1';
 import { CutAreaText1Page1 } from './txts/cutAreaTexts/cutAreaText1/cutAreaText1Page1';
 import { CutAreaText2Page1 } from './txts/cutAreaTexts/cutAreaText2/cutAreaText2Page1';
 import { PickAreaText1Page1 } from './txts/pickAreaTexts/pickAreaText1/txt3/pickAreaText1Page1';
@@ -15,7 +16,12 @@ export const txts: txtsProps[] = [
                 id: 101,
                 label: 'メモについて',
                 pages: [CommonText1Page1],
+            },{
+                id: 102,
+                label: 'アラートについて',
+                pages: [CommonText2Page1],
             }
+
         ]
     },{
         id: 2,
@@ -47,7 +53,7 @@ export const txts: txtsProps[] = [
         texts: [
             {
                 id: 401,
-                label: 'アラートについて',
+                label: '準備中...',
                 pages: [OfficeAreaText1Page1],
             },
         ]

@@ -42,6 +42,7 @@ export const RuleBook: React.FC<RuleBookProps> = ({
                         className='indexbtn'
                         onClick={() => setActiveDepartmentId(dept.id)}
                         >
+                            <div className='arrow'/>
                             {dept.label}
                         </button>
                     ))}
@@ -68,6 +69,7 @@ export const RuleBook: React.FC<RuleBookProps> = ({
                                 setPageIndex(0);
                             }}
                         >
+                            <div className='arrow'/>
                             {t.label}
                         </button>
                     ))}
