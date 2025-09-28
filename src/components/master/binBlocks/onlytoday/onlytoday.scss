@@ -1,11 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Serif+JP:wght@200..900&display=swap');
+@import '../../../../data/scssFunctionFile/scssFunction.scss';
 
 $binBlockHight: 68px;
 $border-color: 1px solid rgb(200, 200, 200);
-$thinRed-color: rgb(252, 228, 214);
-$thinYellow-color: rgb(255, 242, 204);
-$thinGreen-color: rgb(226, 239, 218);
-$thinBlue-color: rgb(221, 235, 247);
 $white-color: #fff;
 $block-radius: 8px;
 $button-radius: 5px;
@@ -48,14 +45,6 @@ $button-radius: 5px;
             border-radius: $block-radius/1.1 0 0 $block-radius/1.1;
             border-right: $border-color;
             cursor: pointer;
-            
-            &.highlight-red {
-                background-color: $thinRed-color;
-            }
-            
-            &.highlight-blue {
-                background-color: $thinBlue-color;
-            }
         }
 
         .binNameText {
@@ -124,22 +113,6 @@ $button-radius: 5px;
     /* 今日の数量表示 */
     .todayCells {
         background-color: white;
-        
-        &.highlight-red {
-            background-color: $thinRed-color;
-        }
-
-        &.highlight-green {
-            background-color: $thinGreen-color;
-        }
-        
-        &.highlight-blue {
-            background-color: $thinBlue-color;
-        }
-        
-        &.highlight-white {
-            background-color: $white-color;
-        }
     }
 
     /* 上下のカウントボタン */
@@ -180,6 +153,7 @@ $button-radius: 5px;
     }
 
     .deleteButton {
+        background-color: $btndefault-color;
         border-radius: $button-radius;
         color: #000;
         cursor: pointer;

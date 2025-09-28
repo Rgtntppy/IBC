@@ -1,9 +1,10 @@
 import { txtsProps } from './txtsInterface';
-import { CommonText1Page1 } from './txts/commonTexts/commonText1Page1';
-import { CommonText2Page1 } from './txts/commonTexts/commonText2Page1';
-import { CutAreaText1Page1 } from './txts/cutAreaTexts/cutAreaText1/cutAreaText1Page1';
+import { AboutMemosPage1 } from './txts/commonTexts/aboutMemosPage1';
+import { AboutBinColorsPage1 } from './txts/commonTexts/aboutBincolorsPage1';
+import { AboutAlertsPage1 } from './txts/commonTexts/aboutAlertsPage1';
+import { AdditionsAndChangesPage1 } from './txts/cutAreaTexts/cutAreaText1/additionsAndChangesPage1';
 import { CutAreaText2Page1 } from './txts/cutAreaTexts/cutAreaText2/cutAreaText2Page1';
-import { PickAreaText1Page1 } from './txts/pickAreaTexts/pickAreaText1/txt3/pickAreaText1Page1';
+import { AboutBigLuggagePage1 } from './txts/pickAreaTexts/pickAreaText1/txt3/aboutBigLuggagePage1';
 import { OfficeAreaText1Page1 } from './txts/officeAreaTexts/officeAreaText1/officeAreaText1Page1'
 import { CutAreaText2Page2 } from './txts/cutAreaTexts/cutAreaText2/cutAreaText2Page2';
 
@@ -15,12 +16,16 @@ export const txts: txtsProps[] = [
             {
                 id: 101,
                 label: 'メモについて',
-                pages: [CommonText1Page1],
+                pages: [AboutMemosPage1],
             },{
                 id: 102,
+                label: '便の背景色について',
+                pages: [AboutBinColorsPage1],
+            },{
+                id: 110,
                 label: 'アラートについて',
-                pages: [CommonText2Page1],
-            }
+                pages: [AboutAlertsPage1],
+            },
 
         ]
     },{
@@ -30,7 +35,7 @@ export const txts: txtsProps[] = [
             {
                 id: 201,
                 label: 'ドラム数量「追加・変更」について',
-                pages: [CutAreaText1Page1],
+                pages: [AdditionsAndChangesPage1],
             },{
                 id: 202,
                 label: '準備中...',
@@ -44,7 +49,7 @@ export const txts: txtsProps[] = [
             {
                 id: 301,
                 label: '大物について',
-                pages: [PickAreaText1Page1],
+                pages: [AboutBigLuggagePage1],
             },
         ]
     },{

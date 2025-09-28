@@ -1,6 +1,6 @@
 import { RuleBookPage } from '../../RuleBookPage';
 
-export const CutAreaText1Page1: React.FC = () => {
+export const AdditionsAndChangesPage1: React.FC = () => {
     return (
         <div>
             <RuleBookPage

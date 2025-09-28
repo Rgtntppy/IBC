@@ -1,6 +1,6 @@
 import { RuleBookPage } from '../RuleBookPage';
 
-export const CommonText1Page1: React.FC = () => {
+export const AboutMemosPage1: React.FC = () => {
     return (
         <div>
             <RuleBookPage

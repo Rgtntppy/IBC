@@ -1,3 +1,5 @@
+@import '../../../../data/scssFunctionFile/scssFunction.scss';
+
 $white-color: #fff;
 
 .extModalContent {
@@ -39,12 +41,12 @@ $white-color: #fff;
             max-width: 180px;
 
             &:hover {
-                background-color: #0056b3;
+                background-color: $bluebtnhover-color;
             }
         }
 
         .yesAnswer {
-            background-color: #007bff;
+            background-color: $bluebtn-color;
             color: $white-color;
         }
     }

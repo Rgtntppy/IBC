@@ -68,6 +68,7 @@ $redmarker: linear-gradient(transparent 80%, rgba(255, 0, 0, 0.6) 80%);
         .ruleBookText {
             font-size: 1.1rem;
             font-weight: 600;
+            line-height: 1.5rem;
             
             .redmarker {
                 background: $redmarker;

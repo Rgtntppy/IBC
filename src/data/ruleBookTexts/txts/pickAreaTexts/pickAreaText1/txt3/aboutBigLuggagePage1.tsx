@@ -1,6 +1,6 @@
 import { RuleBookPage } from '../../../RuleBookPage';
 
-export const PickAreaText1Page1: React.FC = () => {
+export const AboutBigLuggagePage1: React.FC = () => {
     return (
         <div>
             <RuleBookPage
