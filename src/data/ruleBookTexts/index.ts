@@ -7,6 +7,7 @@ import { CutAreaText2Page1 } from './txts/cutAreaTexts/cutAreaText2/cutAreaText2
 import { AboutBigLuggagePage1 } from './txts/pickAreaTexts/pickAreaText1/txt3/aboutBigLuggagePage1';
 import { OfficeAreaText1Page1 } from './txts/officeAreaTexts/officeAreaText1/officeAreaText1Page1'
 import { CutAreaText2Page2 } from './txts/cutAreaTexts/cutAreaText2/cutAreaText2Page2';
+import { AboutIdsPage1 } from './txts/commonTexts/aboutIdsPage1';
 
 export const txts: txtsProps[] = [
     {
@@ -14,6 +15,10 @@ export const txts: txtsProps[] = [
         label: '共通',
         texts: [
             {
+                id: 100,
+                label: 'Idについて',
+                pages: [AboutIdsPage1],
+            },{
                 id: 101,
                 label: 'メモについて',
                 pages: [AboutMemosPage1],

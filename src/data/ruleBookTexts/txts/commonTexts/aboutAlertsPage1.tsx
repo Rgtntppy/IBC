@@ -9,12 +9,12 @@ export const AboutAlertsPage1: React.FC = () => {
             >
             <p className='ruleBookText'>
                 便名・当日分・翌日分の背景が
-                <span className='redback'>
+                <span className='backcolor redback'>
                     赤色
                 </span>
                 になっているものは、警告を表す「赤信号」です。
                 便名には、注意を促す「
-                <span className='yellowback'>
+                <span className='backcolor yellowback'>
                     黄色
                 </span>
                 」の表示もあります。

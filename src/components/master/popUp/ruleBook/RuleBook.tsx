@@ -28,8 +28,8 @@ export const RuleBook: React.FC<RuleBookProps> = ({
 
     return (
         <div className='ruleBookContent'>
-            <h2 className='modalTitle'>
-                運用ルール
+            <h2 className='modalTitle ruleBookTitle'>
+                運用マニュアル
             </h2>
             <div className='userControle'>
                 <button

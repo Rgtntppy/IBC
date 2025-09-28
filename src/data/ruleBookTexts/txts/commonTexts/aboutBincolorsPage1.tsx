@@ -8,13 +8,27 @@ export const AboutBinColorsPage1: React.FC = () => {
                 textId={102}
             >
             <p className='ruleBookText'>
-                赤色が特1・2
+                <span className='backcolor thinRedback'>
+                    赤色
+                </span>
+                が特1・2、
+                <span className='backcolor thinYellowback'>
+                    黄色
+                </span>
+                が通常便、
                 <br/>
-                黄色が通常便
+                <span className='backcolor thinGreenback'>
+                    緑色    
+                </span>
+                が路線便、
+                <span className='backcolor thinBlueback'>
+                    青色    
+                </span>
+                が共配
                 <br/>
-                緑色が路線便
+                上記の配色になっています。
                 <br/>
-                青色が共配
+                共配に関しては3号ドラムが合計4個を超える場合には荷量の調整が必要になってきます。
                 <span className='redmarker'>
                 </span>
             </p>

@@ -1,7 +1,4 @@
-$hoverTextcolor: #ffffff;
-$hovergreen:rgb(30, 230, 40); 
-$bluemarker: linear-gradient(transparent 80%, rgba(0, 0, 255, 0.6) 80%);
-$redmarker: linear-gradient(transparent 80%, rgba(255, 0, 0, 0.6) 80%);
+@import '../../../../data/scssFunctionFile/scssFunction.scss';
 
 .ruleBookContent {
     width: 600px;
@@ -14,6 +11,10 @@ $redmarker: linear-gradient(transparent 80%, rgba(255, 0, 0, 0.6) 80%);
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
     padding: 1.5rem;
     max-width: 24rem;
+
+    .ruleBookTitle {
+        font-size: 1.5rem;
+    }
 
     .indexlist {
         display: flex;
@@ -74,16 +75,32 @@ $redmarker: linear-gradient(transparent 80%, rgba(255, 0, 0, 0.6) 80%);
                 background: $redmarker;
             }
 
+            .backcolor {
+                padding: 2px 4px;
+            }
+
             .redback {
-                padding: 1px 2px;
                 background-color: rgba(255, 0, 0, 0.7);
             }
 
             .yellowback {
-                padding: 1px 2px;
                 background-color: rgba(255, 255, 0, 0.7);
             }
+
+            .thinRedback {
+                background-color: $thinRed-color;
+            }
+            .thinYellowback {
+                background-color: $thinYellow-color;
+            }
+            .thinGreenback {
+                background-color: $thinGreen-color;
+            }
+            .thinBlueback {
+                background-color: $thinBlue-color;
+            }
         }
+
     }
 
     .userControle {
