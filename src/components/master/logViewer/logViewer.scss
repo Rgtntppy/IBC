@@ -1,0 +1,82 @@
+.logViewerContent {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    max-height: 70vh;
+    overflow-y: auto;
+    flex-direction: column;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    
+    .logViewerTitle {
+        margin-bottom: 16px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+        border-left: 4px solid #4a90e2;
+        padding-left: 8px;
+    }
+
+    .closebtn {
+        position: absolute;
+        top: 15px;
+        right: 20px
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        text-align: left;
+    
+        thead {
+            background-color: #f5f7fa;
+            position: sticky;
+            top: 0;
+        
+            th {
+                padding: 12px 10px;
+                font-weight: 600;
+                color: #444;
+                border-bottom: 2px solid #ddd;
+            }
+        }
+    
+        tbody {
+            tr {
+                border-bottom: 1px solid #eee;
+                transition: background-color 0.2s ease;
+        
+                &:nth-child(even) {
+                    background-color: #fafafa;
+                }
+        
+                &:hover {
+                    background-color: #f0f8ff;
+                }
+        
+                td {
+                    padding: 10px;
+                    color: #555;
+            
+                    &:first-child {
+                        font-family: monospace;
+                        color: #222;
+                    }
+            
+                    &:last-child {
+                        font-weight: 600;
+                    }
+                }
+
+                .logIncrease {
+                    color: blue;
+                }
+          
+                .logDecrease {
+                    color: red;
+                }
+            }
+        }
+    }
+}

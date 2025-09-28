@@ -77,45 +77,44 @@ $iconColor: #333;
     
     // メニューのリストアイテムのスタイル
     ul {
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      list-style-type: none;
-      align-items: center;
-      margin: 0;
-      padding: 0;
-      button {
-        cursor: pointer;
-        font-size: 24px;
-        padding: 10px;
-        background-color: #d6d6d6;
-        border-style: none;
-        margin: 30px 0; 
-        width: 200px;
+      
+      .userControle {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        list-style-type: none;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+
+        .hamMenubtn {
+          font-size: 24px;
+          padding: 10px;
+          margin: 20px 0; 
+          width: 200px;
+          
+          &.active {
+            background-color: #007bff;
+            color: #fff;
+          }
+          
+          li {
+            padding: 20px 0;
+            font-size: 250%;
+            font-weight: 700;
+            cursor: pointer;
+          }
         
-        &.active {
-          background-color: #007bff;
-          color: #fff;
-        }
-        
-        li {
-          padding: 20px 0;
-          font-size: 250%;
-          font-weight: 700;
-          cursor: pointer;
-        }
-        
-        &:hover {
-          border-style: none;
-          background-color: #f0f0f0;
-          color: rgb(30, 230, 40);
-          transition: all 0.2s;
+          &:hover {
+            color: rgb(30, 230, 40);
+            transition: all 0.2s;
+          }
         }
       }
     }
   }
-
+  
   .overlay {
     position: fixed;
     top: 0;
@@ -171,8 +170,11 @@ $iconColor: #333;
         border-radius: 5px;
         cursor: pointer;
         padding: 5px;
+
+        &:hover {
+          background-color: #dc2626;
+        }
       }
     }
   }
-  
 }

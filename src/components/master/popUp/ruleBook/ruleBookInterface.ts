@@ -4,6 +4,5 @@ type userAuthority = UsersProps['userAuthority'];
 
 export interface RuleBookProps {
     userAuthority: userAuthority;
-    onOpen: () => void;
-    onClose: () => void;
+    handleclose: () => void;
 }

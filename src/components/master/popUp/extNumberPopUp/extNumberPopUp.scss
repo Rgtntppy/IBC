@@ -37,6 +37,10 @@ $white-color: #fff;
             border-radius: 6px;
             cursor: pointer;
             max-width: 180px;
+
+            &:hover {
+                background-color: #0056b3;
+            }
         }
 
         .yesAnswer {

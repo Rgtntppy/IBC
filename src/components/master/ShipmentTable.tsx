@@ -35,6 +35,7 @@ import { ProhititionText } from './accessaories/prohibitionText/ProhibitionText'
 import { resetAllAlerts } from '../../firebase/firestoreDaysData/resetAllAlerts';
 import { ResetAllAlertsPopUp } from './popUp/userControleBtn/resetAllAlerts/ResetAllAlerts';
 import { WarningPopup } from './popUp/userControleBtn/warningPopup/WarningPopup';
+import { saveLog } from '../../firebase/saveLogData/saveLog';
 
 const ShipmentTable: React.FC = () => {
   const [userId, setUserId] = useState('');
@@ -257,6 +258,17 @@ const ShipmentTable: React.FC = () => {
     if (userAuthority < 5 || !addCountFlag) return;
     
     await updateTodayValue(id, key, diff);
+
+    const targetBin = binData.find((bin) => bin.id === id);
+
+    await saveLog({
+      userId,
+      userName,
+      binName: targetBin ? targetBin.bin : '不明',
+      key,
+      diff,
+      action: diff > 0 ? '増加' : '減少',
+    });
   };
 
   const handleCheckboxToggle = async (id: number, key: 'isLargeDrumToday' | 'isLargeDrumTomorrow') => {
@@ -290,6 +302,17 @@ const ShipmentTable: React.FC = () => {
     if (userAuthority < 5 || !addCountFlag) return;
 
     await updateOnlytodayValue(id, key, diff);
+
+    const targetBin = onlytodaysBinData.find((onlytodaysBinData) => onlytodaysBinData.id === id);
+
+    await saveLog({
+      userId,
+      userName,
+      binName: targetBin ? targetBin.bin : '不明',
+      key,
+      diff,
+      action: diff > 0 ? '増加' : '減少',
+    });
   };
 
   const handleCheckboxTentative = async (
@@ -330,6 +353,15 @@ const ShipmentTable: React.FC = () => {
     setCurrentDate(dayjs(nextYMD).format('YYYY/MM/DD'));
     setDisplayDate(nextDateDisplay);
 
+    await saveLog({
+      userId,
+      userName,
+      binName: '翌日分準備',
+      key: 'prepareNextDay',
+      diff: false,
+      action: '更新',
+    })
+
     toast.success('保存が完了しました', {
       position: 'top-center',
       autoClose: 1000,
@@ -353,8 +385,6 @@ const ShipmentTable: React.FC = () => {
     [ 64, 65, 66, 67],
     [ 68, 69, 810]
   ];
-
-  const TentativeIDs = useMemo(() => [ 8, 9], []);
 
   const pmColumns = PMBin.map(col =>
     col.map(id => binData.find(d => d.id === id)).filter(Boolean) as ShipmentData[]

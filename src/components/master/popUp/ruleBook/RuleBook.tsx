@@ -5,8 +5,7 @@ import { txts } from '../../../../data/ruleBookTexts';
 import { txtsProps, txtPageProps } from '../../../../data/ruleBookTexts/txtsInterface';
 
 export const RuleBook: React.FC<RuleBookProps> = ({
-    onOpen,
-    onClose,
+    handleclose,
 }) => {
     const [activeDepartmentId, setActiveDepartmentId] = useState<txtsProps['id'] | null>(null);
     const [activeTextId, setActiveTextId] = useState<txtPageProps['id'] | null>(null);
@@ -32,6 +31,14 @@ export const RuleBook: React.FC<RuleBookProps> = ({
             <h2 className='modalTitle'>
                 運用ルール
             </h2>
+            <div className='userControle'>
+                <button
+                    className='btn closebtn'
+                    onClick={handleclose}    
+                >
+                    閉じる
+                </button>
+            </div>
 
             {/* 部門選択　→ 部門一覧 */}
             {!activeDepartment && (

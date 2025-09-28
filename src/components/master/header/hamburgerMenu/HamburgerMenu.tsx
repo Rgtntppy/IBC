@@ -5,6 +5,8 @@ import { HamburgerProps } from './hamburgerMenuInterface';
 import { ExtNumberPopUp } from '../../popUp/extNumberPopUp/ExtNumberPopUp';
 import { MemoArea } from '../../memoArea/MemoArea';
 import { RuleBook } from '../../popUp/ruleBook/RuleBook';
+import { LogViewer } from '../../logViewer/LogViewer';
+import { OverlayWrapper } from './overlayWrapper/OverlayWrapper';
 
 export const HamburgerMenu: React.FC<HamburgerProps> = ({
     userAuthority,
@@ -15,13 +17,11 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
     const [isOpen, setIsOpen] = useState(false);
     const [showMemoArea, setShowMemoArea] = useState(false);
     const [showExtNumber, setShowExtNumber] = useState(false);
+    const [showLogViewer, setShowLogViewer] = useState(false);
     const [showRuleBook, setShowRuleBook] = useState(false);
 
     const menuRef = useRef<HTMLDivElement>(null);
-    const memoRef = useRef<HTMLDivElement>(null);
-    const  extRef = useRef<HTMLDivElement>(null);
-    const ruleRef = useRef<HTMLDivElement>(null);
-
+    
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -79,113 +79,109 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
 
                 </div> */}
                 <ul>
-                    <button
-                        onClick={() => {
-                            setShowMemoArea(true);
-                            setIsOpen(false);
-                        }}
-                    >
-                        メモ欄
-                    </button>
-                    <button
-                        onClick={() =>{
-                            setShowExtNumber(true);
-                            setIsOpen(false);
-                        }}
-                    >
-                        内線番号
-                    </button>
-                    <button
-                        onClick={() =>{
-                            setShowRuleBook(true);
-                            setIsOpen(false);
-                        }}
-                    >
-                        運用ルール
-                    </button>
-                    <button
-                        onClick={() => navigate('/')}
-                    >
-                        ログアウト
-                    </button>
-                </ul>
-            </nav>
-            {showMemoArea && (
-                <div
-                    className='overlay'
-                    onClick={(e) => {
-                        if (memoRef.current && !memoRef.current.contains(e.target as Node)) {
-                            setShowMemoArea(false);
-                        }
-                    }}
-                >
-                    <div
-                        className='memoAreaContent overlayContent'
-                        ref={memoRef}
-                    >
-                        <h2 className='memoAreaTitle'>
-                            メモ欄
-                        </h2>
+                    <div className='userControle'>
                         <button
-                            className='closeButton'
+                            className='btn hamMenubtn'
                             onClick={() => {
-                                setShowMemoArea(false);
+                                setShowMemoArea(true);
                                 setIsOpen(false);
                             }}
-                        >
-                            X
+                            >
+                            メモ欄
                         </button>
-                        <MemoArea
-                            memo={memo}
-                            setMemo={setMemo}
-                            handleBlur={handleBlur}
-                            userAuthority={userAuthority}
-                        />
+                        <button
+                            className='btn hamMenubtn'
+                            onClick={() => {
+                                setShowExtNumber(true);
+                                setIsOpen(false);
+                            }}
+                            >
+                            内線番号
+                        </button>
+                        <button
+                            className='btn hamMenubtn'
+                            onClick={() => {
+                                setShowLogViewer(true);
+                                setIsOpen(false);
+                            }}
+                            >
+                            編集ログ
+                        </button>
+                        <button
+                            className='btn hamMenubtn'
+                            onClick={() =>{
+                                setShowRuleBook(true);
+                                setIsOpen(false);
+                            }}
+                            >
+                            運用マニュアル
+                        </button>
+                        <button
+                            className='btn hamMenubtn'
+                            onClick={() => navigate('/')}
+                            >
+                            ログアウト
+                        </button>
                     </div>
-                </div>
-            )}
-            {showExtNumber && (
-                <div
-                    className='overlay'
-                    onClick={(e) => {
-                        if (extRef.current && !extRef.current.contains(e.target as Node)) {
-                            setShowExtNumber(false);
-                        }
+                </ul>
+            </nav>
+
+            {/* メモ欄 */}
+            <OverlayWrapper
+                isOpen={showMemoArea}
+                onClose={() => setShowMemoArea(false)}
+                contentClassName='memoAreaContent overlayContent'
+            >
+                <h2 className='memoAreaTitle'>
+                    メモ欄
+                </h2>
+                <button
+                    className='closeButton'
+                    onClick={() => {
+                        setShowMemoArea(false);
+                        setIsOpen(false);
                     }}
-                >
-                    <div
-                        className='overlayContent'
-                        ref={extRef}
                     >
-                        <ExtNumberPopUp
-                            userAuthority={userAuthority}
-                            onOpen={() => setIsOpen(false)}
-                            onClose={() => setShowExtNumber(false)}
-                        />
-                    </div>
-                </div>
-            )}
-            {showRuleBook && (
-                <div
-                    className='overlay'
-                    onClick={(e) => {
-                        if (ruleRef.current && !ruleRef.current.contains(e.target as Node)) {
-                            setShowRuleBook(false);
-                        }
-                    }}
-                >
-                    <div
-                        className='overlayContent'
-                        ref={ruleRef}
-                    >
-                        <RuleBook
-                            userAuthority={userAuthority}
-                            onOpen={() => setIsOpen(false)}
-                            onClose={() => setShowRuleBook(false)}
-                        />
-                    </div>
-                </div>
-            )}
+                    X
+                </button>
+                <MemoArea
+                    memo={memo}
+                    setMemo={setMemo}
+                    handleBlur={handleBlur}
+                    userAuthority={userAuthority}
+                />
+            </OverlayWrapper>
+
+            {/* 内線番号 */}
+            <OverlayWrapper
+                isOpen={showExtNumber}
+                onClose={() => setShowExtNumber(false)}
+            >
+                <ExtNumberPopUp
+                    handleclose={() => setShowExtNumber(false)}
+                />
+            </OverlayWrapper>
+
+            {/* ログ */}
+            <OverlayWrapper
+                isOpen={showLogViewer}
+                onClose={() => setShowLogViewer(false)}
+            >
+                <LogViewer
+                    handleclose={() => setShowLogViewer(false)}
+                />
+            </OverlayWrapper>
+
+            {/* 運用マニュアル */}
+            <OverlayWrapper
+                isOpen={showRuleBook}
+                onClose={() => setShowRuleBook(false)}
+            >
+                <RuleBook
+                    userAuthority={userAuthority}
+                    handleclose={() => setShowRuleBook(false)}
+                />
+            </OverlayWrapper>
         </div>
     );
 };
