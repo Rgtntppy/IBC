@@ -9,7 +9,7 @@ export interface LogEntry {
     userId: userId;
     userName: userName;
     binName: binName;
-    action: '増加' | '減少' | '更新';
+    action: '増加' | '減少' | '更新' | '削除';
     key: string;
     diff: number | boolean;
     timestamp?: any;

@@ -39,7 +39,7 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
     };
 
     const handleConfirmDelete = () => {
-        onDelete(id);
+        onDelete(id, bin);
         setIsDialogOpen(false);
     };
 

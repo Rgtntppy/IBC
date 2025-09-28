@@ -324,8 +324,9 @@ const ShipmentTable: React.FC = () => {
     await updateOnlytodayValue(id, key);
   };
 
-  const handleDeleteTentative = (
-    id: number
+  const handleDeleteTentative = async (
+    id: number,
+    key: string,
     ) => {
     const initialValue = OnlytodaysBinData.find(item => item.id === id);
     if (!initialValue) return;
@@ -338,6 +339,17 @@ const ShipmentTable: React.FC = () => {
       saveOnlytodayData(updated);
       return updated;
     });
+
+    const targetBin = onlytodaysBinData.find((onlytodaysBinData) => onlytodaysBinData.id === id);
+
+    await saveLog({
+      userId,
+      userName,
+      binName: targetBin ? targetBin.bin : '不明',
+      key: 'today',
+      diff: 0,
+      action: '削除',
+    })
   };
 
   const handlePrepareNextDay = async () => {
