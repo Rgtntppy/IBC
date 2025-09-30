@@ -8,6 +8,7 @@ import { AboutBigLuggagePage1 } from './txts/pickAreaTexts/pickAreaText1/txt3/ab
 import { OfficeAreaText1Page1 } from './txts/officeAreaTexts/officeAreaText1/officeAreaText1Page1'
 import { CutAreaText2Page2 } from './txts/cutAreaTexts/cutAreaText2/cutAreaText2Page2';
 import { AboutIdsPage1 } from './txts/commonTexts/aboutIdsPage1';
+import { arrangementDrumsPage1 } from './txts/others/arrangementDrums';
 
 export const txts: txtsProps[] = [
     {
@@ -65,6 +66,16 @@ export const txts: txtsProps[] = [
                 id: 401,
                 label: '準備中...',
                 pages: [OfficeAreaText1Page1],
+            },
+        ]
+    },{
+        id: 9,
+        label: 'その他',
+        texts: [
+            {
+                id: 901,
+                label: '手配品ドラムについて',
+                pages: [arrangementDrumsPage1],
             },
         ]
     },

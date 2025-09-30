@@ -108,8 +108,7 @@
         .btn {
 
             &:hover {
-                color: $hoverTextcolor;
-                background-color: $hovergreen;
+                background-color: $btnhover-color;
             }
         }
 
