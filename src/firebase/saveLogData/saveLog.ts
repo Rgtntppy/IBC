@@ -13,7 +13,7 @@ import { db } from '../firebase';
 import { LogEntry } from './logEntry';
 
 const LOGS_COLLECTION = 'logs';
-const MAX_LOGS = 50;
+const MAX_LOGS = 100;
 
 export const saveLog = async (entry: LogEntry) => {
     try {
