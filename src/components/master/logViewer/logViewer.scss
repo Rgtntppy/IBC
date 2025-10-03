@@ -3,24 +3,82 @@
     padding: 20px;
     border-radius: 12px;
     max-height: 70vh;
+    width: 90vw;
     overflow-y: auto;
     flex-direction: column;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     position: relative;
     
-    .logViewerTitle {
-        margin-bottom: 16px;
-        font-size: 20px;
-        font-weight: bold;
-        color: #333;
-        border-left: 4px solid #4a90e2;
-        padding-left: 8px;
-    }
+    .logViewerHeader {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 12px;
+        position: relative; // closebtnのabsolute基準にする
+        
+        .logViewerTitle {
+            margin-bottom: 16px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            border-left: 4px solid #4a90e2;
+            padding-left: 8px;
+        }
 
-    .closebtn {
-        position: absolute;
-        top: 15px;
-        right: 20px
+        .searchBox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 40px;
+    
+            .searchInput {    
+                padding: 6px 10px;
+                border: 2px solid #4a90e2;
+                border-radius: 6px;
+                outline: none;
+                background-color: #f9fcff;
+                font-size: 14px;
+                color: #333;
+                transition: all 0.2s ease;
+                box-shadow: 0 2px 4px rgba(74, 144, 226, 0.2);
+                
+                &:focus {
+                    border-color: #2d76c5;
+                    background-color: #fff;
+                    box-shadow: 0 0 6px rgba(74, 144, 226, 0.4);
+                }
+                
+                &::placeholder {
+                    color: #888;
+                }
+            }
+            
+            .searchBtn {
+                font-size: 16px;
+                padding: 6px 12px;
+                background-color: #4a90e2;
+                color: #fff;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+                
+                &:hover {
+                    background-color: #2d76c5;
+                }
+            }
+        }
+    }
+    
+    
+
+    .userControle {
+        
+        .closebtn {
+            position: absolute;
+            top: 15px;
+            right: 20px
+        }
     }
     
     table {
@@ -28,12 +86,12 @@
         border-collapse: collapse;
         font-size: 14px;
         text-align: left;
-    
+        
         thead {
             background-color: #f5f7fa;
             position: sticky;
             top: 0;
-        
+            
             th {
                 padding: 12px 10px;
                 font-weight: 600;

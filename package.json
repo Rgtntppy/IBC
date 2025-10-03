@@ -16,6 +16,7 @@
     "date-holidays": "^3.24.2",
     "dayjs": "^1.11.13",
     "firebase": "^11.6.1",
+    "fuse.js": "^7.1.0",
     "lodash": "^4.17.21",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
