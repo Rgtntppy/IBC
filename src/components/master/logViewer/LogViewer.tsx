@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase';
 import { LogViewerProps, LogViewerbtnProps } from './logEntry';
@@ -11,8 +11,11 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
     const [logs, setLogs] = useState<LogViewerProps[]>([]);
     const [searchInput, setSearchInput] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
-    
+    const searchRef = useRef<HTMLInputElement>(null);
+
     useEffect(() => {
+        searchRef.current?.focus();
+
         const q = query(collection(db, 'logs'), orderBy('timestamp', 'desc'));
         const unsub = onSnapshot(q, (snapshot) => {
             const entries = snapshot.docs.map((doc) => ({
@@ -70,7 +73,8 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
                         onChange={(e) => setSearchInput(e.target.value)}
                         onKeyDown={handleKeyDown}
                         className='searchInput'
-                        />
+                        ref={searchRef}
+                    />
                     <button
                         className='btn searchBtn'
                         onClick={handleSearch}
