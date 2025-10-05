@@ -1,5 +1,6 @@
 import { txtsProps } from './txtsInterface';
 import { AboutMemosPage1 } from './txts/commonTexts/aboutMemosPage1';
+import { AboutBinBlocksPage1 } from './txts/commonTexts/aboutBinBlocks/aboutBinBlockPage1';
 import { AboutBinColorsPage1 } from './txts/commonTexts/aboutBincolorsPage1';
 import { AboutAlertsPage1 } from './txts/commonTexts/aboutAlertsPage1';
 import { AdditionsAndChangesPage1 } from './txts/cutAreaTexts/cutAreaText1/additionsAndChangesPage1';
@@ -23,6 +24,10 @@ export const txts: txtsProps[] = [
                 id: 101,
                 label: 'メモについて',
                 pages: [AboutMemosPage1],
+            },{
+                id: 111,
+                label: '数量の見方について',
+                pages: [AboutBinBlocksPage1],
             },{
                 id: 102,
                 label: '便の背景色について',
