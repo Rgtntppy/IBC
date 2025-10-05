@@ -89,34 +89,36 @@ const ShipmentTable: React.FC = () => {
       if (loaded) setBinData(loaded);
 
       const unscribe = onSnapshot(doc(db, 'dayCells', 'latest'),
-      (docSnapshot) => {
-        if (!docSnapshot.exists()) {
-          console.log('ドキュメントが存在しません: dayCells/latest');
-          return;
+        (docSnapshot) => {
+          if (!docSnapshot.exists()) {
+            console.log('ドキュメントが存在しません: dayCells/latest');
+            return;
+          }
+
+          const dayCellsData = docSnapshot.data();
+          const rawArray = dayCellsData.data;
+
+          if (!Array.isArray(rawArray)) {
+            console.error('dayCellsData.data フィールドが配列ではありません:', rawArray);
+            return;
+          }
+          
+          const loadedData: ShipmentData[] = rawArray.map((item: any) => ({
+            id: Number(item.id),
+            bin: item.bin ?? '',
+            today: item.today ?? 0,
+            arrangedTodaysItem: item.arrangedTodaysItem ?? 0,
+            isLargeDrumToday: item.isLargeDrumToday ?? false,
+            tomorrow: item.tomorrow ?? 0,
+            arrangedTomorrowsItem: item. arrangedTomorrowsItem ?? 0,
+            isLargeDrumTomorrow: item.isLargeDrumTomorrow ?? false,
+            binAlert: item.binAlert ?? 'white',
+            highlight: item.highlight,
+            alertborder: item.alertborder,
+          }));
+
+          setBinData(loadedData);
         }
-
-        const dayCellsData = docSnapshot.data();
-        const rawArray = dayCellsData.data;
-
-        if (!Array.isArray(rawArray)) {
-          console.error('dayCellsData.data フィールドが配列ではありません:', rawArray);
-          return;
-        }
-        
-        const loadedData: ShipmentData[] = rawArray.map((item: any) => ({
-          id: Number(item.id),
-          bin: item.bin ?? '',
-          today: item.today ?? 0,
-          isLargeDrumToday: item.isLargeDrumToday ?? false,
-          tomorrow: item.tomorrow ?? 0,
-          isLargeDrumTomorrow: item.isLargeDrumTomorrow ?? false,
-          binAlert: item.binAlert ?? 'white',
-          highlight: item.highlight,
-          alertborder: item.alertborder,
-        }));
-
-        setBinData(loadedData);
-      }
       );
       
       //仮便データの取得
@@ -254,8 +256,33 @@ const ShipmentTable: React.FC = () => {
     await resetAllAlerts();
   }
   
-  const handleChange = async (id: number, key: 'today' | 'tomorrow', diff: number) => {
+  const handleChange = async (
+    id: number,
+    key: 'today' | 'arrangedTodaysItem' | 'tomorrow' | 'arrangedTomorrowsItem',
+    diff: number
+    ) => {
     if (userAuthority < 5 || !addCountFlag) return;
+    
+    await updateTodayValue(id, key, diff);
+
+    const targetBin = binData.find((bin) => bin.id === id);
+
+    await saveLog({
+      userId,
+      userName,
+      binName: targetBin ? targetBin.bin : '不明',
+      key,
+      diff,
+      action: diff > 0 ? '増加' : '減少',
+    });
+  };
+
+  const handleSubChange = async (
+    id: number,
+    key: 'arrangedTodaysItem' | 'arrangedTomorrowsItem',
+    diff: number
+    ) => {
+    if (userAuthority < 7 || !addCountFlag) return;
     
     await updateTodayValue(id, key, diff);
 
@@ -301,6 +328,27 @@ const ShipmentTable: React.FC = () => {
     ) => {
     if (userAuthority < 5 || !addCountFlag) return;
 
+    await updateOnlytodayValue(id, key, diff);
+
+    const targetBin = onlytodaysBinData.find((onlytodaysBinData) => onlytodaysBinData.id === id);
+
+    await saveLog({
+      userId,
+      userName,
+      binName: targetBin ? targetBin.bin : '不明',
+      key,
+      diff,
+      action: diff > 0 ? '増加' : '減少',
+    });
+  };
+
+  const handleSubChangeTentative = async (
+    id: number,
+    key: 'arrangedTodaysItem',
+    diff: number
+    ) => {
+    if (userAuthority < 7 || !addCountFlag) return;
+    
     await updateOnlytodayValue(id, key, diff);
 
     const targetBin = onlytodaysBinData.find((onlytodaysBinData) => onlytodaysBinData.id === id);
@@ -457,6 +505,7 @@ const ShipmentTable: React.FC = () => {
                   key={row.id}
                   row={row}
                   onChange={handleChange}
+                  onSubCountChange={handleSubChange}
                   onCheckboxToggle={handleCheckboxToggle}
                   onColorChange={handleColorChange}
                   addCountFlag={addCountFlag}
@@ -468,6 +517,7 @@ const ShipmentTable: React.FC = () => {
             <Onlytoday
               {...tentative1}
               onChange={handleChangeTentative}
+              onSubChangeTentative={handleSubChangeTentative}
               onCheckboxToggle={handleCheckboxTentative}
               onNameChange={handleNameChangeTentative}
               userAuthority={userAuthority}
@@ -488,6 +538,7 @@ const ShipmentTable: React.FC = () => {
                   key={row.id}
                   row={row}
                   onChange={handleChange}
+                  onSubCountChange={handleSubChange}
                   onCheckboxToggle={handleCheckboxToggle}
                   onColorChange={handleColorChange}
                   addCountFlag={addCountFlag}
@@ -499,6 +550,7 @@ const ShipmentTable: React.FC = () => {
             <Onlytoday
               {...tentative2}
               onChange={handleChangeTentative}
+              onSubChangeTentative={handleSubChangeTentative}
               onCheckboxToggle={handleCheckboxTentative}
               onNameChange={handleNameChangeTentative}
               userAuthority={userAuthority}

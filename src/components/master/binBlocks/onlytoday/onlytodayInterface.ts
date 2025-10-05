@@ -10,6 +10,7 @@ export interface OnlytodayProps extends OnlytodaysData {
     highlight: highlight;
     onNameChange: (id: number, newName:string) => void;
     onChange: (id: number, field: 'today', delta: number) => void;
+    onSubChangeTentative: (id: number, field: 'arrangedTodaysItem', delta: number) => void;
     onCheckboxToggle: (id: number, key: 'isLargeDrumToday') => void;
     userAuthority: userAuthority;
     addCountFlag: addCountFlag;

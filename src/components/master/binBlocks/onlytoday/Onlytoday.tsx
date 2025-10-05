@@ -8,10 +8,12 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
     id,
     bin,
     today,
+    arrangedTodaysItem,
     isLargeDrumToday,
     alertborder,
     highlight,
     onChange,
+    onSubChangeTentative,
     onCheckboxToggle,
     onNameChange,
     userAuthority,
@@ -86,13 +88,16 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
             <BinDayBlock
                 label=''
                 className={`todayCells ${highlight ? `highlight-${highlight}` : ''}`}
-                count={today}
+                count={today ?? 0}
+                rightClickCount={arrangedTodaysItem ?? 0}
                 alertborder={alertborder}
                 showCheckbox={true}
                 checked={isLargeDrumToday}
                 checkboxLabel='大ドラム'
                 onIncrement={() => onChange(id, 'today', 1)}
                 onDecrement={() => onChange(id, 'today', -1)}
+                onSubIncrement={() => onSubChangeTentative(id, 'arrangedTodaysItem', 1)}
+                onSubDecrement={() => onSubChangeTentative(id, 'arrangedTodaysItem', -1)}
                 onCheckboxToggle={() => onCheckboxToggle(id, 'isLargeDrumToday')}
                 addCountFlag={addCountFlag}
             />

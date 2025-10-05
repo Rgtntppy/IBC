@@ -1,4 +1,3 @@
-import React from "react";
 import './binDayBlocks.scss';
 import { BinDayBlockProps } from "./binDayBlockInterface";
 
@@ -6,26 +5,36 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
     label,
     className,
     count,
+    rightClickCount,
     alertborder,
     showCheckbox = false,
     checked = false,
-    checkboxLabel = "",
+    checkboxLabel = '',
     onIncrement,
     onDecrement,
+    onSubIncrement,
+    onSubDecrement,
     onCheckboxToggle,
     addCountFlag,
 }) => {
+    const isHidden = 
+        (count ?? 0) === 0 &&
+        (rightClickCount ?? 0) === 0 &&
+        rightClickCount !== undefined;
 
     return (
         <div className='binDayCells'>
-            <div className={`dayCells ${className || ''} ${count > alertborder ? 'alert' : ''}`}>
+            <div
+                className={`dayCells ${className || ''} ${count > alertborder ? 'alert' : ''}`}
+            >
                 <p className='label'>{label}</p>
-                <div
-                    className='count noto-serif-jp'
-                    style={{ visibility: count === 0 ? 'hidden' : 'visible'}}
-                >
-                    {count}
-                </div>
+                {!isHidden && (
+                    <div
+                        className='count noto-serif-jp'
+                        >
+                        {count}{rightClickCount > 0 ? `+${rightClickCount}` : ''}
+                    </div>
+                )}
                 {showCheckbox && (
                     <label className='checkboxLabel'>
                         <input 
@@ -49,6 +58,10 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
                     onClick={() => {
                             onIncrement();
                     }}
+                    onContextMenu={(e) => {
+                        onSubIncrement();
+                        e.preventDefault();
+                    }}
                     disabled={!addCountFlag}
                 >
                     ▲
@@ -57,6 +70,10 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
                     className='countDownButton'
                     onClick={() => {
                         onDecrement();
+                    }}
+                    onContextMenu={(e) => {
+                        onSubDecrement();
+                        e.preventDefault();
                     }}
                     disabled={!addCountFlag}
                 >

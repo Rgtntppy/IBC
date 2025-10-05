@@ -23,12 +23,12 @@ $button-radius: 5px;
         
         .label {
             margin-top: 1px;
-            font-size: 8.5px;
+            font-size: 10px;
         }
         
         .count {
             display: flex;
-            font-size: 48px;
+            font-size: 32px;
             min-height: 1rem;
             line-height: 1;
         }
@@ -36,7 +36,7 @@ $button-radius: 5px;
         .checkboxLabel {
             display: flex;
             align-items: center;
-            font-size: 8.5px;
+            font-size: 10px;
             
             input[type='checkbox'] {
                 transform: scale(0.8);

@@ -13,7 +13,7 @@ const getNextAlert = (current: string, hasHighlight: boolean): string => {
 
 export const updateTodayValue = async (
     id: number,
-    key?: 'binAlert' | 'today' | 'isLargeDrumToday' | 'tomorrow' | 'isLargeDrumTomorrow',
+    key?: 'binAlert' | 'today' | 'arrangedTodaysItem' | 'isLargeDrumToday' | 'tomorrow' | 'arrangedTomorrowsItem' | 'isLargeDrumTomorrow',
     diff?: number | boolean,
 ) => {
     const docRef = doc(db, 'dayCells', 'latest');
@@ -47,6 +47,12 @@ export const updateTodayValue = async (
                 today: Math.min(50, Math.max(0, (item.today ?? 0) + (diff as number))),
             };
         }
+        if (key === 'arrangedTodaysItem') {
+            return {
+                ...item,
+                arrangedTodaysItem: Math.min(50, Math.max(0, (item.arrangedTodaysItem ?? 0) + (diff as number))),
+            };
+        }
         if (key === 'isLargeDrumToday') {
             return {
                 ...item,
@@ -58,6 +64,12 @@ export const updateTodayValue = async (
             return {
                 ...item,
                 tomorrow: Math.min(50, Math.max(0, (item.tomorrow ?? 0) + (diff as number))),
+            };
+        }
+        if (key === 'arrangedTomorrowsItem') {
+            return {
+                ...item,
+                arrangedTomorrowsItem: Math.min(50, Math.max(0, (item.arrangedTomorrowsItem ?? 0) + (diff as number))),
             };
         }
         if (key === 'isLargeDrumTomorrow') {

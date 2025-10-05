@@ -83,7 +83,7 @@ $button-radius: 5px;
         }
         
         .count {
-            font-size: 48px;
+            font-size: 32px;
             display: flex;
             min-height: 1rem;
             line-height: 1;
@@ -92,7 +92,7 @@ $button-radius: 5px;
         .checkboxLabel {
             display: flex;
             align-items: center;
-            font-size: 8px;
+            font-size: 10px;
             
             input[type="checkbox"] {
                 transform: scale(0.9);

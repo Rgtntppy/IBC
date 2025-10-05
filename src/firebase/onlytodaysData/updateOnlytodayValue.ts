@@ -3,7 +3,7 @@ import { db } from '../firebase';
 
 export const updateOnlytodayValue = async (
     id: number,
-    key: 'today' | 'isLargeDrumToday',
+    key: 'today' | 'arrangedTodaysItem' | 'isLargeDrumToday',
     diff?: number | boolean,
 ) => {
     const docRef = doc(db, 'onlyDayCells', 'onlytoday_latest');
@@ -24,6 +24,12 @@ export const updateOnlytodayValue = async (
             return {
                 ...item,
                 today: Math.min(50, Math.max(0, (item.today ?? 0) + (diff as number))),
+            };
+        }
+        if (key === 'arrangedTodaysItem') {
+            return {
+                ...item,
+                arrangedTodaysItem: Math.min(50, Math.max(0, (item.arrangedTodaysItem ?? 0) + (diff as number))),
             };
         }
         if (key === 'isLargeDrumToday') {

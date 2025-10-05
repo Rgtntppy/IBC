@@ -1,11 +1,11 @@
 import { db } from '../firebase'
 import { doc, setDoc } from 'firebase/firestore';
-import { OnlytodaysData } from './onlytodaysDataInterface';
+import { OnlytodaysCellsData } from './onlytodaysDataInterface';
 import { debounce } from 'lodash'
 
 const ONLYTODAY_DOC_ID = 'onlytoday_latest'
 
-const _saveOnlytodayData = async (onlytodaysData: OnlytodaysData[]) => {
+const _saveOnlytodayData = async (onlytodaysData: OnlytodaysCellsData[]) => {
     try {
         await setDoc(doc(db, 'onlyDayCells', ONLYTODAY_DOC_ID), {
             data: onlytodaysData,

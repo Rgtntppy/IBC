@@ -5,6 +5,7 @@ import { BinDayBlock } from './binDayBlocks/BinDayBlock';
 export const BinBlock: React.FC<BinBlockProps> = ({ 
     row,
     onChange,
+    onSubCountChange,
     onCheckboxToggle,
     onColorChange,
     addCountFlag,
@@ -33,13 +34,16 @@ export const BinBlock: React.FC<BinBlockProps> = ({
             <BinDayBlock
                 label='当日分'
                 className={`todayCells ${row.highlight ? `highlight-${row.highlight}` : ''}`}
-                count={row.today}
+                count={row.today ?? 0}
+                rightClickCount={row.arrangedTodaysItem ?? 0}
                 alertborder={row.alertborder}
                 showCheckbox={true}
                 checked={row.isLargeDrumToday}
                 checkboxLabel='大ドラム'
                 onIncrement={() => onChange(row.id, 'today', 1)}
                 onDecrement={() => onChange(row.id, 'today', -1)}
+                onSubIncrement={() => onSubCountChange(row.id, 'arrangedTodaysItem', 1)}
+                onSubDecrement={() => onSubCountChange(row.id, 'arrangedTodaysItem', -1)}
                 onCheckboxToggle={() => onCheckboxToggle(row.id, 'isLargeDrumToday')}
                 addCountFlag={addCountFlag}
             />
@@ -48,12 +52,15 @@ export const BinBlock: React.FC<BinBlockProps> = ({
                 label='翌日分'
                 className='nextDayCells'
                 count={row.tomorrow ?? 0}
+                rightClickCount={row.arrangedTomorrowsItem ?? 0}
                 alertborder={row.alertborder}
                 showCheckbox={true}
                 checked={row.isLargeDrumTomorrow ?? false}
                 checkboxLabel='大ドラム'
                 onIncrement={() => onChange(row.id, 'tomorrow', 1)}
                 onDecrement={() => onChange(row.id, 'tomorrow', -1)}
+                onSubIncrement={() => onSubCountChange(row.id, 'arrangedTomorrowsItem', 1)}
+                onSubDecrement={() => onSubCountChange(row.id, 'arrangedTomorrowsItem', -1)}
                 onCheckboxToggle={() => onCheckboxToggle(row.id, 'isLargeDrumTomorrow')}
                 addCountFlag={addCountFlag}
             />

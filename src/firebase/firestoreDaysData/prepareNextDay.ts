@@ -20,7 +20,9 @@ const _prepareNextDay = async () => {
         return {
             ...item,
             today: item.tomorrow ?? 0,
+            arrangedTodaysItem: item.arrangedTomorrowsItem ?? 0,
             tomorrow: 0,
+            arrangedTomorrowsItem: 0,
             isLargeDrumToday: item.isLargeDrumTomorrow ?? false,
             isLargeDrumTomorrow: false
         };
