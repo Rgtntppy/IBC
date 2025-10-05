@@ -25,7 +25,7 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
     return (
         <div className='binDayCells'>
             <div
-                className={`dayCells ${className || ''} ${count > alertborder ? 'alert' : ''}`}
+                className={`dayCells ${className || ''} ${count + rightClickCount > alertborder ? 'alert' : ''}`}
             >
                 <p className='label'>{label}</p>
                 {!isHidden && (
