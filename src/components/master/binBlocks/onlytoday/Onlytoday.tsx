@@ -58,7 +58,7 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
                         type='text'
                         className='binNameInput noto-serif-jp'
                         value={binName}
-                        maxLength={4}
+                        maxLength={9}
                         onChange={(e) => setBinName(e.target.value)}
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
@@ -71,6 +71,13 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
                 ) : (
                     <p
                         className='binNameText noto-serif-jp'
+                        style={{
+                            fontSize:
+                                binName.length <= 2 ? '24px' :
+                                binName.length <= 4 ? '20px' :
+                                binName.length <= 6 ? '16px' :
+                                '12px',
+                        }}
                         onClick={() => {
                             if (userAuthority > 4) {
                             setIsEditing(true);
@@ -78,10 +85,22 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
                             }
                         }}
                     >
-                        {binName.length >= 3
-                            ? `${binName.slice(0, 2)}\n${binName.slice(2)}`
-                        : binName
-                        }
+                        {(() => {
+                            const len = binName.length;
+
+                            if (len <= 6) {
+                                const mid = Math.ceil(len / 2);
+                                return `${binName.slice(0, mid)}\n${binName.slice(mid)}`;
+
+                            }
+
+                            //7文字以上 → 3段構成
+                            const part = Math.ceil(len / 3);
+                            const first = binName.slice(0, part);
+                            const second = binName.slice(part, part*2);
+                            const third = binName.slice(part * 2);
+                            return `${first}\n${second}\n${third}`;
+                        })()}
                     </p>
                 )}
             </div>
