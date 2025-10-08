@@ -49,6 +49,7 @@ $button-radius: 5px;
 
         .binNameText {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             font-weight: bold;
@@ -58,7 +59,7 @@ $button-radius: 5px;
             margin: 0;
             height: 100%;
             width: $binBlockTitleWidth;
-            white-space: pre-wrap;
+            white-space: pre-line;
             border-radius: $block-radius/1.2 0 0 $block-radius/1.2;
             border-right: $border-color;
             cursor: pointer;

@@ -77,6 +77,7 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
                                 binName.length <= 4 ? '20px' :
                                 binName.length <= 6 ? '16px' :
                                 '12px',
+                                whiteSpace: 'pre-line',
                         }}
                         onClick={() => {
                             if (userAuthority > 4) {
@@ -86,12 +87,14 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
                         }}
                     >
                         {(() => {
+                            const name = (binName ?? '').trim();
                             const len = binName.length;
 
+                            if (len === 0) return '';
+                            if (len <= 2) return name;
                             if (len <= 6) {
                                 const mid = Math.ceil(len / 2);
                                 return `${binName.slice(0, mid)}\n${binName.slice(mid)}`;
-
                             }
 
                             //7文字以上 → 3段構成
