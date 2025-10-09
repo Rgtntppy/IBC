@@ -16,6 +16,10 @@ export const updateOnlytodayValue = async (
     }
 
     const data = snap.data();
+    if (!Array.isArray(data.data)) {
+        console.error('Invalid data structure in onlytoday_latest');
+        return;
+    }
 
     const updatedData = data.data.map((item: any) => {
         if (item.id !== id) return item;
