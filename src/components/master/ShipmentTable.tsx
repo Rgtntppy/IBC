@@ -2,7 +2,7 @@ import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import './shipmentDesign.scss';
@@ -144,6 +144,7 @@ const ShipmentTable: React.FC = () => {
           id: Number(item.id),
           bin: item.bin ?? '',
           today: item.today ?? 0,
+          arrangedTodaysItem: item.arrangedTodaysItem ?? 0,
           isLargeDrumToday: item.isLargeDrumToday ?? false,
         } as OnlytodaysData
         ));
@@ -176,7 +177,7 @@ const ShipmentTable: React.FC = () => {
     
     const memoInterval = setInterval(async () => {
       await reloadMemoData();
-    }, 15 * 60 * 1000);
+    }, 20 * 60 * 1000);
 
     let binDataInterval: NodeJS.Timeout | null = null;
 
@@ -255,17 +256,24 @@ const ShipmentTable: React.FC = () => {
 
     await resetAllAlerts();
   }
-  
-  const handleChange = async (
-    id: number,
-    key: 'today' | 'arrangedTodaysItem' | 'tomorrow' | 'arrangedTomorrowsItem',
-    diff: number
-    ) => {
-    if (userAuthority < 5 || !addCountFlag) return;
-    
-    await updateTodayValue(id, key, diff);
 
-    const targetBin = binData.find((bin) => bin.id === id);
+  const handleSubCountChange = async (
+    id: number,
+    key: 'arrangedTodaysItem' | 'arrangedTomorrowsItem',
+    diff: number,
+    isTentative = false
+  ) => {
+    if (userAuthority < 7 || !addCountFlag) return;
+
+    if (isTentative) {
+      await updateOnlytodayValue(id, 'arrangedTodaysItem', diff);
+    } else {
+      await updateTodayValue(id, key, diff);
+    }
+
+    const targetBin = isTentative
+      ? onlytodaysBinData.find((bin) => bin.id === id)
+      : binData.find((bin) => bin.id === id);
 
     await saveLog({
       userId,
@@ -277,12 +285,20 @@ const ShipmentTable: React.FC = () => {
     });
   };
 
-  const handleSubChange = async (
+  const handleSubCountChangeTentative = useCallback((
     id: number,
-    key: 'arrangedTodaysItem' | 'arrangedTomorrowsItem',
+    key: 'arrangedTodaysItem',
+    diff: number,
+  ) => {
+    handleSubCountChange(id, key, diff, true);
+  }, [handleSubCountChange]);
+    
+  const handleChange = async (
+    id: number,
+    key: 'today' | 'tomorrow',
     diff: number
     ) => {
-    if (userAuthority < 7 || !addCountFlag) return;
+    if (userAuthority < 5 || !addCountFlag) return;
     
     await updateTodayValue(id, key, diff);
 
@@ -328,27 +344,6 @@ const ShipmentTable: React.FC = () => {
     ) => {
     if (userAuthority < 5 || !addCountFlag) return;
 
-    await updateOnlytodayValue(id, key, diff);
-
-    const targetBin = onlytodaysBinData.find((onlytodaysBinData) => onlytodaysBinData.id === id);
-
-    await saveLog({
-      userId,
-      userName,
-      binName: targetBin ? targetBin.bin : '不明',
-      key,
-      diff,
-      action: diff > 0 ? '増加' : '減少',
-    });
-  };
-
-  const handleSubChangeTentative = async (
-    id: number,
-    key: 'arrangedTodaysItem',
-    diff: number
-    ) => {
-    if (userAuthority < 7 || !addCountFlag) return;
-    
     await updateOnlytodayValue(id, key, diff);
 
     const targetBin = onlytodaysBinData.find((onlytodaysBinData) => onlytodaysBinData.id === id);
@@ -505,7 +500,7 @@ const ShipmentTable: React.FC = () => {
                   key={row.id}
                   row={row}
                   onChange={handleChange}
-                  onSubCountChange={handleSubChange}
+                  onSubCountChange={handleSubCountChange}
                   onCheckboxToggle={handleCheckboxToggle}
                   onColorChange={handleColorChange}
                   addCountFlag={addCountFlag}
@@ -517,7 +512,7 @@ const ShipmentTable: React.FC = () => {
             <Onlytoday
               {...tentative1}
               onChange={handleChangeTentative}
-              onSubChangeTentative={handleSubChangeTentative}
+              onSubChangeTentative={handleSubCountChangeTentative}
               onCheckboxToggle={handleCheckboxTentative}
               onNameChange={handleNameChangeTentative}
               userAuthority={userAuthority}
@@ -538,7 +533,7 @@ const ShipmentTable: React.FC = () => {
                   key={row.id}
                   row={row}
                   onChange={handleChange}
-                  onSubCountChange={handleSubChange}
+                  onSubCountChange={handleSubCountChange}
                   onCheckboxToggle={handleCheckboxToggle}
                   onColorChange={handleColorChange}
                   addCountFlag={addCountFlag}
@@ -550,7 +545,7 @@ const ShipmentTable: React.FC = () => {
             <Onlytoday
               {...tentative2}
               onChange={handleChangeTentative}
-              onSubChangeTentative={handleSubChangeTentative}
+              onSubChangeTentative={handleSubCountChangeTentative}
               onCheckboxToggle={handleCheckboxTentative}
               onNameChange={handleNameChangeTentative}
               userAuthority={userAuthority}

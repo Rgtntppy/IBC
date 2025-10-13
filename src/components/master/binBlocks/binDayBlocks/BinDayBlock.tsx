@@ -19,8 +19,7 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
 }) => {
     const isHidden = 
         (count ?? 0) === 0 &&
-        (rightClickCount ?? 0) === 0 &&
-        rightClickCount !== undefined;
+        (rightClickCount ?? 0) === 0;
 
     return (
         <div className='binDayCells'>
@@ -59,8 +58,8 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
                             onIncrement();
                     }}
                     onContextMenu={(e) => {
-                        onSubIncrement();
                         e.preventDefault();
+                        onSubIncrement();
                     }}
                     disabled={!addCountFlag}
                 >
@@ -72,8 +71,8 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
                         onDecrement();
                     }}
                     onContextMenu={(e) => {
-                        onSubDecrement();
                         e.preventDefault();
+                        onSubDecrement();
                     }}
                     disabled={!addCountFlag}
                 >
