@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ruleBook.scss';
 import { RuleBookProps } from './ruleBookInterface';
 import { txts } from '../../../../data/ruleBookTexts';
@@ -6,10 +6,17 @@ import { txtsProps, txtPageProps } from '../../../../data/ruleBookTexts/txtsInte
 
 export const RuleBook: React.FC<RuleBookProps> = ({
     handleclose,
+    initialDepartmentId,
+    initialTextId,
 }) => {
     const [activeDepartmentId, setActiveDepartmentId] = useState<txtsProps['id'] | null>(null);
     const [activeTextId, setActiveTextId] = useState<txtPageProps['id'] | null>(null);
     const [pageIndex, setPageIndex] = useState(0);
+
+    useEffect(() => {
+        if (initialDepartmentId) setActiveDepartmentId(initialDepartmentId);
+        if (initialTextId) setActiveTextId(initialTextId);
+    }, [initialDepartmentId, initialTextId]);
 
     const activeDepartment = txts.find(d => d.id === activeDepartmentId) || null; 
     const activeText = activeDepartment?.texts.find(t => t.id === activeTextId);

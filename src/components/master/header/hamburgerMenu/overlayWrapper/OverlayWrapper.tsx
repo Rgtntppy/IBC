@@ -1,5 +1,6 @@
 import React, { ReactNode, useRef } from 'react';
 import { OverlayWrapperProps } from './overlayWrapperInterface';
+import './overlayWrapper.scss';
 
 export const OverlayWrapper: React.FC<OverlayWrapperProps> = ({
     isOpen,
