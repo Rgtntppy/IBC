@@ -114,9 +114,9 @@
                 }
         
                 td {
-                    padding: 10px;
+                    padding: 6px;
                     color: #555;
-            
+
                     &:first-child {
                         font-family: monospace;
                         color: #222;
@@ -127,6 +127,21 @@
                     }
                 }
 
+                .userHighlight {
+                    color: #0070f3; // 青系で目立たせる
+                    font-weight: 600;
+                }
+                  
+                .keyToday {
+                    color: #009900; // 緑系
+                    font-weight: 600;
+                }
+                  
+                .keyTomorrow {
+                    color: #cc6600; // オレンジ系
+                    font-weight: 600;
+                }
+
                 .logIncrease {
                     color: blue;
                 }
@@ -135,6 +150,30 @@
                     color: red;
                 }
             }
+        }
+
+        .colTime {
+            max-width: 180px;
+            min-width: 160px;
+            font-family: monospace;
+        }
+
+        .colUser {
+            max-width: 180px;
+        }
+
+        .colBin {
+            width: 50px;
+        }
+
+        .colKey {
+            width: 80px;
+            max-width: 90px;
+        }
+
+        .colDiff {
+            width: 200px;
+            text-align: right;
         }
     }
 }

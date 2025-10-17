@@ -94,17 +94,24 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
             <table>
                 <thead>
                     <tr>
-                        <th>時刻</th>
-                        <th>ユーザー</th>
-                        <th>便</th>
-                        <th>key</th>
-                        <th>増減</th>
+                        <th className='colTime'>時刻</th>
+                        <th className='colUser'>ユーザー</th>
+                        <th className='colBin'>便</th>
+                        <th className='colKey'>key</th>
+                        <th className='colDiff'>増減</th>
                     </tr>
                 </thead>
                 <tbody>
                     {filterdLogs.map((log) => {
                         const isIncrease = log.action === '増加';
                         const isDecrease = log.action === '減少';
+
+                        const isTodayKey = log.key === '当日分';
+                        const isTomorrowKey = log.key === '翌日分';
+                        const isArrangedTodaysItem = log.key ==='当日分手配品';
+                        const isArrangedTomorrowsItem = log.key === '翌日分手配品';
+
+                        const isAdminUser = log.userId.includes('809617');
                         
                         let diffDisplay ='';
                         if (typeof log.diff === 'number') {
@@ -115,14 +122,30 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
                         
                         return (
                             <tr key={log.id}>
-                                <td>{log.timestamp ? new Date(log.timestamp.seconds * 1000).toLocaleString() : ''}</td>
-                                <td>{log.userName} ({log.userId})</td>
-                                <td>{log.binName}</td>
-                                <td>{log.key}</td>
+                                <td className='colTime'>
+                                    {log.timestamp ? new Date(log.timestamp.seconds * 1000).toLocaleString() : ''}
+                                </td>
+                                <td className={`colUser ${isAdminUser ? 'userHighlight' : ''}`}>
+                                    {log.userName} ({log.userId})
+                                </td>
+                                <td className='colBin'>
+                                    {log.binName}
+                                </td>
                                 <td
-                                    className={
-                                        isIncrease ? 'logIncrease' : isDecrease ? 'logDecrease' : ''
-                                    }
+                                    className={`colKey ${
+                                        isTodayKey || isArrangedTodaysItem ? 'keyToday' :
+                                        isTomorrowKey || isArrangedTomorrowsItem ? 'keyTomorrow' :
+                                        ''
+                                    }`}
+                                >
+                                    {log.key}
+                                </td>
+                                <td
+                                    className={`colDiff ${
+                                        isIncrease ? 'logIncrease' :
+                                        isDecrease ? 'logDecrease' :
+                                        ''
+                                    }`}
                                     >
                                     {log.action} ({diffDisplay})
                                 </td>

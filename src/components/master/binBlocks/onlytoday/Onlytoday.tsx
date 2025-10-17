@@ -118,8 +118,8 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
                 checkboxLabel='大ドラム'
                 onIncrement={() => onChange(id, 'today', 1)}
                 onDecrement={() => onChange(id, 'today', -1)}
-                onSubIncrement={() => onSubChangeTentative(id, 'arrangedTodaysItem', 1)}
-                onSubDecrement={() => onSubChangeTentative(id, 'arrangedTodaysItem', -1)}
+                onSubIncrement={() => onSubChangeTentative(id, '当日分手配品', 1)}
+                onSubDecrement={() => onSubChangeTentative(id, '当日分手配品', -1)}
                 onCheckboxToggle={() => onCheckboxToggle(id, 'isLargeDrumToday')}
                 addCountFlag={addCountFlag}
             />

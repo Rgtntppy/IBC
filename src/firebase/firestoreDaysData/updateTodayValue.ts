@@ -13,7 +13,7 @@ const getNextAlert = (current: string, hasHighlight: boolean): string => {
 
 export const updateTodayValue = async (
     id: number,
-    key?: 'binAlert' | 'today' | 'arrangedTodaysItem' | 'isLargeDrumToday' | 'tomorrow' | 'arrangedTomorrowsItem' | 'isLargeDrumTomorrow',
+    key?: 'binAlert' | '当日分' | '当日分手配品' | 'isLargeDrumToday' | '翌日分' | '翌日分手配品' | 'isLargeDrumTomorrow',
     diff?: number | boolean,
 ) => {
     const docRef = doc(db, 'dayCells', 'latest');
@@ -41,13 +41,13 @@ export const updateTodayValue = async (
             }
         }
 
-        if (key === 'today') {
+        if (key === '当日分') {
             return {
                 ...item,
                 today: Math.min(50, Math.max(0, (item.today ?? 0) + (diff as number))),
             };
         }
-        if (key === 'arrangedTodaysItem') {
+        if (key === '当日分手配品') {
             return {
                 ...item,
                 arrangedTodaysItem: Math.min(50, Math.max(0, (item.arrangedTodaysItem ?? 0) + (diff as number))),
@@ -60,13 +60,13 @@ export const updateTodayValue = async (
             };
         }
 
-        if (key === 'tomorrow') {
+        if (key === '翌日分') {
             return {
                 ...item,
                 tomorrow: Math.min(50, Math.max(0, (item.tomorrow ?? 0) + (diff as number))),
             };
         }
-        if (key === 'arrangedTomorrowsItem') {
+        if (key === '翌日分手配品') {
             return {
                 ...item,
                 arrangedTomorrowsItem: Math.min(50, Math.max(0, (item.arrangedTomorrowsItem ?? 0) + (diff as number))),

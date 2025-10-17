@@ -259,7 +259,7 @@ const ShipmentTable: React.FC = () => {
 
   const handleSubCountChange = async (
     id: number,
-    key: 'arrangedTodaysItem' | 'arrangedTomorrowsItem',
+    key: '当日分手配品' | '翌日分手配品',
     diff: number,
     isTentative = false
   ) => {
@@ -287,7 +287,7 @@ const ShipmentTable: React.FC = () => {
 
   const handleSubCountChangeTentative = useCallback((
     id: number,
-    key: 'arrangedTodaysItem',
+    key: '当日分手配品',
     diff: number,
   ) => {
     handleSubCountChange(id, key, diff, true);
@@ -295,7 +295,7 @@ const ShipmentTable: React.FC = () => {
     
   const handleChange = async (
     id: number,
-    key: 'today' | 'tomorrow',
+    key: '当日分' | '翌日分',
     diff: number
     ) => {
     if (userAuthority < 5 || !addCountFlag) return;
@@ -411,8 +411,8 @@ const ShipmentTable: React.FC = () => {
     await saveLog({
       userId,
       userName,
-      binName: '翌日分準備',
-      key: 'prepareNextDay',
+      binName: '全て',
+      key: '翌日分準備',
       diff: false,
       action: '更新',
     })
