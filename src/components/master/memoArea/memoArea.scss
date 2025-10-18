@@ -1,8 +1,10 @@
+@import '../../../data/scssFunctionFile/scssFunction.scss';
+
 .memoTextarea {
     position: absolute;
-    top: 46px;
+    top: $headerHeight;
     left: 230px;
-    width: 250px;
+    width: 290px;
     height: 50px;
     font-size: 14px;
     box-sizing: border-box;

@@ -7,6 +7,7 @@ type handleBlur = MemoAreaProps['handleBlur'];
 
 type userAuthority = UsersProps['userAuthority'];
 export interface HeaderTabProps {
+    userId: string;
     userName: string;
     userAuthority: userAuthority;
     addCountFlag: boolean;

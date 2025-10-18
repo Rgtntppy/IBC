@@ -1,0 +1,43 @@
+@import '../../../data/scssFunctionFile/scssFunction.scss';
+
+.surplusPowerContainer {
+    position: absolute;
+    top: 5px;
+    left: 250px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+
+    .surplusPowerTitle {
+        font-weight: 700;
+    }
+
+    .surplusBtn {
+        padding: 5px 9px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.green {
+            background-color: $areaAlertGreen;
+        }
+        &.yellow {
+            background-color: $areaAlertYellow;
+            color: $yellowAlertText;
+        }
+        &.red {
+            background-color: $areaAlertRed;
+        }
+
+        &:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+    }
+}

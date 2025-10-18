@@ -462,6 +462,7 @@ const ShipmentTable: React.FC = () => {
   return (
     <div className='shipmentTable'>
       <Header
+        userId={userId}
         userName={userName}
         userAuthority={userAuthority}
         addCountFlag={addCountFlag}
@@ -472,6 +473,15 @@ const ShipmentTable: React.FC = () => {
         handleBlur={handleBlur}
       />
       <ToastContainer/>
+      <div className='userInfo'>
+        <p className='welcomeText'>
+          ようこそ
+          <span className='userName'>
+          {userName}    
+          </span>
+          さん
+        </p>
+      </div>
       <TodayLabel
         hasInitialized={hasInitialized}
         currentDate={currentDate}
@@ -578,10 +588,6 @@ const ShipmentTable: React.FC = () => {
           onClose={() => setShowWarningPopup(false)}
         />
       )}
-      <SurplusPower
-        userId={userId}
-        userName={userName}
-      />
     </div>
   );
 };

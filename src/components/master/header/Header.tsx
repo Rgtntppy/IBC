@@ -3,8 +3,10 @@ import './header.scss';
 import React, { useState } from 'react';
 import { HamburgerMenu } from './hamburgerMenu/HamburgerMenu';
 import { HeaderTabProps } from './headerInterface';
+import { SurplusPower } from '../surplusPower/SurplusPower';
 
 export const Header: React.FC<HeaderTabProps> = ({
+    userId,
     userName,
     userAuthority,
     addCountFlag,
@@ -62,15 +64,10 @@ export const Header: React.FC<HeaderTabProps> = ({
             <h1 className='title'>
                 ドラム出荷数管理表
             </h1>
-            <div className='userInfo'>
-                <p className='welcomeText'>
-                    ようこそ
-                    <span className='userName'>
-                    {userName}    
-                    </span>
-                    さん
-                </p>
-            </div>
+            <SurplusPower
+                userId={userId}
+                userName={userName}
+            />
             <div className='ButtonsWrapper'>
                 <button
                 onClick={addCount}

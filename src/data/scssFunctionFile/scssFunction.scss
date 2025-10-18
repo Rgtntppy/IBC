@@ -1,4 +1,7 @@
-$binBlockHight: 68px;
+$headerHeight: 50px;
+
+$binBlockHight: 10px;
+$binBlockWidth: 240px;
 $binBlockTitleWidth: 50px; 
 
 $thinRed-color: rgb(252, 228, 214);
@@ -16,3 +19,8 @@ $hoverTextcolor: #fff;
 $hovergreen:rgb(30, 230, 40); 
 $bluemarker: linear-gradient(transparent 80%, rgba(0, 0, 255, 0.6) 80%);
 $redmarker: linear-gradient(transparent 80%, rgba(255, 0, 0, 0.6) 80%);
+
+$areaAlertGreen: #28a745;
+$areaAlertYellow: #ffc107;
+$yellowAlertText: #333;
+$areaAlertRed: #dc3545;

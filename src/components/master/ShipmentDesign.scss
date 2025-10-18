@@ -1,10 +1,27 @@
+@import '../../data/scssFunctionFile/scssFunction.scss';
+
 $binBlockHight: 60px;
 
 .shipmentTable {
+    position: relative;
+    
+    .userInfo {
+        position: absolute;
+        top: $headerHeight;
+        left: 40px;
+        color: #333;
+
+        .welcomeText {
+            font-size: 12px;
+            
+            .userName {
+                font-size: 1.2rem;
+            }
+        }
+    }
 
     .binGrid {
         position: relative;
-        display: flex;
         display: flex;
         gap: 3px;
         padding: 15px;
@@ -27,20 +44,22 @@ $binBlockHight: 60px;
             &.column-lifted {
                 transform: translateY($binBlockHight*1.24);
             }
-            
-            
         }
     }
     
     
     .todayBinGrid {
-        transform: translateY(-30px);
+        position: absolute;
+        top: $headerHeight;
+        left: 0px;
+
         .pmBinGrid {
+            height: 372px;
             padding: 5px 15px;
         }
 
         .amBinGrid {
-            position: relative;
+            height: 298px;
             padding: 5px 15px;
             border-top: 2px dashed #000;
         }

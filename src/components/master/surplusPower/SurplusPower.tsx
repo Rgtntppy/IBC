@@ -23,9 +23,9 @@ export const SurplusPower: React.FC<SurplusPowerProps> = ({
     }, []);
 
     const areaMap: Record<string, string> = {
-        BArea: '太物エリア',
-        SArea: '細物エリア',
-        PArea: 'ピックエリア',
+        BArea: '太物',
+        SArea: '細物',
+        PArea: 'ピック',
     };
 
     const areaAlertColorMap: Record<string, string> = {
@@ -62,9 +62,9 @@ export const SurplusPower: React.FC<SurplusPowerProps> = ({
 
     return (
         <div className='surplusPowerContainer'>
-            <h2 className='surplusPowerTitle'>
+            {/* <h2 className='surplusPowerTitle'>
                 各エリアの余力
-            </h2>
+            </h2> */}
             {Object.keys(alertColors).map((areaKey) => {
                 const key = areaKey as keyof typeof alertColors;
                 const areaAlertColor = alertColors[key];

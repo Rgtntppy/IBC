@@ -5,8 +5,8 @@ $buttonhightpadding: 4px 0;
 
 .header {
     position: relative;
-    width: 650px;
-    height: 40px;
+    width: 700px;
+    height: $headerHeight;
     
     .title {
         position: relative;
@@ -19,21 +19,6 @@ $buttonhightpadding: 4px 0;
         font-optical-sizing: auto;
         font-weight: bold;
         font-style: normal;
-    }
-    
-    .userInfo {
-        position: absolute;
-        top: 18px;
-        left: 210px;
-        color: #333;
-
-        .welcomeText {
-            font-size: 12px;
-            
-            .userName {
-                font-size: 1.2rem;
-            }
-        }
     }
 
     .ButtonsWrapper {

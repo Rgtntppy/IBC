@@ -18,8 +18,8 @@ $button-radius: 5px;
     $button-radius*1.2 
     $block-radius;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    height: $binBlockHight;
-    width: 220px;
+    height: 100%;
+    width: $binBlockWidth;
     
     /* 左側: bin名 */
     .binName {
