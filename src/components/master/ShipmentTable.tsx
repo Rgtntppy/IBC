@@ -36,6 +36,7 @@ import { resetAllAlerts } from '../../firebase/firestoreDaysData/resetAllAlerts'
 import { ResetAllAlertsPopUp } from './popUp/userControleBtn/resetAllAlerts/ResetAllAlerts';
 import { WarningPopup } from './popUp/userControleBtn/warningPopup/WarningPopup';
 import { saveLog } from '../../firebase/saveLogData/saveLog';
+import { SurplusPower } from './surplusPower/SurplusPower';
 
 const ShipmentTable: React.FC = () => {
   const [userId, setUserId] = useState('');
@@ -577,6 +578,10 @@ const ShipmentTable: React.FC = () => {
           onClose={() => setShowWarningPopup(false)}
         />
       )}
+      <SurplusPower
+        userId={userId}
+        userName={userName}
+      />
     </div>
   );
 };

@@ -103,13 +103,17 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
                 </thead>
                 <tbody>
                     {filterdLogs.map((log) => {
-                        const isIncrease = log.action === '増加';
-                        const isDecrease = log.action === '減少';
-
                         const isTodayKey = log.key === '当日分';
                         const isTomorrowKey = log.key === '翌日分';
                         const isArrangedTodaysItem = log.key ==='当日分手配品';
                         const isArrangedTomorrowsItem = log.key === '翌日分手配品';
+                        
+                        const isIncrease = log.action === '増加';
+                        const isDecrease = log.action === '減少';
+
+                        const greenAlert = log.diff === 'グリーン';
+                        const yellowAlert = log.diff === 'イエロー';
+                        const redAlert = log.diff === 'レッド';
 
                         const isAdminUser = log.userId.includes('809617');
                         
@@ -141,11 +145,16 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
                                     {log.key}
                                 </td>
                                 <td
-                                    className={`colDiff ${
-                                        isIncrease ? 'logIncrease' :
-                                        isDecrease ? 'logDecrease' :
+                                    className={`
+                                        colDiff ${
+                                        isIncrease  ? 'logIncrease' :
+                                        isDecrease  ? 'logDecrease' :
+                                        greenAlert  ? 'greenAlert' :
+                                        yellowAlert ? 'yellowAlert' :
+                                        redAlert    ? 'redAlert' :
                                         ''
-                                    }`}
+                                        }
+                                    `}
                                     >
                                     {log.action} ({diffDisplay})
                                 </td>

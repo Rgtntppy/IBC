@@ -11,6 +11,6 @@ export interface LogEntry {
     binName: binName;
     action: '増加' | '減少' | '更新' | '削除';
     key: string;
-    diff: number | boolean;
+    diff: number | boolean | string;
     timestamp?: any;
 }
