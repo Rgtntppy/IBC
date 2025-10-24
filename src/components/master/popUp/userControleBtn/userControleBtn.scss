@@ -20,18 +20,18 @@
     .prepareNextDay {
         position: absolute;
         right: 30px;
-        bottom: 10px;
     }
 
     .resetAllAlertsButton {
-        transform: translateY(-34px);
+        bottom:45px;
         
         &:hover {
             background-color: #facc15;
         }
     }
-
+    
     .prepareNextDay {
+        bottom: 10px;
         
         &:hover {
             background-color: red;
