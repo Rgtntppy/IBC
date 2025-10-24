@@ -1,11 +1,11 @@
 import { RuleBookPage } from '../RuleBookPage';
 
-export const AboutAlertsPage1: React.FC = () => {
+export const AboutBinAlertsPage1: React.FC = () => {
     return (
         <div>
             <RuleBookPage
                 departmentId={1}
-                textId={110}
+                textId={120}
             >
             <p className='ruleBookText'>
                 便名・当日分・翌日分の背景が

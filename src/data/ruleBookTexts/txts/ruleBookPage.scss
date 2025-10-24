@@ -1,0 +1,70 @@
+@import '../../../data/scssFunctionFile/scssFunction.scss'; 
+
+$subTitle-font-size: 1.2rem;
+
+.ruleBookHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 5px;
+}
+.ruleBookTextTitle {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+.ruleBookTextSubTitle {
+    display: inline-block;
+    font-size: $subTitle-font-size;
+    font-weight: 600;
+    background: $bluemarker;
+}
+.subTitle{
+    font-size: $subTitle-font-size;
+}
+.ruleBookText {
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    
+    .redmarker {
+        background: $redmarker;
+    }
+
+    .backcolor {
+        padding: 2px 4px;
+    }
+
+    .redback {
+        background-color: rgba(255, 0, 0, 0.7);
+    }
+
+    .yellowback {
+        background-color: rgba(255, 255, 0, 0.7);
+    }
+
+    .thinRedback {
+        background-color: $thinRed-color;
+    }
+    .thinYellowback {
+        background-color: $thinYellow-color;
+    }
+    .thinGreenback {
+        background-color: $thinGreen-color;
+    }
+    .thinBlueback {
+        background-color: $thinBlue-color;
+    }
+
+    .areaAlertGreenback {
+        background-color: $areaAlertGreen;
+        color: $areaAlertTextColor;        
+    }
+    .areaAlertYellowback {
+        background-color: $areaAlertYellow;
+        color: $yellowAlertText;
+    }
+    .areaAlertRedback {
+        background-color: $areaAlertRed;
+        color: $areaAlertTextColor;
+    }
+}

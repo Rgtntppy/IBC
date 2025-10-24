@@ -2,7 +2,7 @@ import { txtsProps } from './txtsInterface';
 import { AboutMemosPage1 } from './txts/commonTexts/aboutMemosPage1';
 import { AboutBinBlocksPage1 } from './txts/commonTexts/aboutBinBlocks/aboutBinBlockPage1';
 import { AboutBinColorsPage1 } from './txts/commonTexts/aboutBincolorsPage1';
-import { AboutAlertsPage1 } from './txts/commonTexts/aboutAlertsPage1';
+import { AboutBinAlertsPage1 } from './txts/commonTexts/aboutBinAlertsPage1';
 import { AdditionsAndChangesPage1 } from './txts/cutAreaTexts/cutAreaText1/additionsAndChangesPage1';
 import { CutAreaText2Page1 } from './txts/cutAreaTexts/cutAreaText2/cutAreaText2Page1';
 import { AboutBigLuggagePage1 } from './txts/pickAreaTexts/pickAreaText1/txt3/aboutBigLuggagePage1';
@@ -10,6 +10,8 @@ import { OfficeAreaText1Page1 } from './txts/officeAreaTexts/officeAreaText1/off
 import { CutAreaText2Page2 } from './txts/cutAreaTexts/cutAreaText2/cutAreaText2Page2';
 import { AboutIdsPage1 } from './txts/commonTexts/aboutIdsPage1';
 import { arrangementDrumsPage1 } from './txts/others/arrangementDrums';
+import { AboutAreaAlertsPage1 } from './txts/commonTexts/aboutAreaAlerts/aboutAreaAlertsPage1';
+import { AboutAreaAlertsPage2 } from './txts/commonTexts/aboutAreaAlerts/aboutAreaAlertsPage2';
 
 export const txts: txtsProps[] = [
     {
@@ -33,10 +35,14 @@ export const txts: txtsProps[] = [
                 label: '便の背景色について',
                 pages: [AboutBinColorsPage1],
             },{
-                id: 110,
-                label: 'アラートについて',
-                pages: [AboutAlertsPage1],
-            },
+                id: 120,
+                label: '便アラートについて',
+                pages: [AboutBinAlertsPage1],
+            },{
+                id: 121,
+                label: 'エリアアラートについて',
+                pages: [AboutAreaAlertsPage1, AboutAreaAlertsPage2],
+            }
 
         ]
     },{
@@ -45,13 +51,14 @@ export const txts: txtsProps[] = [
         texts: [
             {
                 id: 201,
-                label: 'ドラム数量「追加・変更」について',
+                label: 'ドラム数量の「追加・変更」について',
                 pages: [AdditionsAndChangesPage1],
-            },{
-                id: 202,
-                label: '準備中...',
-                pages: [CutAreaText2Page1, CutAreaText2Page2],
             },
+            // {
+            //     id: 202,
+            //     label: '準備中...',
+            //     pages: [CutAreaText2Page1, CutAreaText2Page2],
+            // },
         ]
     },{
         id: 3,
