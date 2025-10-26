@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
-import './shipmentDesign.scss';
+import './shipmentTable.scss';
 import { importAll } from '../img/importImages';
 import { saveDayCells } from '../../firebase/firestoreDaysData/saveDaysData';
 import { loadDayCells } from '../../firebase/firestoreDaysData/loadDaysData';
