@@ -1,7 +1,5 @@
 @import '../../data/scssFunctionFile/scssFunction.scss';
 
-$binBlockHight: 60px;
-
 .shipmentTable {
     position: relative;
     
@@ -42,7 +40,7 @@ $binBlockHight: 60px;
             gap: 3px;
             
             &.column-lifted {
-                transform: translateY($binBlockHight*1.24);
+                transform: translateY($binBlockHight + 6px);
             }
         }
     }
@@ -53,14 +51,17 @@ $binBlockHight: 60px;
         top: $headerHeight;
         left: 0px;
 
-        .pmBinGrid {
-            height: 372px;
+        .pmBinGrid,
+        .amBinGrid {
             padding: 5px 15px;
         }
 
+        .pmBinGrid {
+            height: $binBlockHight * 5 + 28px;
+        }
+
         .amBinGrid {
-            height: 298px;
-            padding: 5px 15px;
+            height: $binBlockHight * 4 + 24px;
             border-top: 2px dashed #000;
         }
     }
