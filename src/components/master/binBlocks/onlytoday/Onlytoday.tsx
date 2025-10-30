@@ -23,6 +23,7 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
     const [binName, setBinName] = useState(bin);
     const [isEditing, setIsEditing] = useState(false);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -82,6 +83,7 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
                         onClick={() => {
                             if (userAuthority > 4) {
                             setIsEditing(true);
+                            setBinName('')
                             setTimeout(() => inputRef.current?.focus(), 0);
                             }
                         }}
