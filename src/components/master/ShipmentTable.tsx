@@ -579,6 +579,7 @@ const ShipmentTable: React.FC = () => {
           <PrepareForTheNextDayPopUp
             userAuthority={userAuthority}
             handlePrepareNextDay={handlePrepareNextDay}
+            displayDate={displayDate}
           />
         </div>
       </div>

@@ -1,3 +1,4 @@
+import './prepareForTheNextDaypopUp.scss'; 
 import '../userControleBtn.scss';
 import { useState } from 'react';
 import { PrepareForTheNextDayProps } from './prepareForTheNextDaypopUpInterface';
@@ -6,6 +7,7 @@ import { ConfirmDialog } from '../../confirmDialog/ConfirmDialog';
 export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayProps> = ({
     userAuthority,
     handlePrepareNextDay,
+    displayDate,
 }) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
@@ -36,7 +38,10 @@ export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayProps> = ({
         title='注意!'
         message={
           <>
-          本日分のデータは失われますが
+          <span className='todaysDate'>
+          {displayDate}
+          </span>
+          のデータは失われますが
           <br/>
           よろしいでしょうか？
           </>
