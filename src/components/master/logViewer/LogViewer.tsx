@@ -33,7 +33,7 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
             keys: [
                 { name: 'binName', weight: 0.7 },
                 { name: 'userName', weight: 0.2 },
-                {name: 'key', weight: 0.1 },
+                { name: 'key', weight: 0.1 },
             ],
             threshold: 0.3,
         });
