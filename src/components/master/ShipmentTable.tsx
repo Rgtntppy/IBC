@@ -49,6 +49,7 @@ const ShipmentTable: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(dayjs().format('YYYY/MM/DD'));
   const [displayDate, setDisplayDate] = useState(dayjs().format('YYYY年MM月DD日分'));
   const [isDateConfirmed, setIsDateConfirmed] = useState(false)
+  const shortDate = dayjs().format('M月D日分');
   
   const [memo, setMemo] = useState('');
   
