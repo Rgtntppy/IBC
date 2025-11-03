@@ -72,12 +72,6 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
             
             {/* メニュー */}
             <nav className={`menu ${isOpen ? 'open' : ''}`}>
-                {/* <div>
-                    <h2>
-                        CVT
-                    </h2>
-
-                </div> */}
                 <ul>
                     <div className='userControle'>
                         <button
