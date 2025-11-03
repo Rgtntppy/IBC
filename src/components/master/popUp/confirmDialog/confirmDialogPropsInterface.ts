@@ -4,4 +4,5 @@ export interface ConfirmDialogProps {
     message: React.ReactNode;
     onConfirm: () => void;
     onCancel: () => void;
+    className?: string;
 }

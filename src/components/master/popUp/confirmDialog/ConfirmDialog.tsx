@@ -9,6 +9,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
     message,
     onConfirm,
     onCancel,
+    className,
 }) => {
     useEffect(() => {
         if (isOpen) {
@@ -24,7 +25,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
     if (!isOpen) return null;
 
     return ReactDOM.createPortal(
-        <div className='modalOverlay'>
+        <div className={`modalOverlay ${className ?? ''}`}>
             <div className='modalContent'>
                 <h2 className='modalTitle'>
                     {title}

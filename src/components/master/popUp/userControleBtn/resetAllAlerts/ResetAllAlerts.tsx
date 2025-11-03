@@ -36,7 +36,7 @@ export const ResetAllAlertsPopUp: React.FC<ResetAllAlertsProps> = ({
                 title='注意!'
                 message={
                 <>
-                全てのAlertを解除します
+                全ての「便アラート」を解除します
                 <br/>
                 よろしいでしょうか？
                 </>
