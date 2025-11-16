@@ -49,7 +49,32 @@ const ShipmentTable: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(dayjs().format('YYYY/MM/DD'));
   const [displayDate, setDisplayDate] = useState(dayjs().format('YYYY年MM月DD日分'));
   const [isDateConfirmed, setIsDateConfirmed] = useState(false)
-  const shortDate = dayjs().format('M月D日分');
+  
+  const ymd = displayDate.replace(
+    /^(\d{4})年0?(\d{1,2})月0?(\d{1,2})日分$/,
+    '$1$2$3'
+  );
+  const nextYMD = getNextBusinessDay(ymd);
+  const nextNextYMD = getNextBusinessDay(nextYMD);
+  
+  const shortDate = displayDate.replace(
+  /^(\d{4})年0?(\d{1,2})月0?(\d{1,2})日分$/,
+  '$2/$3'
+  );
+
+  const shortNextDate = (() => {
+    return nextYMD.replace(
+      /^(\d{4})(\d{2})(\d{2})$/,
+      '$2/$3'
+    );
+  })();
+
+  const shortNextNextDate = (() => {
+    return nextNextYMD.replace(
+      /^(\d{4})(\d{2})(\d{2})$/,
+      '$2/$3'
+    );
+  })();
   
   const [memo, setMemo] = useState('');
   
@@ -195,7 +220,7 @@ const ShipmentTable: React.FC = () => {
         } catch (e) {
           console.error('ポーリング中にエラー:', e);
         }
-      }, 15 * 60 * 1000)
+      }, 20 * 60 * 1000)
     }
 
     return () => {
@@ -516,6 +541,8 @@ const ShipmentTable: React.FC = () => {
                   onCheckboxToggle={handleCheckboxToggle}
                   onColorChange={handleColorChange}
                   addCountFlag={addCountFlag}
+                  shortDate={shortDate}
+                  shortNextDate={shortNextDate}
                   />
                   ))}
             </div>
@@ -549,6 +576,8 @@ const ShipmentTable: React.FC = () => {
                   onCheckboxToggle={handleCheckboxToggle}
                   onColorChange={handleColorChange}
                   addCountFlag={addCountFlag}
+                  shortDate={colIndex === 0 ? shortDate : shortNextDate}
+                  shortNextDate={colIndex === 0 ? shortNextDate : shortNextNextDate}
                 />
               ))}
             </div>

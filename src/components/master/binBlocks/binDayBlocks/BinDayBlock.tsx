@@ -26,11 +26,11 @@ export const BinDayBlock: React.FC<BinDayBlockProps> = ({
             <div
                 className={`dayCells ${className || ''} ${count + rightClickCount > alertborder ? 'alert' : ''}`}
             >
-                <p className='label'>{label}</p>
+                <p className='label' data-text={label}/>
                 {!isHidden && (
                     <div
                         className='count noto-serif-jp'
-                        >
+                    >
                         {count}{rightClickCount > 0 ? `+${rightClickCount}` : ''}
                     </div>
                 )}

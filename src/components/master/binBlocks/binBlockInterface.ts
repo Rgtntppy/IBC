@@ -10,4 +10,6 @@ export interface BinBlockProps {
     onCheckboxToggle: (id: number, key: 'isLargeDrumToday' | 'isLargeDrumTomorrow') => void;
     onColorChange: (id: number) => void;
     addCountFlag: addCountFlag;
+    shortDate: string;
+    shortNextDate: string;
 }
