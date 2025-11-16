@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/IBC/docs/static/css/main.295dce2a.css",
-    "main.js": "/IBC/docs/static/js/main.7a8e0cfb.js",
+    "main.css": "/IBC/docs/static/css/main.723a44d1.css",
+    "main.js": "/IBC/docs/static/js/main.d45410dc.js",
     "static/media/2481223.jpg": "/IBC/docs/static/media/2481223.2a5951bd2dee6f0c84c8.jpg",
     "static/media/26534615.jpg": "/IBC/docs/static/media/26534615.a2ef599537f466eede4a.jpg",
     "static/media/cat2.mp3": "/IBC/docs/static/media/cat2.cfd5f9ef4f3947b2ef93.mp3",
     "static/media/26534611.jpg": "/IBC/docs/static/media/26534611.6ef88f361a820ded0f6a.jpg",
     "index.html": "/IBC/docs/index.html",
-    "main.295dce2a.css.map": "/IBC/docs/static/css/main.295dce2a.css.map",
-    "main.7a8e0cfb.js.map": "/IBC/docs/static/js/main.7a8e0cfb.js.map"
+    "main.723a44d1.css.map": "/IBC/docs/static/css/main.723a44d1.css.map",
+    "main.d45410dc.js.map": "/IBC/docs/static/js/main.d45410dc.js.map"
   },
   "entrypoints": [
-    "static/css/main.295dce2a.css",
-    "static/js/main.7a8e0cfb.js"
+    "static/css/main.723a44d1.css",
+    "static/js/main.d45410dc.js"
   ]
 }
