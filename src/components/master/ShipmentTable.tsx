@@ -288,7 +288,8 @@ const ShipmentTable: React.FC = () => {
     id: number,
     key: '当日分手配品' | '翌日分手配品',
     diff: number,
-    isTentative = false
+    date?: string,
+    isTentative = false,
   ) => {
     if (userAuthority < 7 || !addCountFlag) return;
 
@@ -302,11 +303,16 @@ const ShipmentTable: React.FC = () => {
       ? onlytodaysBinData.find((bin) => bin.id === id)
       : binData.find((bin) => bin.id === id);
 
+    const logKey =
+      key.startsWith('当日分')
+        ? `当日分手配品(${date})`
+        : `翌日分手配品(${date})`;
+
     await saveLog({
       userId,
       userName,
       binName: targetBin ? targetBin.bin : '不明',
-      key,
+      key: logKey,
       diff,
       action: diff > 0 ? '増加' : '減少',
     });
@@ -317,25 +323,48 @@ const ShipmentTable: React.FC = () => {
     key: '当日分手配品',
     diff: number,
   ) => {
-    handleSubCountChange(id, key, diff, true);
+    handleSubCountChange(id, key, diff, undefined, true);
   }, [handleSubCountChange]);
     
   const handleChange = async (
     id: number,
-    key: '当日分' | '翌日分',
-    diff: number
+    key: string,
+    diff: number,
+    date?: string,
     ) => {
     if (userAuthority < 5 || !addCountFlag) return;
+
+    const pureKeyMap = {
+      '当日分': '当日分',
+      '当日分手配品': '当日分手配品',
+      '翌日分': '翌日分',
+      '翌日分手配品': '翌日分手配品',
+      'isLargeDrumToday': 'isLargeDrumToday',
+      'isLargeDrumTomorrow': 'isLargeDrumTomorrow',
+      'binAlert': 'binAlert'
+    } as const;
     
-    await updateTodayValue(id, key, diff);
+    const pureKey = 
+    key.startsWith('当日分') ? '当日分' :
+    key.startsWith('翌日分') ? '翌日分' :
+    key;
+    
+    const pureKeyTyped = pureKeyMap[pureKey as keyof typeof pureKeyMap];
+    
+    await updateTodayValue(id, pureKeyTyped, diff);
 
     const targetBin = binData.find((bin) => bin.id === id);
+
+    const logKey = 
+      key.startsWith('当日分')
+        ? `当日分(${date})`
+        : `翌日分(${date})`;
 
     await saveLog({
       userId,
       userName,
       binName: targetBin ? targetBin.bin : '不明',
-      key,
+      key: logKey,
       diff,
       action: diff > 0 ? '増加' : '減少',
     });

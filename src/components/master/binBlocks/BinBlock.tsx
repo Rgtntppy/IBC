@@ -42,10 +42,10 @@ export const BinBlock: React.FC<BinBlockProps> = ({
                 showCheckbox={true}
                 checked={row.isLargeDrumToday}
                 checkboxLabel='大ドラム'
-                onIncrement={() => onChange(row.id, '当日分', 1)}
-                onDecrement={() => onChange(row.id, '当日分', -1)}
-                onSubIncrement={() => onSubCountChange(row.id, '当日分手配品', 1)}
-                onSubDecrement={() => onSubCountChange(row.id, '当日分手配品', -1)}
+                onIncrement={() => onChange(row.id, `当日分(${shortDate})`, 1, shortDate)}
+                onDecrement={() => onChange(row.id, `当日分(${shortDate})`, -1, shortDate)}
+                onSubIncrement={() => onSubCountChange(row.id, '当日分手配品', 1, shortDate)}
+                onSubDecrement={() => onSubCountChange(row.id, '当日分手配品', -1, shortDate)}
                 onCheckboxToggle={() => onCheckboxToggle(row.id, 'isLargeDrumToday')}
                 addCountFlag={addCountFlag}
             />
@@ -59,10 +59,10 @@ export const BinBlock: React.FC<BinBlockProps> = ({
                 showCheckbox={true}
                 checked={row.isLargeDrumTomorrow ?? false}
                 checkboxLabel='大ドラム'
-                onIncrement={() => onChange(row.id, '翌日分', 1)}
-                onDecrement={() => onChange(row.id, '翌日分', -1)}
-                onSubIncrement={() => onSubCountChange(row.id, '翌日分手配品', 1)}
-                onSubDecrement={() => onSubCountChange(row.id, '翌日分手配品', -1)}
+                onIncrement={() => onChange(row.id, `翌日分(${shortNextDate})`, 1, shortNextDate)}
+                onDecrement={() => onChange(row.id, `翌日分(${shortNextDate})`, -1, shortNextDate)}
+                onSubIncrement={() => onSubCountChange(row.id, '翌日分手配品', 1, shortNextDate)}
+                onSubDecrement={() => onSubCountChange(row.id, '翌日分手配品', -1, shortNextDate)}
                 onCheckboxToggle={() => onCheckboxToggle(row.id, 'isLargeDrumTomorrow')}
                 addCountFlag={addCountFlag}
             />

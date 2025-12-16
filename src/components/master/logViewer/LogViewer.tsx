@@ -9,8 +9,11 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
     handleclose,
 }) => {
     const [logs, setLogs] = useState<LogViewerProps[]>([]);
-    const [searchInput, setSearchInput] = useState('');
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchBin, setSearchBin] = useState('');
+    const [searchKey, setSearchKey] = useState('');
+    const [searchQueryBin, setSearchQueryBin] = useState('');
+    const [searchQueryKey, setSearchQueryKey] = useState('');
+    const [searchMode, setSearchMode] = useState<'AND' | 'OR'>('AND');
     const searchRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -28,7 +31,7 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
         return () => unsub();
     }, []);
 
-    const fuse = useMemo(() => {
+    const fuseBin = useMemo(() => {
         return new Fuse<LogViewerProps>(logs, {
             keys: [
                 { name: 'binName', weight: 0.7 },
@@ -39,16 +42,56 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
         });
     }, [logs]);
 
+    const fuseKey = useMemo(() => {
+        return new Fuse<LogViewerProps>(logs, {
+            keys: [
+                { name: 'key', weight: 0.7 },
+                { name: 'userName', weight: 0.2 },
+                { name: 'binName', weight: 0.1 },
+            ],
+            threshold: 0.3,
+        });
+    }, [logs]);
+
     const filterdLogs = useMemo(() => {
-        if (!searchQuery) return logs;
+        let result = logs;
 
-        const fuseResults = fuse.search(searchQuery) as FuseResult<LogViewerProps>[];
-        const filteredSet = new Set(fuseResults.map((r) => r.item.id));
-        return logs.filter((log) => filteredSet.has(log.id));
-    }, [searchQuery, fuse, logs]);
+        const hasBin = !!searchQueryBin;
+        const hasKey = !!searchQueryKey;
 
-    const handleSearch = () => {
-        setSearchQuery(searchInput.trim());
+        if (!hasBin && !hasKey) return logs;
+
+        const resBin = hasBin ? fuseBin.search(searchQueryBin) : [];
+        const resKey = hasKey ? fuseKey.search(searchQueryKey) : [];
+
+        const idsBin = new Set(resBin.map(r => r.item.id));
+        const idsKey = new Set(resKey.map(r => r.item.id));
+
+        if (searchMode === 'AND') {
+            return result.filter(log =>
+                (!hasBin || idsBin.has(log.id)) &&
+                (!hasKey || idsKey.has(log.id))
+            );
+        } else {
+            return result.filter(log =>
+                (hasBin && idsBin.has(log.id)) ||
+                (hasKey && idsKey.has(log.id))
+            );
+        }
+    }, [logs, searchQueryBin, searchQueryKey, fuseBin, fuseKey, searchMode]);
+
+    const handleSearch = (
+        bin = searchBin,
+        key = searchKey,
+    ) => {
+        setSearchQueryBin(bin.trim());
+        setSearchQueryKey(key.trim());
+    };
+
+    const handleClear = () => {
+        setSearchBin('');
+        setSearchKey('');
+        handleSearch('', '');
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -68,18 +111,38 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
                 <div className='searchBox'>
                     <input
                         type='text'
-                        placeholder='検索...'
-                        value={searchInput}
-                        onChange={(e) => setSearchInput(e.target.value)}
+                        placeholder='便名で検索...'
+                        value={searchBin}
+                        onChange={(e) => setSearchBin(e.target.value)}
                         onKeyDown={handleKeyDown}
                         className='searchInput'
                         ref={searchRef}
                     />
                     <button
+                        className={`btn searchModeBtn ${searchMode === 'OR' ? 'or' : ''}`}
+                        onClick={() => setSearchMode(prev => prev === 'AND' ? 'OR' : 'AND')}
+                    >
+                        {searchMode}
+                    </button>
+                    <input
+                        type='text'
+                        placeholder='keyで検索...'
+                        value={searchKey}
+                        onChange={(e) => setSearchKey(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        className='searchInput'
+                    />
+                    <button
                         className='btn searchBtn'
-                        onClick={handleSearch}
+                        onClick={() => handleSearch()}
                         >
                         検索
+                    </button>
+                    <button
+                        className='btn clearBtn'
+                        onClick={handleClear}
+                    >
+                        クリア
                     </button>
                 </div>
             </div>
@@ -103,10 +166,10 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
                 </thead>
                 <tbody>
                     {filterdLogs.map((log) => {
-                        const isTodayKey = log.key === '当日分';
-                        const isTomorrowKey = log.key === '翌日分';
-                        const isArrangedTodaysItem = log.key ==='当日分手配品';
-                        const isArrangedTomorrowsItem = log.key === '翌日分手配品';
+                        const isTodayKey = log.key.includes('当日分');
+                        const isTomorrowKey = log.key.includes('翌日分');
+                        const isArrangedTodaysItem = log.key.includes('当日分手配品');
+                        const isArrangedTomorrowsItem = log.key.includes('翌日分手配品');
                         
                         const isIncrease = log.action === '増加';
                         const isDecrease = log.action === '減少';

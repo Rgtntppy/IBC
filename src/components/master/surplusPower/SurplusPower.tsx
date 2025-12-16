@@ -53,7 +53,7 @@ export const SurplusPower: React.FC<SurplusPowerProps> = ({
         await saveLog({
             userId,
             userName,
-            binName: 'null',
+            binName: 'alert',
             key: areaMap[area],
             diff: areaAlertColorMap[nextColor],
             action: '更新',
@@ -62,9 +62,6 @@ export const SurplusPower: React.FC<SurplusPowerProps> = ({
 
     return (
         <div className='surplusPowerContainer'>
-            {/* <h2 className='surplusPowerTitle'>
-                各エリアの余力
-            </h2> */}
             {Object.keys(alertColors).map((areaKey) => {
                 const key = areaKey as keyof typeof alertColors;
                 const areaAlertColor = alertColors[key];
