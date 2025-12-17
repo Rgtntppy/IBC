@@ -2,7 +2,7 @@ import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import React, { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import './shipmentTable.scss';
@@ -85,6 +85,7 @@ const ShipmentTable: React.FC = () => {
   
   const navigate = useNavigate();
   const { amRef, pmRef } = useSyncScroll();
+  const reopenTimerRef = useRef<number | null>(null);
 
   // 初回読み込み処理
   useEffect(() => {
@@ -184,6 +185,10 @@ const ShipmentTable: React.FC = () => {
       return () => {
         unscribe();
         unsubscribe();
+
+        if (reopenTimerRef.current) {
+          clearTimeout(reopenTimerRef.current);
+        }
       };
     };
 
@@ -483,6 +488,18 @@ const ShipmentTable: React.FC = () => {
     });
   };
 
+  const handleWarningClose = () => {
+    setShowWarningPopup(false);
+
+    if (reopenTimerRef.current) {
+      clearTimeout(reopenTimerRef.current);
+    }
+
+    reopenTimerRef.current = window.setTimeout(() => {
+      setShowWarningPopup(true);
+    }, 20 * 60 * 1000);
+  };
+
   const PMBin = [
     [  1, 80,  3],
     [ 70, 71, 72, 73],
@@ -645,7 +662,7 @@ const ShipmentTable: React.FC = () => {
       {showWarningPopup && (
         <WarningPopup
           userId={userId}
-          onClose={() => setShowWarningPopup(false)}
+          onClose={handleWarningClose}
         />
       )}
     </div>

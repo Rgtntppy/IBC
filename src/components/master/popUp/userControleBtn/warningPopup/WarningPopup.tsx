@@ -1,6 +1,6 @@
 import '../userControleBtn.scss';
 import './warningPopup.scss';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { WarningPopupProps } from './warningPopupInterface';
 import { ConfirmDialog } from '../../confirmDialog/ConfirmDialog';
 import { useNavigate } from 'react-router-dom';
@@ -23,7 +23,7 @@ export const WarningPopup: React.FC<WarningPopupProps> = ({
     }    
 
     const handleConfirmDelete = () => {
-        // setShowConfirmModal(false);
+        setShowConfirmModal(false);
         setShowRuleBook(true);
     };
 
@@ -34,7 +34,7 @@ export const WarningPopup: React.FC<WarningPopupProps> = ({
 
     const handleCloseRuleBook = () => {
         setShowRuleBook(false);
-        // onClose?.();
+        onClose?.();
     };
 
     return (
