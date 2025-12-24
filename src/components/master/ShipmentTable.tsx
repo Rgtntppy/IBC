@@ -35,6 +35,7 @@ import { ProhititionText } from './accessaories/prohibitionText/ProhibitionText'
 import { resetAllAlerts } from '../../firebase/firestoreDaysData/resetAllAlerts';
 import { ResetAllAlertsPopUp } from './popUp/userControleBtn/resetAllAlerts/ResetAllAlerts';
 import { WarningPopup } from './popUp/userControleBtn/warningPopup/WarningPopup';
+import { CVWarningPopup } from './popUp/userControleBtn/cvCutareaWarningPopup/WarningPopup';
 import { saveLog } from '../../firebase/saveLogData/saveLog';
 import { SurplusPower } from './surplusPower/SurplusPower';
 
@@ -82,6 +83,7 @@ const ShipmentTable: React.FC = () => {
   const [onlytodaysBinData, setOnlytodaysBinData] = useState(OnlytodaysBinData);
 
   const [showWarningPopup, setShowWarningPopup] = useState(true);
+  const [showCVWarningPopup, setShowCVWarningPopup] = useState(true);
   
   const navigate = useNavigate();
   const { amRef, pmRef } = useSyncScroll();
@@ -661,6 +663,12 @@ const ShipmentTable: React.FC = () => {
       </div>
       {showWarningPopup && (
         <WarningPopup
+          userId={userId}
+          onClose={handleWarningClose}
+        />
+      )}
+      {showCVWarningPopup && (
+        <CVWarningPopup
           userId={userId}
           onClose={handleWarningClose}
         />
