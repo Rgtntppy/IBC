@@ -145,14 +145,14 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
                         クリア
                     </button>
                 </div>
-            </div>
-            <div className='userControle'>
-                <button
-                    className='btn closebtn'
-                    onClick={handleclose}
-                >
-                    閉じる
-                </button>
+                <div className='userControle'>
+                    <button
+                        className='btn closebtn'
+                        onClick={handleclose}
+                    >
+                        閉じる
+                    </button>
+                </div>
             </div>
             <table>
                 <thead>
