@@ -1,6 +1,6 @@
 import './prepareForTheNextDaypopUp.scss'; 
 import '../userControleBtn.scss';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { PrepareForTheNextDayProps } from './prepareForTheNextDaypopUpInterface';
 import { ConfirmDialog } from '../../confirmDialog/ConfirmDialog';
 
@@ -10,6 +10,12 @@ export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayProps> = ({
     displayDate,
 }) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  const today = useMemo(() => {
+    const d = new Date();
+    const w = ['日','月','火','水','木','金','土'][d.getDay()];
+    return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日 (${w})`;
+  }, []);
 
   const handleDeleteClick = () => {
     setShowConfirmModal(true);
@@ -38,12 +44,13 @@ export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayProps> = ({
         title='注意!'
         message={
           <>
+          本日は{today}です。
+          <br/>
           <span className='todaysDate'>
           {displayDate}
           </span>
-          のデータは失われますが
-          <br/>
-          よろしいでしょうか？
+          のデータは失われますが、
+          本当によろしいでしょうか？
           </>
         }
         onConfirm={handleConfirmDelete}

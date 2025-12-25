@@ -34,6 +34,7 @@ $redmarker: linear-gradient(transparent 80%, rgba(255, 0, 0, 0.6) 80%);
 .modalMessage {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
+    line-height: 2rem;
 
     .redmarker {
         background: $redmarker;
