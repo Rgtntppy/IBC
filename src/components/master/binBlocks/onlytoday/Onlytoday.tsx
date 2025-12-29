@@ -83,7 +83,6 @@ export const Onlytoday: React.FC<OnlytodayProps> = ({
                         onClick={() => {
                             if (userAuthority > 4) {
                             setIsEditing(true);
-                            setBinName('')
                             setTimeout(() => inputRef.current?.focus(), 0);
                             }
                         }}
