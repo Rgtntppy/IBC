@@ -498,6 +498,18 @@ const ShipmentTable: React.FC = () => {
     }, 20 * 60 * 1000);
   };
 
+  const handleCVWarningClose = () => {
+    setShowCVWarningPopup(false);
+
+    if (reopenTimerRef.current) {
+      clearTimeout(reopenTimerRef.current);
+    }
+
+    reopenTimerRef.current = window.setTimeout(() => {
+      setShowCVWarningPopup(true);
+    }, 4 * 60 * 60 * 1000);
+  }
+
   const PMBin = [
     [  1, 80,  3],
     [ 70, 71, 72, 73],
@@ -666,7 +678,7 @@ const ShipmentTable: React.FC = () => {
       {showCVWarningPopup && (
         <CVWarningPopup
           userId={userId}
-          onClose={handleWarningClose}
+          onClose={handleCVWarningClose}
         />
       )}
     </div>
