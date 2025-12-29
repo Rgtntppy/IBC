@@ -55,27 +55,23 @@ const ShipmentTable: React.FC = () => {
     /^(\d{4})年0?(\d{1,2})月0?(\d{1,2})日分$/,
     '$1$2$3'
   );
-  const nextYMD = getNextBusinessDay(ymd);
+  const nextYMD = getNextBusinessDay(currentDate);
   const nextNextYMD = getNextBusinessDay(nextYMD);
   
   const shortDate = displayDate.replace(
-  /^(\d{4})年0?(\d{1,2})月0?(\d{1,2})日分$/,
-  '$2/$3'
+    /^(\d{4})年0?(\d{1,2})月0?(\d{1,2})日分$/,
+    '$2/$3'
   );
 
-  const shortNextDate = (() => {
-    return nextYMD.replace(
-      /^(\d{4})(\d{2})(\d{2})$/,
-      '$2/$3'
-    );
-  })();
+  const shortNextDate = nextYMD.replace(
+    /^(\d{4})(\d{2})(\d{2})$/,
+    '$2/$3'
+  );
 
-  const shortNextNextDate = (() => {
-    return nextNextYMD.replace(
-      /^(\d{4})(\d{2})(\d{2})$/,
-      '$2/$3'
-    );
-  })();
+  const shortNextNextDate = nextNextYMD.replace(
+    /^(\d{4})(\d{2})(\d{2})$/,
+    '$2/$3'
+  );
   
   const [memo, setMemo] = useState('');
   
