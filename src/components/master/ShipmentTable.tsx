@@ -51,10 +51,6 @@ const ShipmentTable: React.FC = () => {
   const [displayDate, setDisplayDate] = useState(dayjs().format('YYYY年MM月DD日分'));
   const [isDateConfirmed, setIsDateConfirmed] = useState(false)
   
-  const ymd = displayDate.replace(
-    /^(\d{4})年0?(\d{1,2})月0?(\d{1,2})日分$/,
-    '$1$2$3'
-  );
   const nextYMD = getNextBusinessDay(currentDate);
   const nextNextYMD = getNextBusinessDay(nextYMD);
   
@@ -62,15 +58,15 @@ const ShipmentTable: React.FC = () => {
     /^(\d{4})年0?(\d{1,2})月0?(\d{1,2})日分$/,
     '$2/$3'
   );
-
+  
   const shortNextDate = nextYMD.replace(
     /^(\d{4})(\d{2})(\d{2})$/,
-    '$2/$3'
+    (_, y, m, d) => `${Number(m)}/${Number(d)}`
   );
 
   const shortNextNextDate = nextNextYMD.replace(
     /^(\d{4})(\d{2})(\d{2})$/,
-    '$2/$3'
+    (_, y, m, d) => `${Number(m)}/${Number(d)}`
   );
   
   const [memo, setMemo] = useState('');
