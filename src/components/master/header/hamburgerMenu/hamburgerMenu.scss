@@ -1,3 +1,4 @@
+@import '../../../../data/scssFunctionFile/scssFunction.scss';
 $iconColor: #333;
 
 .hamburgerMenu {
@@ -56,9 +57,9 @@ $iconColor: #333;
     background-color: #fff;
     border: 1px solid #ccc;
     position: fixed;
-    top: 0;
+    top: $headerHeight;
     right: 0;
-    height: 100%;
+    height: calc(100% - $headerHeight);
     width: 40%;
     padding: 10px;
     display: flex;
