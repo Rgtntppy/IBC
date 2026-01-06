@@ -1,40 +1,35 @@
 import '../userControleBtn.scss';
-import './warningPopup.scss';
-import { useEffect, useRef, useState } from 'react';
-import { WarningPopupProps } from './warningPopupInterface';
+import './unifiedWarningPopup.scss';
+import { useState } from 'react';
+import { WarningConfig } from './warningConfigInterface';
 import { ConfirmDialog } from '../../confirmDialog/ConfirmDialog';
 import { useNavigate } from 'react-router-dom';
 import { RuleBook } from '../../ruleBook/RuleBook';
 import { OverlayWrapper } from '../../../header/hamburgerMenu/overlayWrapper/OverlayWrapper';
 
-const TARGET_ID = '808122';
-
-export const CVWarningPopup: React.FC<WarningPopupProps> = ({
-    userId,
-    onClose,
+export const UnifiedWarningPopup: React.FC<{config: WarningConfig}> = ({
+    config,
 }) => {
+    const navigate = useNavigate();
     const [showConfirmModal, setShowConfirmModal] = useState(true);
     const [showRuleBook, setShowRuleBook] = useState(false);
 
-    const navigate = useNavigate();
 
-    if (String(userId) !== String(TARGET_ID)) {
-        return null;
-    }    
+    if (!config.targetIds.includes(String(config.userId))) return null;    
 
-    const handleConfirmDelete = () => {
+    const handleConfirm = () => {
         setShowConfirmModal(false);
         setShowRuleBook(true);
     };
 
-    const handleCancelDelete = () => {
+    const handleCancel = () => {
         setShowConfirmModal(false);
         navigate('/');
     };
 
-    const handleCloseRuleBook = () => {
+    const handleRuleClose = () => {
         setShowRuleBook(false);
-        onClose?.();
+        config.onClose?.();
     };
 
     return (
@@ -42,27 +37,20 @@ export const CVWarningPopup: React.FC<WarningPopupProps> = ({
             <ConfirmDialog
                 isOpen={showConfirmModal}
                 title='警告!'
-                message={
-                <>
-                エリアアラートをご活用ください
-                <span className='redmarker'>
-                    
-                </span>
-                </>
-                }
-                onConfirm={handleConfirmDelete}
-                onCancel={handleCancelDelete}
+                message={config.message}
+                onConfirm={handleConfirm}
+                onCancel={handleCancel}
                 className='warning'
             />
             {showRuleBook && (
             <OverlayWrapper
                 isOpen={showRuleBook}
-                onClose={() => setShowRuleBook(false)}
+                onClose={handleRuleClose}
             >
                 <RuleBook
-                    handleclose={handleCloseRuleBook}
-                    initialDepartmentId={1}
-                    initialTextId={121}
+                    handleclose={handleRuleClose}
+                    initialDepartmentId={config.ruleDepartmentId}
+                    initialTextId={config.ruleTextId}
                 />
             </OverlayWrapper>
             )}

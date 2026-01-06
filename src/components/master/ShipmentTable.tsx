@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import './shipmentTable.scss';
 import { importAll } from '../img/importImages';
-import { saveDayCells } from '../../firebase/firestoreDaysData/saveDaysData';
 import { loadDayCells } from '../../firebase/firestoreDaysData/loadDaysData';
 import { prepareNextDay } from '../../firebase/firestoreDaysData/prepareNextDay';
 import { ShipmentData } from '../../data/binData/shipmentTableInterface'
@@ -34,10 +33,9 @@ import { OnlytodaysData } from '../../data/binData/onlytodayBinData/onlytodaysBi
 import { ProhititionText } from './accessaories/prohibitionText/ProhibitionText';
 import { resetAllAlerts } from '../../firebase/firestoreDaysData/resetAllAlerts';
 import { ResetAllAlertsPopUp } from './popUp/userControleBtn/resetAllAlerts/ResetAllAlerts';
-import { WarningPopup } from './popUp/userControleBtn/warningPopup/WarningPopup';
-import { CVWarningPopup } from './popUp/userControleBtn/cvCutareaWarningPopup/WarningPopup';
+import { UnifiedWarningPopup } from './popUp/userControleBtn/unifiedWarningPopup/UnifiedWarningPopup';
 import { saveLog } from '../../firebase/saveLogData/saveLog';
-import { SurplusPower } from './surplusPower/SurplusPower';
+import { WarningConfig } from './popUp/userControleBtn/unifiedWarningPopup/warningConfigInterface';
 
 const ShipmentTable: React.FC = () => {
   const [userId, setUserId] = useState('');
@@ -506,6 +504,29 @@ const ShipmentTable: React.FC = () => {
     }, 4 * 60 * 60 * 1000);
   }
 
+  const warningCVConfig: WarningConfig = {
+    userId: userId,
+    targetIds: ['808122'],
+    message: <>エリアアラートをご活用ください</>,
+    ruleDepartmentId: 1,
+    ruleTextId: 121,
+    onClose: handleCVWarningClose,
+  };
+
+  const warningPickConfig: WarningConfig = {
+    userId: userId,
+    targetIds: ['808121'],
+    message: <>
+      手配品のドラムについては、便・行先・数量が判明し次第、
+      <span className='redmarker'>
+          必ず担当者へ報告してください。
+      </span>
+    </>,
+    ruleDepartmentId: 3,
+    ruleTextId: 301,
+    onClose: handleWarningClose,
+  };
+
   const PMBin = [
     [  1, 80,  3],
     [ 70, 71, 72, 73],
@@ -665,18 +686,8 @@ const ShipmentTable: React.FC = () => {
           />
         </div>
       </div>
-      {showWarningPopup && (
-        <WarningPopup
-          userId={userId}
-          onClose={handleWarningClose}
-        />
-      )}
-      {showCVWarningPopup && (
-        <CVWarningPopup
-          userId={userId}
-          onClose={handleCVWarningClose}
-        />
-      )}
+      <UnifiedWarningPopup config={warningCVConfig} />
+      <UnifiedWarningPopup config={warningPickConfig} />
     </div>
   );
 };
