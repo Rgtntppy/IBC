@@ -53,7 +53,7 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
         });
     }, [logs]);
 
-    const filterdLogs = useMemo(() => {
+    const filteredLogs = useMemo(() => {
         let result = logs;
 
         const hasBin = !!searchQueryBin;
@@ -154,6 +154,9 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
                     </button>
                 </div>
             </div>
+            <div className='resultCount'>
+                {filteredLogs.length}件
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -165,7 +168,7 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
                     </tr>
                 </thead>
                 <tbody>
-                    {filterdLogs.map((log) => {
+                    {filteredLogs.map((log) => {
                         const isTodayKey = log.key.includes('当日分');
                         const isTomorrowKey = log.key.includes('翌日分');
                         const isArrangedTodaysItem = log.key.includes('当日分手配品');
