@@ -72,8 +72,8 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
             
             {/* メニュー */}
             <nav className={`menu ${isOpen ? 'open' : ''}`}>
-                <ul>
-                    <div className='userControle'>
+                <ul className='userControle'>
+                    <li>
                         <button
                             className='btn hamMenubtn'
                             onClick={() => {
@@ -83,6 +83,8 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
                             >
                             メモ欄
                         </button>
+                    </li>
+                    <li>
                         <button
                             className='btn hamMenubtn'
                             onClick={() => {
@@ -92,6 +94,8 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
                             >
                             内線番号
                         </button>
+                    </li>
+                    <li>
                         <button
                             className='btn hamMenubtn'
                             onClick={() => {
@@ -101,6 +105,8 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
                             >
                             編集ログ
                         </button>
+                    </li>
+                    <li>
                         <button
                             className='btn hamMenubtn'
                             onClick={() =>{
@@ -110,13 +116,15 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
                             >
                             運用マニュアル
                         </button>
+                    </li>
+                    <li>
                         <button
                             className='btn hamMenubtn'
                             onClick={() => navigate('/')}
                             >
                             ログアウト
                         </button>
-                    </div>
+                    </li>
                 </ul>
             </nav>
 
