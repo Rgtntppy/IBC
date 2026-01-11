@@ -53,11 +53,11 @@ export const SurplusPower: React.FC<SurplusPowerProps> = ({
         await saveLog({
             userId,
             userName,
-            binName: 'alert',
-            key: areaMap[area],
+            binName: areaMap[area],
+            key: 'areaAlert',
             diff: areaAlertColorMap[nextColor],
             action: '更新',
-          });
+        });
     };
 
     return (

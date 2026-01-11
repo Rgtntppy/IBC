@@ -1,21 +1,13 @@
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-
-const getNextAlert = (current: string, hasHighlight: boolean): string => {
-    const normalCycle = ['white', 'yellow', 'red'];
-    const highlightedCycle = ['white', 'yellow', 'red'];
-
-    const cycle = hasHighlight ? highlightedCycle : normalCycle;
-    const idx = cycle.indexOf(current);
-    const next = idx === -1 ? 'white' : cycle[(idx + 1) % cycle.length];
-    return next;
-};
+import { AlertColor, getNextAlert } from '../../data/binData/alertColor';
 
 export const updateTodayValue = async (
     id: number,
     key?: 'binAlert' | '当日分' | '当日分手配品' | 'isLargeDrumToday' | '翌日分' | '翌日分手配品' | 'isLargeDrumTomorrow',
     diff?: number | boolean,
-) => {
+): Promise<AlertColor | undefined> => {
+    
     const docRef = doc(db, 'dayCells', 'latest');
 
     // 現在のデータ取得
@@ -31,14 +23,19 @@ export const updateTodayValue = async (
         return;
     }
 
+    let nextColor: AlertColor | undefined;
+
     const updatedData = data.data.map((item: any) => {
         if (item.id !== id) return item;
 
         if (key === 'binAlert') {
+            const next = getNextAlert(item.binAlert, !!item.highlight);
+            nextColor = next;
+
             return {
                 ...item,
-                binAlert: getNextAlert(item.binAlert, !!item.highlight)
-            }
+                binAlert: next,
+            };
         }
 
         if (key === '当日分') {
@@ -85,4 +82,6 @@ export const updateTodayValue = async (
     await updateDoc(docRef, {
         data: updatedData,    
     })
+
+    return nextColor;
 };

@@ -26,6 +26,7 @@ import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
 import { OnlytodaysBinData } from '../../data/binData/onlytodayBinData/onlytodaysBinData';
 import { loadOnlytodayData } from '../../firebase/onlytodaysData/loadOnlytodaysData';
 import { saveOnlytodayData } from '../../firebase/onlytodaysData/saveOnlytodaysData';
+import { alertColorLabelMap } from '../../data/binData/alertColor'; 
 import { updateTodayValue } from '../../firebase/firestoreDaysData/updateTodayValue';
 import { updateOnlytodayValue } from '../../firebase/onlytodaysData/updateOnlytodayValue';
 import { YarnCat } from './accessaories/yarnCat/YarnCat';
@@ -269,10 +270,27 @@ const ShipmentTable: React.FC = () => {
     await saveMemoData({ content: memo });
   };
 
-  const handleColorChange = async (id: number) => {
-    if (userAuthority < 7) return;
+  const handleColorChange = async (
+    id: number,
+    isTentative = false,
+    ) => {
+    if (userAuthority < 4) return;
 
-    await updateTodayValue(id, 'binAlert');
+    const targetBin = isTentative
+      ? onlytodaysBinData.find((bin) => bin.id === id)
+      : binData.find((bin) => bin.id === id);
+
+    const nextColor = await updateTodayValue(id, 'binAlert');
+    if (nextColor === undefined) return; 
+
+    await saveLog({
+      userId,
+      userName,
+      binName: targetBin ? targetBin.bin : '不明',
+      key: 'binAlert',
+      diff: alertColorLabelMap[nextColor],
+      action: '更新',
+    })
   };
 
   const handleResetAllAlerts = async () => {
