@@ -162,7 +162,7 @@ export const LogViewer: React.FC<LogViewerbtnProps> = ({
                     <tr>
                         <th className='colTime'>時刻</th>
                         <th className='colUser'>ユーザー</th>
-                        <th className='colBin'>便</th>
+                        <th className='colBin'>エリア</th>
                         <th className='colKey'>key</th>
                         <th className='colDiff'>増減</th>
                     </tr>
