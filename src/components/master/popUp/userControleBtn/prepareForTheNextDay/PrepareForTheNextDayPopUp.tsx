@@ -17,6 +17,22 @@ export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayProps> = ({
     return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日 (${w})`;
   }, []);
 
+  const pad2 = (n: number) => String(n).padStart(2, '0');
+
+  const todayKey = useMemo(() => {
+    const d = new Date();
+    return `${d.getFullYear()}年${pad2(d.getMonth() + 1)}月${pad2(d.getDate())}日`.trim();
+  }, []);
+
+  const displayDateKey = useMemo(() => {
+    return displayDate
+      .replace(/\s*\(.*?\)/,'')
+      .replace(/分$/, '')
+      .trim();
+  }, [displayDate]);
+
+  const isSameDate = todayKey === displayDateKey;
+
   const handleDeleteClick = () => {
     setShowConfirmModal(true);
   };
@@ -46,7 +62,9 @@ export const PrepareForTheNextDayPopUp: React.FC<PrepareForTheNextDayProps> = ({
           <>
           本日は{today}です。
           <br/>
-          <span className='todaysDate'>
+          <span 
+            className={`todaysDate ${isSameDate ? 'dateGreen' : 'dateRed'}`}
+          >
           {displayDate}
           </span>
           のデータは失われますが、
