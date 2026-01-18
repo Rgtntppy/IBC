@@ -1,13 +1,11 @@
 import { UsersProps } from "../../../../data/users/usersInterface";
-import { MemoAreaProps } from '../../memoArea/memoAreaInterface';
 
+type userId = UsersProps['id'];
+type userName = UsersProps['userName'];
 type userAuthority = UsersProps['userAuthority'];
-type memo = MemoAreaProps['memo'];
-type setMemo = MemoAreaProps['setMemo'];
-type handleBlur = MemoAreaProps['handleBlur'];
+
 export interface HamburgerProps {
+    userId: userId;
+    userName: userName;
     userAuthority: userAuthority;
-    memo: memo;
-    setMemo: setMemo;
-    handleBlur: handleBlur;
 }

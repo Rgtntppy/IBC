@@ -12,9 +12,6 @@ export const Header: React.FC<HeaderTabProps> = ({
     addCountFlag,
     setAddCountFlag,
     reloadData,
-    memo,
-    setMemo,
-    handleBlur,
 }) => {
     const [isReloading, setIsReloading] = useState(false);
 
@@ -88,10 +85,9 @@ export const Header: React.FC<HeaderTabProps> = ({
                 </button>
             </div>
             <HamburgerMenu
+                userId={userId}
+                userName={userName}
                 userAuthority={userAuthority}
-                memo={memo}
-                setMemo={setMemo}
-                handleBlur={handleBlur}
             />
         </div>
     );

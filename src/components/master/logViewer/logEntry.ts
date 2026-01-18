@@ -1,5 +1,7 @@
+import { UsersProps } from "../../../data/users/usersInterface";
 import { LogEntry } from "../../../firebase/saveLogData/logEntry";
 
+type id       = UsersProps['id'];
 type userId   = LogEntry['userId'];
 type userName = LogEntry['userName'];
 type binName  = LogEntry['binName'];
@@ -7,7 +9,7 @@ type key      = LogEntry['key'];
 type diff     = LogEntry['diff'];
 
 export interface LogViewerProps {
-    id: string;
+    id: id;
     userId: userId;
     userName: userName;
     binName: binName;

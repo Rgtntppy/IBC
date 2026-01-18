@@ -3,16 +3,15 @@ import React, { useState, useCallback, MouseEventHandler, useRef, useEffect } fr
 import { useNavigate } from 'react-router-dom';
 import { HamburgerProps } from './hamburgerMenuInterface';
 import { ExtNumberPopUp } from '../../popUp/extNumberPopUp/ExtNumberPopUp';
-import { MemoArea } from '../../memoArea/MemoArea';
 import { RuleBook } from '../../popUp/ruleBook/RuleBook';
 import { LogViewer } from '../../logViewer/LogViewer';
 import { OverlayWrapper } from './overlayWrapper/OverlayWrapper';
+import { MemoBoard } from '../../memoMessages/MemoBoard';
 
 export const HamburgerMenu: React.FC<HamburgerProps> = ({
+    userId,
+    userName,
     userAuthority,
-    memo,
-    setMemo,
-    handleBlur,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [showMemoArea, setShowMemoArea] = useState(false);
@@ -146,10 +145,8 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
                     >
                     X
                 </button>
-                <MemoArea
-                    memo={memo}
-                    setMemo={setMemo}
-                    handleBlur={handleBlur}
+                <MemoBoard
+                    user={{ uid: userId, name: userName}}
                     userAuthority={userAuthority}
                 />
             </OverlayWrapper>

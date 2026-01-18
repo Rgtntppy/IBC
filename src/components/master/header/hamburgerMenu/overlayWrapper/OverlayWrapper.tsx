@@ -24,6 +24,7 @@ export const OverlayWrapper: React.FC<OverlayWrapperProps> = ({
             <div
                 className={contentClassName}
                 ref={contentRef}
+                onClick={(e) => e.stopPropagation()}
             >
                 {children}
             </div>

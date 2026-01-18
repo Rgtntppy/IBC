@@ -37,6 +37,7 @@ import { ResetAllAlertsPopUp } from './popUp/userControleBtn/resetAllAlerts/Rese
 import { UnifiedWarningPopup } from './popUp/userControleBtn/unifiedWarningPopup/UnifiedWarningPopup';
 import { saveLog } from '../../firebase/saveLogData/saveLog';
 import { WarningConfig } from './popUp/userControleBtn/unifiedWarningPopup/warningConfigInterface';
+import { MemoBoard } from './memoMessages/MemoBoard';
 
 const ShipmentTable: React.FC = () => {
   const [userId, setUserId] = useState('');
@@ -585,9 +586,6 @@ const ShipmentTable: React.FC = () => {
         addCountFlag={addCountFlag}
         setAddCountFlag={setAddCountFlag}
         reloadData={reloadData}
-        memo={memo}
-        setMemo={setMemo}
-        handleBlur={handleBlur}
       />
       <ToastContainer/>
       <div className='userInfo'>
@@ -611,9 +609,8 @@ const ShipmentTable: React.FC = () => {
         authority={userAuthority}
       />
       <MemoArea
-        memo={memo}
-        setMemo={setMemo}
-        handleBlur={handleBlur}
+        userId={userId}
+        userName={userName}
         userAuthority={userAuthority}
       />
       <div className='todayBinGrid'>
@@ -704,8 +701,12 @@ const ShipmentTable: React.FC = () => {
           />
         </div>
       </div>
-      <UnifiedWarningPopup config={warningCVConfig} />
-      <UnifiedWarningPopup config={warningPickConfig} />
+      <UnifiedWarningPopup config={warningCVConfig}/>
+      <UnifiedWarningPopup config={warningPickConfig}/>
+      {/* <MemoBoard
+        user={{ uid: userId, name: userName}}
+        userAuthority={userAuthority}
+      /> */}
     </div>
   );
 };
