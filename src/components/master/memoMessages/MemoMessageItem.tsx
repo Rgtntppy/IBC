@@ -15,7 +15,7 @@ export const MemoMessageItem: React.FC<MemoMessageItemProps> = ({
     const [text, setText] = useState(message.content);
     const [showConfirm, setShowConfirm] = useState(false);
 
-    const canEdit = message.createdByUid === user.uid || userAuthority >= 5;
+    const canEdit = message.createdByUid === user.uid || userAuthority >= 7;
     const editAreaRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
