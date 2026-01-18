@@ -45,7 +45,6 @@ export const MemoBoard: React.FC<MemoBoardProps> = ({
       }
   };
 
-
   return (
     <div className='memoBoard'>
         <div className='memoMessageList'>

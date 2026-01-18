@@ -18,8 +18,6 @@ import { getNextBusinessDay } from '../../data/getNextBusinessDay';
 import { loadTodayLabelData } from '../../firebase/todayLabelData/loadtodayLabelData';
 import { saveTodayLabelData } from '../../firebase/todayLabelData/savetodayLabelData';
 import { TodayLabel } from './todayLabel/TodayLabel';
-import { loadMemoData } from '../../firebase/memoAreaData/loadMemoData';
-import { saveMemoData } from '../../firebase/memoAreaData/saveMemoData';
 import { MemoArea } from './memoArea/MemoArea';
 import { PrepareForTheNextDayPopUp } from './popUp/userControleBtn/prepareForTheNextDay/PrepareForTheNextDayPopUp';
 import { Onlytoday } from './binBlocks/onlytoday/Onlytoday';
@@ -37,7 +35,6 @@ import { ResetAllAlertsPopUp } from './popUp/userControleBtn/resetAllAlerts/Rese
 import { UnifiedWarningPopup } from './popUp/userControleBtn/unifiedWarningPopup/UnifiedWarningPopup';
 import { saveLog } from '../../firebase/saveLogData/saveLog';
 import { WarningConfig } from './popUp/userControleBtn/unifiedWarningPopup/warningConfigInterface';
-import { MemoBoard } from './memoMessages/MemoBoard';
 
 const ShipmentTable: React.FC = () => {
   const [userId, setUserId] = useState('');
@@ -68,9 +65,7 @@ const ShipmentTable: React.FC = () => {
     /^(\d{4})(\d{2})(\d{2})$/,
     (_, y, m, d) => `${Number(m)}/${Number(d)}`
   );
-  
-  const [memo, setMemo] = useState('');
-  
+    
   const [binData, setBinData] = useState(BinData);
   const [onlytodaysBinData, setOnlytodaysBinData] = useState(OnlytodaysBinData);
 
@@ -100,11 +95,6 @@ const ShipmentTable: React.FC = () => {
         setDisplayDate(data.displayDate);
         setIsDateConfirmed(true);
       }
-
-      //メモデータの取得
-      loadMemoData().then(data => {
-        if (data?.content) setMemo(data.content);
-      });
       
       //通常便データの取得
       const loaded = await loadDayCells();
@@ -189,45 +179,6 @@ const ShipmentTable: React.FC = () => {
     initialize();
   },[]);
 
-  //初期化後の data 更新時のみ保存
-  // useEffect(() => {
-  //   if (hasInitialized) {
-  //     
-  //   }
-  // }, [binData, onlytodaysBinData]);
-
-  useEffect(() => {
-    if (!hasInitialized) return;
-
-    let previousBinData: any = null;
-    
-    const memoInterval = setInterval(async () => {
-      await reloadMemoData();
-    }, 20 * 60 * 1000);
-
-    let binDataInterval: NodeJS.Timeout | null = null;
-
-    if (userAuthority >= 5) {
-      binDataInterval = setInterval(async () => {
-        try {
-          const updated = await loadDayCells();
-          
-          if (updated && JSON.stringify(updated) !== JSON.stringify(previousBinData)) {
-            setBinData(updated);
-            previousBinData = updated;
-          }
-        } catch (e) {
-          console.error('ポーリング中にエラー:', e);
-        }
-      }, 20 * 60 * 1000)
-    }
-
-    return () => {
-      clearInterval(memoInterval);
-      if (binDataInterval) clearInterval(binDataInterval);
-    }
-  },[hasInitialized]);
-
   const reloadData = async () => {
     if (userAuthority < 1) return;
 
@@ -237,23 +188,12 @@ const ShipmentTable: React.FC = () => {
       setDisplayDate(todayLabel.displayDate);
     };
 
-    loadMemoData().then(data => {
-      if (data?.content) setMemo(data.content);
-    });
-
     const loaded = await loadDayCells();
     if (loaded) setBinData(loaded);
     
     const loadedOnlytoday = await loadOnlytodayData();
     if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
   };
-  
-  const reloadMemoData = async () => {
-    if (userAuthority < 1) return;
-
-    const loadedmemoArea = await loadMemoData();
-    if (loadedmemoArea) setMemo(loadedmemoArea.content);
-  }
 
   useEffect(() => {
     if(hasInitialized){
@@ -266,10 +206,6 @@ const ShipmentTable: React.FC = () => {
     }
   }, [currentDate, displayDate]);
 
-  
-  const handleBlur = async () => {
-    await saveMemoData({ content: memo });
-  };
 
   const handleColorChange = async (
     id: number,
@@ -298,6 +234,15 @@ const ShipmentTable: React.FC = () => {
     if (userAuthority < 7) return;
 
     await resetAllAlerts();
+
+    await saveLog({
+      userId,
+      userName,
+      binName: '全て',
+      key: 'binAlert',
+      diff: 0,
+      action: '更新',
+    })
   }
 
   const handleSubCountChange = async (
@@ -485,7 +430,7 @@ const ShipmentTable: React.FC = () => {
       userName,
       binName: '全て',
       key: '翌日分準備',
-      diff: false,
+      diff: true,
       action: '更新',
     })
 
@@ -703,10 +648,6 @@ const ShipmentTable: React.FC = () => {
       </div>
       <UnifiedWarningPopup config={warningCVConfig}/>
       <UnifiedWarningPopup config={warningPickConfig}/>
-      {/* <MemoBoard
-        user={{ uid: userId, name: userName}}
-        userAuthority={userAuthority}
-      /> */}
     </div>
   );
 };
