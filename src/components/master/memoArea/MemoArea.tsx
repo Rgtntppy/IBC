@@ -16,7 +16,7 @@ export const MemoArea: React.FC<MemoAreaProps> = ({
     
     const viewerRef = useRef<HTMLDivElement>(null);
     const resetTimerRef = useRef<NodeJS.Timeout | null>(null);
-    const DEFAUT_SIZE = { width: 280, height: 50 };
+    const DEFAUT_SIZE = { width: 270, height: 50 };
 
     useEffect(() => {
         const q = query(
