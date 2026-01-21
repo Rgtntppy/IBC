@@ -15,7 +15,7 @@ import { Header } from './header/Header';
 import { BinBlock } from './binBlocks/BinBlock';
 import { useSyncScroll } from './useSyncScroll';
 import { getNextBusinessDay } from '../../data/getNextBusinessDay';
-import { loadTodayLabelData } from '../../firebase/todayLabelData/loadtodayLabelData';
+import { subscribeTodayLabelData } from '../../firebase/todayLabelData/subscribeTodayLabelData';
 import { saveTodayLabelData } from '../../firebase/todayLabelData/savetodayLabelData';
 import { TodayLabel } from './todayLabel/TodayLabel';
 import { MemoArea } from './memoArea/MemoArea';
@@ -89,12 +89,12 @@ const ShipmentTable: React.FC = () => {
       setUserName(user.userName);
       setUserAuthority(user.authority)
 
-      const data = await loadTodayLabelData();
-      if (data) {
-        setCurrentDate(data.currentDate);
-        setDisplayDate(data.displayDate);
-        setIsDateConfirmed(true);
-      }
+      // const data = await loadTodayLabelData();
+      // if (data) {
+      //   setCurrentDate(data.currentDate);
+      //   setDisplayDate(data.displayDate);
+      //   setIsDateConfirmed(true);
+      // }
       
       //通常便データの取得
       const loaded = await loadDayCells();
@@ -182,17 +182,17 @@ const ShipmentTable: React.FC = () => {
   const reloadData = async () => {
     if (userAuthority < 1) return;
 
-    const todayLabel = await loadTodayLabelData();
-    if (todayLabel) {
-      setCurrentDate(todayLabel.currentDate);
-      setDisplayDate(todayLabel.displayDate);
-    };
+    // const todayLabel = await subscribeTodayLabelData();
+    // if (todayLabel) {
+    //   setCurrentDate(todayLabel.currentDate);
+    //   setDisplayDate(todayLabel.displayDate);
+    // };
 
-    const loaded = await loadDayCells();
-    if (loaded) setBinData(loaded);
+    // const loaded = await loadDayCells();
+    // if (loaded) setBinData(loaded);
     
-    const loadedOnlytoday = await loadOnlytodayData();
-    if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
+    // const loadedOnlytoday = await loadOnlytodayData();
+    // if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
   };
 
   useEffect(() => {

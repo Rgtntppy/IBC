@@ -1,7 +1,7 @@
 import './todayLabel.scss';
 import React, { useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
-import { loadTodayLabelData } from '../../../firebase/todayLabelData/loadtodayLabelData';
+import { subscribeTodayLabelData } from '../../../firebase/todayLabelData/subscribeTodayLabelData';
 import { saveTodayLabelData } from '../../../firebase/todayLabelData/savetodayLabelData';
 import { TodayLabelProps } from './todayLabelInterface';
 import { DayErrorPopup } from './dayErrorPopups/DayErrorPopup';
@@ -26,20 +26,20 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
     const dayInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        const fetchTodayLabelData = async () => {
-            const data = await loadTodayLabelData();
-            if (data) {
-                setCurrentDate(data.currentDate);
-                setDisplayDate(data.displayDate);
-                setIsDateConfirmed(true);
+        const unsubscribe = subscribeTodayLabelData((data) => {
+            if (!isDateConfirmed && authority > 7) return;
 
-                const parsed = dayjs(data.currentDate);
-                setYearInput(parsed.format('YYYY'));
-                setMonthInput(parsed.format('MM'));
-                setDayInput(parsed.format('DD'));
-            }
-        };
-        fetchTodayLabelData();
+            setCurrentDate(data.currentDate);
+            setDisplayDate(data.displayDate);
+            setIsDateConfirmed(true);
+
+            const parsed = dayjs(data.currentDate);
+            setYearInput(parsed.format('YYYY'));
+            setMonthInput(parsed.format('MM'));
+            setDayInput(parsed.format('DD'));
+        });
+        
+        return () => unsubscribe();
     }, []);
     
     const handleDateConfirm = () => {
