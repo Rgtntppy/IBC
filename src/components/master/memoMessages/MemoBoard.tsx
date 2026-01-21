@@ -12,11 +12,12 @@ export const MemoBoard: React.FC<MemoBoardProps> = ({
 }) => {
   const [messages, setMessages] = useState<MemoMessage[]>([]);
   const lastCompositionEndRef = useRef(0);
+  const bottomRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const q = query(
       collection(db, 'memoMessages'),
-      orderBy('createdAt', 'desc')
+      orderBy('createdAt', 'asc')
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -30,6 +31,10 @@ export const MemoBoard: React.FC<MemoBoardProps> = ({
 
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const handleCompositionEnd = () => {
     lastCompositionEndRef.current = Date.now();
@@ -63,6 +68,7 @@ export const MemoBoard: React.FC<MemoBoardProps> = ({
               />
             ))
           )}
+          <div ref={bottomRef} />
         </div>
         <MemoInput
           user={user}
