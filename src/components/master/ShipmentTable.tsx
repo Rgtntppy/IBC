@@ -16,7 +16,6 @@ import { BinBlock } from './binBlocks/BinBlock';
 import { useSyncScroll } from './useSyncScroll';
 import { getNextBusinessDay } from '../../data/getNextBusinessDay';
 import { subscribeTodayLabelData } from '../../firebase/todayLabelData/subscribeTodayLabelData';
-import { saveTodayLabelData } from '../../firebase/todayLabelData/savetodayLabelData';
 import { TodayLabel } from './todayLabel/TodayLabel';
 import { MemoArea } from './memoArea/MemoArea';
 import { PrepareForTheNextDayPopUp } from './popUp/userControleBtn/prepareForTheNextDay/PrepareForTheNextDayPopUp';
@@ -194,18 +193,6 @@ const ShipmentTable: React.FC = () => {
     // const loadedOnlytoday = await loadOnlytodayData();
     // if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
   };
-
-  useEffect(() => {
-    if(hasInitialized){
-      const timeout = setTimeout(() => {
-        saveTodayLabelData({currentDate, displayDate});
-        console.log('日付情報保存')
-      }, 200)
-
-      return () => clearTimeout(timeout);
-    }
-  }, [currentDate, displayDate]);
-
 
   const handleColorChange = async (
     id: number,

@@ -2,7 +2,6 @@ import './todayLabel.scss';
 import React, { useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
 import { subscribeTodayLabelData } from '../../../firebase/todayLabelData/subscribeTodayLabelData';
-import { saveTodayLabelData } from '../../../firebase/todayLabelData/savetodayLabelData';
 import { TodayLabelProps } from './todayLabelInterface';
 import { DayErrorPopup } from './dayErrorPopups/DayErrorPopup';
 
@@ -49,23 +48,12 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
             setDisplayDate(formattedDisplay);
             setCurrentDate(formatted);
             setIsDateConfirmed(true);
-            saveTodayLabelData({ currentDate: formatted, displayDate: formattedDisplay });
-        }
-    };
-    
-    const formatAndSetDate = (year: string, month: string, day: string) => {
-        if (year.length === 4 && month.length === 2 && day.length === 2) {
-            const formattedDisplay = `${year}年${month}月${day}日分`;
-            const formatted = `${year}/${month}/${day}`;
-            setCurrentDate(formatted);
-            setDisplayDate(formattedDisplay);
         }
     };
 
     const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value.replace(/\D/g, '');
         setYearInput(value);
-        formatAndSetDate(value, monthInput, dayInput);
 
         if (value.length === 4) {
             monthInputRef.current?.focus();
@@ -85,7 +73,6 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
                 return;
             }
 
-            formatAndSetDate(yearInput, value, dayInput);
             dayInputRef.current?.focus();
         }
     };
@@ -103,7 +90,7 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
                 return;    
             }
 
-            formatAndSetDate(yearInput, monthInput, value);
+            // formatAndSetDate(yearInput, monthInput, value);
         }
     };
 
