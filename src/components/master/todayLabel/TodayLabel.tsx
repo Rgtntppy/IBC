@@ -1,6 +1,7 @@
 import './todayLabel.scss';
 import React, { useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
+import { saveTodayLabelData } from '../../../firebase/todayLabelData/saveTodayLabelData';
 import { subscribeTodayLabelData } from '../../../firebase/todayLabelData/subscribeTodayLabelData';
 import { TodayLabelProps } from './todayLabelInterface';
 import { DayErrorPopup } from './dayErrorPopups/DayErrorPopup';
@@ -48,6 +49,11 @@ export const TodayLabel: React.FC<TodayLabelProps> = ({
             setDisplayDate(formattedDisplay);
             setCurrentDate(formatted);
             setIsDateConfirmed(true);
+
+            saveTodayLabelData({
+                currentDate: formatted,
+                displayDate: formattedDisplay,
+            });            
         }
     };
 
