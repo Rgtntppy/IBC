@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/IBC/docs/static/css/main.f8ac85e2.css",
-    "main.js": "/IBC/docs/static/js/main.2e62e337.js",
+    "main.js": "/IBC/docs/static/js/main.897ddd40.js",
     "static/media/2481223.jpg": "/IBC/docs/static/media/2481223.2a5951bd2dee6f0c84c8.jpg",
     "static/media/26534615.jpg": "/IBC/docs/static/media/26534615.a2ef599537f466eede4a.jpg",
     "static/media/cat2.mp3": "/IBC/docs/static/media/cat2.cfd5f9ef4f3947b2ef93.mp3",
     "static/media/26534611.jpg": "/IBC/docs/static/media/26534611.6ef88f361a820ded0f6a.jpg",
     "index.html": "/IBC/docs/index.html",
     "main.f8ac85e2.css.map": "/IBC/docs/static/css/main.f8ac85e2.css.map",
-    "main.2e62e337.js.map": "/IBC/docs/static/js/main.2e62e337.js.map"
+    "main.897ddd40.js.map": "/IBC/docs/static/js/main.897ddd40.js.map"
   },
   "entrypoints": [
     "static/css/main.f8ac85e2.css",
-    "static/js/main.2e62e337.js"
+    "static/js/main.897ddd40.js"
   ]
 }
