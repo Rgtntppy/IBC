@@ -34,6 +34,7 @@ import { ResetAllAlertsPopUp } from './popUp/userControleBtn/resetAllAlerts/Rese
 import { UnifiedWarningPopup } from './popUp/userControleBtn/unifiedWarningPopup/UnifiedWarningPopup';
 import { saveLog } from '../../firebase/saveLogData/saveLog';
 import { WarningConfig } from './popUp/userControleBtn/unifiedWarningPopup/warningConfigInterface';
+import { saveTodayLabelData } from '../../firebase/todayLabelData/saveTodayLabelData';
 
 const ShipmentTable: React.FC = () => {
   const [userId, setUserId] = useState('');
@@ -402,7 +403,6 @@ const ShipmentTable: React.FC = () => {
   const handlePrepareNextDay = async () => {
     if (userAuthority < 8) return;
 
-    await reloadData();
     await prepareNextDay();
 
     const ymd = currentDate.replace(/\D/g, '');
@@ -411,6 +411,11 @@ const ShipmentTable: React.FC = () => {
 
     setCurrentDate(dayjs(nextYMD).format('YYYY/MM/DD'));
     setDisplayDate(nextDateDisplay);
+
+    await saveTodayLabelData({
+      currentDate: dayjs(nextYMD).format('YYYY/MM/DD'),
+      displayDate: nextDateDisplay,
+    });
 
     await saveLog({
       userId,
