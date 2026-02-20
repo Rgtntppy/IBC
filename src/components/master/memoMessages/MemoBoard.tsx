@@ -52,29 +52,29 @@ export const MemoBoard: React.FC<MemoBoardProps> = ({
 
   return (
     <div className='memoBoard'>
-        <div className='memoMessageList'>
-          {messages.length === 0 ? (
-            <div className='noMemoMessage'>
-              現在メモはありません
-            </div>
-          ) : (
-            messages.map((message) => (
-              <MemoMessageItem
-                  key={message.id}
-                  message={message}
-                  user={user}
-                  userAuthority={userAuthority}
-                  onKeyDown={handleKeyDown}
-              />
+      <div className='memoMessageList'>
+        {messages.length === 0 ? (
+          <div className='noMemoMessage'>
+            現在メモはありません
+          </div>
+        ) : (
+          messages.map((message) => (
+            <MemoMessageItem
+            key={message.id}
+            message={message}
+            user={user}
+            userAuthority={userAuthority}
+            onKeyDown={handleKeyDown}
+            />
             ))
-          )}
-          <div ref={bottomRef} />
-        </div>
-        <MemoInput
-          user={user}
-          onKeyDown={handleKeyDown}
-          onCompositionEnd={handleCompositionEnd}    
-        />
+            )}
+        <div ref={bottomRef} />
+      </div>
+      <MemoInput
+        user={user}
+        onKeyDown={handleKeyDown}
+        onCompositionEnd={handleCompositionEnd}    
+      />
     </div>
   );
 };

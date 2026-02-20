@@ -1,6 +1,6 @@
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MemoInputProps } from './memoMessagesInterface';
 
 export const MemoInput: React.FC<MemoInputProps> = ({
@@ -9,6 +9,12 @@ export const MemoInput: React.FC<MemoInputProps> = ({
   onCompositionEnd,
 }) => {
   const [text, setText] = useState('');
+
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  useEffect(() => {
+    textareaRef.current?.focus();
+  }, []);
 
   const handleSend = async () => {
     if (!text.trim()) return;
@@ -26,12 +32,13 @@ export const MemoInput: React.FC<MemoInputProps> = ({
   return (
     <div className='memoInput'>
         <textarea
-            value={text}
-            onChange={e => setText(e.target.value)}
-            onKeyDown={e => onKeyDown(e, handleSend)}
-            onCompositionEnd={onCompositionEnd}
-            maxLength={300}
-            className='memoInputTextarea'
+          ref={textareaRef}
+          value={text}
+          onChange={e => setText(e.target.value)}
+          onKeyDown={e => onKeyDown(e, handleSend)}
+          onCompositionEnd={onCompositionEnd}
+          maxLength={300}
+          className='memoInputTextarea'
         />
         <button
             onClick={handleSend}

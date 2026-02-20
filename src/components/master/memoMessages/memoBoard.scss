@@ -4,11 +4,15 @@
 $messageControlbtnFont: 12px;
 
 .overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     .memoAreaContent {
-        position: relative;
         height: 450px;
-        width: 80%;
+        width: 70vw;
         max-width: 800px;
         background-color: white;
         padding: 20px 10px;
@@ -18,9 +22,49 @@ $messageControlbtnFont: 12px;
         overflow: hidden;
 
         .memoAreaTitle {
+            display: flex;
+            align-items: center;
             font-size: 24px;
-            margin: 0 0 10px 10px;
-            padding: 0;
+
+            .dragHandle{
+                width: 18px;
+                height: 18px;
+                position: relative;
+                cursor: grab;
+                opacity: .7;
+                margin: 2px;
+    
+                &:active{
+                    cursor: grabbing;
+                }
+    
+                &::before,
+                &::after{
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    height: 2px;
+                    background: #666;
+                    border-radius: 2px;
+                }
+    
+                &::before{
+                    top: 5px;
+                    box-shadow:
+                        0  5px 0#666,
+                        0 10px 0 #666;
+                }
+    
+                &::after{
+                    display: none;
+                }
+
+                &:hover{
+                    opacity: 1;
+                    transform: scale(1.1);
+                }
+            }    
         }
 
         .closeButton {
@@ -29,18 +73,37 @@ $messageControlbtnFont: 12px;
             right: 10px;
             height: 28px;
             width: 28px;
-            color: #fff;
-            font-size: 18px;
-            font-weight: 900;
-            line-height: 1;
             background-color: red;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            padding: 5px;
+            padding: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             &:hover {
                 background-color: #dc2626;
+            }
+
+            // ×の線2本
+            &::before,
+            &::after {
+                content: '';
+                position: absolute;
+                width: 18px;
+                height: 2px;
+                background: white;
+                border-radius: 2px;
+            }
+
+            &::before {
+                transform: rotate(45deg);
+            }
+
+            &::after {
+                transform: rotate(-45deg);
             }
         }
 
@@ -77,7 +140,6 @@ $messageControlbtnFont: 12px;
                         display: grid;
                         grid-template-columns: auto 1fr auto;
                         align-items: center;
-                        // justify-content: flex-start;
                         margin-bottom: 10px;
                         
                         .userName {
