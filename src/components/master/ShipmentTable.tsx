@@ -181,18 +181,6 @@ const ShipmentTable: React.FC = () => {
 
   const reloadData = async () => {
     if (userAuthority < 1) return;
-
-    // const todayLabel = await subscribeTodayLabelData();
-    // if (todayLabel) {
-    //   setCurrentDate(todayLabel.currentDate);
-    //   setDisplayDate(todayLabel.displayDate);
-    // };
-
-    // const loaded = await loadDayCells();
-    // if (loaded) setBinData(loaded);
-    
-    // const loadedOnlytoday = await loadOnlytodayData();
-    // if (loadedOnlytoday) setOnlytodaysBinData(loadedOnlytoday);
   };
 
   const handleColorChange = async (
@@ -219,7 +207,7 @@ const ShipmentTable: React.FC = () => {
   };
 
   const handleResetAllAlerts = async () => {
-    if (userAuthority < 7) return;
+    if (userAuthority < 8) return;
 
     await resetAllAlerts();
 
@@ -445,7 +433,7 @@ const ShipmentTable: React.FC = () => {
 
     reopenTimerRef.current = window.setTimeout(() => {
       setShowWarningPopup(true);
-    }, 2 * 60 * 60 * 1000);
+    }, 4 * 60 * 60 * 1000);
   };
 
   const handleCVWarningClose = () => {
@@ -457,7 +445,7 @@ const ShipmentTable: React.FC = () => {
 
     reopenTimerRef.current = window.setTimeout(() => {
       setShowCVWarningPopup(true);
-    }, 4 * 60 * 60 * 1000);
+    }, 3 * 60 * 60 * 1000);
   }
 
   const warningCVConfig: WarningConfig = {
