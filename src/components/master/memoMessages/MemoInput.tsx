@@ -7,6 +7,7 @@ export const MemoInput: React.FC<MemoInputProps> = ({
   user,
   onKeyDown,
   onCompositionEnd,
+  onOpenForm,
 }) => {
   const [text, setText] = useState('');
 
@@ -31,21 +32,29 @@ export const MemoInput: React.FC<MemoInputProps> = ({
 
   return (
     <div className='memoInput'>
-        <textarea
-          ref={textareaRef}
-          value={text}
-          onChange={e => setText(e.target.value)}
-          onKeyDown={e => onKeyDown(e, handleSend)}
-          onCompositionEnd={onCompositionEnd}
-          maxLength={300}
-          className='memoInputTextarea'
-        />
+      <textarea
+      ref={textareaRef}
+      value={text}
+      onChange={e => setText(e.target.value)}
+      onKeyDown={e => onKeyDown(e, handleSend)}
+      onCompositionEnd={onCompositionEnd}
+      maxLength={300}
+      className='memoInputTextarea'
+      />
+      <div className='btnColumn'>
         <button
-            onClick={handleSend}
-            className='submitbtn'
-        >
-            送信
+          className='openFormatBtn'
+          onClick={onOpenForm}
+          >
+          定型入力
         </button>
+        <button
+          onClick={handleSend}
+          className='submitbtn'
+        >
+          送信
+        </button>
+      </div>
     </div>
   );
 };

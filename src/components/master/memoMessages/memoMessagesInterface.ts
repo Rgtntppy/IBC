@@ -23,6 +23,7 @@ export interface MemoInputProps {
     };
     onKeyDown: MemoKeyDownHandler;
     onCompositionEnd: () => void;
+    onOpenForm: () => void;
 }
 
 export interface MemoMessageItemProps {

@@ -5,12 +5,14 @@ import { useEffect, useRef, useState } from 'react';
 import { MemoBoardProps, MemoKeyDownHandler, MemoMessage } from './memoMessagesInterface';
 import { MemoMessageItem } from './MemoMessageItem';
 import { MemoInput } from './MemoInput';
+import { StructuredMemoForm } from './inputForm/InputForm';
 
 export const MemoBoard: React.FC<MemoBoardProps> = ({
     user,
     userAuthority,
 }) => {
   const [messages, setMessages] = useState<MemoMessage[]>([]);
+  const [showForm, setShowForm] = useState(false);
   const lastCompositionEndRef = useRef(0);
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
@@ -70,11 +72,20 @@ export const MemoBoard: React.FC<MemoBoardProps> = ({
             )}
         <div ref={bottomRef} />
       </div>
-      <MemoInput
+      {!showForm && (
+        <MemoInput
         user={user}
         onKeyDown={handleKeyDown}
-        onCompositionEnd={handleCompositionEnd}    
-      />
+        onCompositionEnd={handleCompositionEnd}
+        onOpenForm={() => setShowForm(true)} 
+        />
+      )}
+      {showForm && (
+        <StructuredMemoForm
+          user={user}
+          onClose={() => setShowForm(false)}
+        />
+      )}
     </div>
   );
 };
