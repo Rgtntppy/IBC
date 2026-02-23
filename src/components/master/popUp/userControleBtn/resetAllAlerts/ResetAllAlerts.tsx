@@ -27,7 +27,7 @@ export const ResetAllAlertsPopUp: React.FC<ResetAllAlertsProps> = ({
             <button
                 className='btn resetAllAlertsButton'
                 onClick={handleDeleteClick}
-                disabled={userAuthority < 7}
+                disabled={userAuthority < 8}
             >
             全警報解除
             </button>

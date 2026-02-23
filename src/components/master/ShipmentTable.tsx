@@ -88,13 +88,6 @@ const ShipmentTable: React.FC = () => {
       setUserId(user.id)
       setUserName(user.userName);
       setUserAuthority(user.authority)
-
-      // const data = await loadTodayLabelData();
-      // if (data) {
-      //   setCurrentDate(data.currentDate);
-      //   setDisplayDate(data.displayDate);
-      //   setIsDateConfirmed(true);
-      // }
       
       //通常便データの取得
       const loaded = await loadDayCells();
