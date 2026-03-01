@@ -3,51 +3,44 @@
 .structuredForm {
   display: flex;
   flex-direction: column;
-  
-  label {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
+  height: 70%;
 
-    span {
-      width: 70px;
+  .customerRow{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:8px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 4px;
+    scroll-behavior: smooth;
+  }
+
+  .btnRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+
+    .blockControl {
+      display: flex;
+      gap: 10px
+    }
+    
+    .formBtns {
+      display: flex;
+      gap: 10px;
     }
   }
 
-  input {
-    flex: 1;
-    margin: 2px 0;
-    border-color: $loginBlockColor;
-  }
-
-  .formBtns {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 5px;
-  }
-
   button {
+    background-color: $btndefault-color;
     padding: 6px 14px;
     border-radius: 6px;
     cursor: pointer;
-  }
 
-  .customerRow{
-    display:flex;
-    gap:8px;
-  }
-  
-  .customerBlock{
-    flex:1;
-    border:1px solid #ccc;
-    border-radius:8px;
-    padding:10px;
-    background:#fafafa;
-  
-    h4{
-      margin:0 0 8px 0;
-      font-size:14px;
+    &:hover {
+      background-color: $btnhover-color;
     }
   }
 }

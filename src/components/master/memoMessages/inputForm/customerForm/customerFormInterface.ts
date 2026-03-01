@@ -1,6 +1,7 @@
 export type CustomerFormProps = {
     title: string;
     required?: boolean;
+    inputRef?: React.Ref<HTMLInputElement>;
     date: string;
     bin: string;
     destination: string;

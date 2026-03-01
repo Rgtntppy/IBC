@@ -142,7 +142,7 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
                         ref={memoBoardRef}
                         className='memoAreaContent'
                     >
-                        <h2 className='memoAreaTitle'>
+                        <h2 className='memoBoardTitle'>
                             <span className='dragHandle' />
                             メモ欄
                         </h2>

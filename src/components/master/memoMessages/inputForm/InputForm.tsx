@@ -1,46 +1,74 @@
 import './inputForm.scss';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../../../firebase/firebase';
-import { useState } from 'react';
-import { StructuredMemoFormProps } from './inputFormInterface';
+import { use, useEffect, useRef, useState } from 'react';
+import { StructuredMemoFormProps, MemoBlock } from './inputFormInterface';
 import { CustomerForm } from './customerForm/CustomerForm';
 
+const emptyBlock: MemoBlock = {
+    date: '',
+    bin: '',
+    destination: '',
+    item: '',
+    size: '',
+    slipNo: '', 
+};
+
 export const StructuredMemoForm:React.FC<StructuredMemoFormProps> = ({ user, onClose }) => {
-    const [date, setDate] = useState('');
-    const [bin, setBin] = useState('');
-    const [destination, setDestination] = useState('');
-    const [item, setItem] = useState('');
-    const [size, setSize] = useState('');
-    const [slipNo, setSlipNo] = useState('');
-
-    const [date2, setDate2] = useState('');
-    const [bin2, setBin2] = useState('');
-    const [destination2, setDestination2] = useState('');
-    const [item2, setItem2] = useState('');
-    const [size2, setSize2] = useState('');
-    const [slipNo2, setSlipNo2] = useState('');
+    const [blocks, setBlocks] = useState<MemoBlock[]>([
+        { ...emptyBlock },
+        { ...emptyBlock },
+    ]);
     
-    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value.replace(/\D/g, '').slice(0, 4);
-      
-        if (value === '') {
-            setDate('');
-            return;
-        }
+    const [activeCount, setActiveCount] = useState<number>(2);
 
-        // 月チェック
-        if (value.length >= 2) {
-            const month = parseInt(value.slice(0, 2), 10);
-            if (month < 1 || month > 12) return;
-        }
+    const firstDateRef = useRef<HTMLInputElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const     dateRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-        // 日チェック（入力途中は許可）
-        if (value.length === 4) {
-            const day = parseInt(value.slice(2, 4), 10);
-            if (day < 1 || day > 31) return;
-        }
-        
-        setDate(value);
+    useEffect(() => {
+        firstDateRef.current?.focus();
+    }, []);
+
+    const updateBlock = (
+        index: number,
+        key: keyof MemoBlock,
+        value: string,
+    ) => {
+        const newBlocks = [...blocks];
+        newBlocks[index][key] = value;
+        setBlocks(newBlocks);
+    };
+
+    const isBlockFilled = (block: MemoBlock) => {
+        return Object.values(block).some(v => v !== '');
+    };
+
+    const isBlockValid = (block: MemoBlock) => {
+        return (
+            block.date &&
+            block.bin &&
+            block.destination &&
+            block.item
+        );
+    };
+    
+    const handleDateChange = (index: number, raw: string) => {
+        const value = raw.replace(/\D/g, '').slice(0, 4);
+        updateBlock(index, 'date', value);
+    };
+
+    const isValidSimpleDate = (v: string): boolean => {
+        // 4桁の数字でなければNG
+        if (!/^\d{4}$/.test(v)) return false;
+    
+        const month = parseInt(v.slice(0, 2), 10);
+        const day   = parseInt(v.slice(2, 4), 10);
+    
+        if (month < 1 || month > 12) return false;
+        if (day   < 1 || day   > 31) return false;
+    
+        return true;
     };
 
     const formattedDate = (v: string)=> 
@@ -49,33 +77,43 @@ export const StructuredMemoForm:React.FC<StructuredMemoFormProps> = ({ user, onC
             : v;
   
     const handleSubmit = async () => {
-        if (!date || !bin || !destination || !item) {
-            alert('必須項目を入力してください');
-            return;
+        for (let i = 0; i < activeCount; i++) {
+            const block = blocks[i];
+
+            if (i === 0) {
+                if (!isBlockValid(block)) {
+                    alert('入力1の必須項目を入力してください');
+                    return;
+                }
+            }
+
+            if (i > 0 && !isBlockFilled(block)) {
+                continue;
+            }
+
+            if (!isBlockValid(block)) {
+                alert(`入力${i + 1}の必須項目を入力してください`);
+                return;
+            }
+
+            if (!isValidSimpleDate(block.date)) {
+                alert(`入力${i + 1}の日付が正しくありません(MMDD形式)`);
+                return;
+            }
         }
   
-        const formatted =
-        `【${destination}】
-日付：${formattedDate(date)}
-便：${bin}
-物・数量：${item}
-サイズ：${size || 'undefined'}
-伝票番号：${slipNo || 'undefined'}
-`
-+
-(
-bin2 || destination2 || item2 || size2 || slipNo2
-? `
-
-【${destination2}】
-日付：${formattedDate(date2)}
-便：${bin2}
-物・数量：${item2}
-サイズ：${size2 || 'undefined'}
-伝票番号：${slipNo2 || 'undefined'}
-`
-: ''
-);
+        const formatted = blocks
+            .slice(0, activeCount)
+            .filter(block => isBlockFilled(block))
+            .map(block => `
+【${block.destination}】
+日付：${formattedDate(block.date)}
+便：${block.bin}
+物・数量：${block.item}
+サイズ：${block.size || 'undefined'}
+伝票番号：${block.slipNo || 'undefined'}
+`)
+        .join('\n');
 
         try {
             await addDoc(collection(db, 'memoMessages'), {
@@ -92,45 +130,71 @@ bin2 || destination2 || item2 || size2 || slipNo2
         }
     };
 
-  return (
-    <div className='structuredForm'>
-        <div className='customerRow'>
-            <CustomerForm
-                title="入力1"
-                required
-                date={date}
-                bin={bin}
-                destination={destination}
-                item={item}
-                size={size}
-                slipNo={slipNo}
-                onDate={setDate}
-                onBin={setBin}
-                onDestination={setDestination}
-                onItem={setItem}
-                onSize={setSize}
-                onSlip={setSlipNo}
-            />
-            <CustomerForm
-                title="入力2"
-                date={date2}
-                bin={bin2}
-                destination={destination2}
-                item={item2}
-                size={size2}
-                slipNo={slipNo2}
-                onDate={setDate2}
-                onBin={setBin2}
-                onDestination={setDestination2}
-                onItem={setItem2}
-                onSize={setSize2}
-                onSlip={setSlipNo2}
-            />
+    const handleAddBlock = () => {
+        if (activeCount >= 6) return;
+
+        const newIndex = activeCount;
+
+        setBlocks(prev => [...prev, { ...emptyBlock} ]);
+        setActiveCount(prev => prev + 1);
+
+        setTimeout(() => {
+            dateRefs.current[newIndex]?.focus();
+        }, 0);
+    };
+
+    return (
+        <div className='structuredForm'>
+            <div
+                className='customerRow'
+                ref={containerRef}    
+            >
+                {blocks.slice(0, activeCount).map((block, index) => (
+                    <CustomerForm
+                        key={index}
+                        title={`入力${index + 1}`}
+                        required={index === 0}
+                        inputRef={(el: HTMLInputElement | null) => {
+                            if (index === 0) {
+                                firstDateRef.current = el;
+                            }
+                            dateRefs.current[index] = el;
+                        }}
+                        {...block}
+                        onDate={v => handleDateChange(index, v)}
+                        onBin={v => updateBlock(index, 'bin', v)}
+                        onDestination={v => updateBlock(index, 'destination', v)}
+                        onItem={v => updateBlock(index, 'item', v)}
+                        onSize={v => updateBlock(index, 'size', v)}
+                        onSlip={v => updateBlock(index, 'slipNo', v)}
+                    />
+                ))}
+            </div>
+            <div className='btnRow'>
+                <div className='blockControl'>
+                    <button onClick={onClose}>閉じる</button>
+                    {activeCount < 6 && (
+                        <button
+                            onClick={handleAddBlock}
+                        >
+                            +枠追加
+                        </button>
+                    )}
+                    {activeCount > 2 && (
+                        <button
+                            onClick={() => {
+                                setBlocks(prev => prev.slice(0, -1));
+                                setActiveCount(prev => prev - 1);
+                            }}
+                        >
+                            -枠削除
+                        </button>
+                    )}
+                </div>
+                <div className='formBtns'>        
+                    <button onClick={handleSubmit}>送信</button>
+                </div>
+            </div>
         </div>
-        <div className='formBtns'>        
-            <button onClick={handleSubmit}>送信</button>
-            <button onClick={onClose}>閉じる</button>
-        </div>
-    </div>
-  );
+    );
 };

@@ -1,0 +1,43 @@
+@import '../../../../../data/scssFunctionFile/scssFunction.scss';
+
+.customerBlock{
+    flex:1;
+    border:1px solid #ccc;
+    border-radius:8px;
+    padding:10px;
+    background:#fafafa;
+    min-width: 210px;
+    height: 160px;
+
+    .titleLabel {
+        display: flex;
+        justify-content: space-between;
+
+        h4{
+            margin:0 0 8px 0;
+            font-size:14px;
+        }
+
+        .cautionMessage {
+            font-size: 12px;
+        }
+    }
+
+    label {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+
+        span {
+            width: 90px;
+        }
+    }
+    
+    .customerInput {
+        flex: 1;
+        min-width: 0;
+        box-sizing: border-box;
+        margin: 2px 0;
+        border-color: $loginBlockColor;
+    }
+}
