@@ -1,11 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Serif+JP:wght@200..900&display=swap');
+@import '../../../../data/scssFunctionFile/scssFunction.scss';
 
-$thinRed-color: rgb(252, 228, 214);
-$thinYellow-color: rgb(255, 242, 204);
-$thinGreen-color: rgb(226, 239, 218);
-$thinBlue-color: rgb(221, 235, 247);
 $white-color: #fff;
-$button-radius: 5px;
 
 .binDayCells {
     display: contents;
@@ -112,7 +108,7 @@ $button-radius: 5px;
         font-size: 16px;
         cursor: pointer;
         border: none;
-        border-radius: $button-radius;
+        border-radius: $blockButton-radius;
         color: white;
         transition: background-color 0.2s;
 

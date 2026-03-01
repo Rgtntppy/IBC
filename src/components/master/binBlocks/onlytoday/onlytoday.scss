@@ -18,7 +18,7 @@
     $block-radius;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     height: $binBlockHight;
-    width: 135px;
+    width: 146px;
 
     .binNameWrapper {
         height: $binBlockHight;
@@ -67,7 +67,7 @@
         align-items: center;
         font-weight: bold;
         height: 100%;
-        width: 64px;
+        width: 75px;
         overflow: hidden;
         box-sizing: border-box;
         
@@ -153,6 +153,7 @@
         cursor: pointer;
         font-size: 16px;
         font-weight: 700;
+        margin-left: 3px;
 
         &:hover {
             background-color: #CB2E46;
