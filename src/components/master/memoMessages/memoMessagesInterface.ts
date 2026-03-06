@@ -14,6 +14,7 @@ export interface MemoBoardProps {
         name: userName;
     };
     userAuthority: userAuthority;
+    handleclose: () => void;
 }
 
 export interface MemoInputProps {

@@ -6,15 +6,19 @@ import { MemoBoardProps, MemoKeyDownHandler, MemoMessage } from './memoMessagesI
 import { MemoMessageItem } from './MemoMessageItem';
 import { MemoInput } from './MemoInput';
 import { StructuredMemoForm } from './inputForm/InputForm';
+import Draggable from 'react-draggable';
 
 export const MemoBoard: React.FC<MemoBoardProps> = ({
     user,
     userAuthority,
+    handleclose,
 }) => {
   const [messages, setMessages] = useState<MemoMessage[]>([]);
   const [showForm, setShowForm] = useState(false);
   const lastCompositionEndRef = useRef(0);
   const bottomRef = useRef<HTMLDivElement | null>(null);
+
+  const memoBoardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const q = query(
@@ -53,39 +57,62 @@ export const MemoBoard: React.FC<MemoBoardProps> = ({
   };
 
   return (
-    <div className='memoBoard'>
-      <div className='memoMessageList'>
-        {messages.length === 0 ? (
-          <div className='noMemoMessage'>
-            現在メモはありません
-          </div>
-        ) : (
-          messages.map((message) => (
-            <MemoMessageItem
-            key={message.id}
-            message={message}
-            user={user}
-            userAuthority={userAuthority}
-            onKeyDown={handleKeyDown}
-            />
-            ))
+    <div className='memoBoardContent'>
+      <Draggable
+        handle='.dragHandle'
+        nodeRef={memoBoardRef}
+      >
+        <div
+          ref={memoBoardRef}
+          className='memoAreaContent'
+        >
+          <h2 className='memoBoardTitle'>
+            <span className='dragHandle' />
+            メモ欄
+          </h2>
+          
+          <button
+            className='closeButton'
+            onClick={() => {
+              handleclose();
+            }}
+          />
+          <div className='memoBoard'>
+            <div className='memoMessageList'>
+              {messages.length === 0 ? (
+                <div className='noMemoMessage'>
+                  現在メモはありません
+                </div>
+              ) : (
+                messages.map((message) => (
+                  <MemoMessageItem
+                  key={message.id}
+                  message={message}
+                  user={user}
+                  userAuthority={userAuthority}
+                  onKeyDown={handleKeyDown}
+                  />
+                ))
+              )}
+              <div ref={bottomRef} />
+            </div>
+            {!showForm && (
+              <MemoInput
+              user={user}
+              onKeyDown={handleKeyDown}
+              onCompositionEnd={handleCompositionEnd}
+              onOpenForm={() => setShowForm(true)} 
+              />
             )}
-        <div ref={bottomRef} />
-      </div>
-      {!showForm && (
-        <MemoInput
-        user={user}
-        onKeyDown={handleKeyDown}
-        onCompositionEnd={handleCompositionEnd}
-        onOpenForm={() => setShowForm(true)} 
-        />
-      )}
-      {showForm && (
-        <StructuredMemoForm
-          user={user}
-          onClose={() => setShowForm(false)}
-        />
-      )}
+            {showForm && (
+              <StructuredMemoForm
+                user={user}
+                onClose={() => setShowForm(false)}
+              />
+            )}
+          </div>
+        </div>
+      </Draggable>
     </div>
   );
 };

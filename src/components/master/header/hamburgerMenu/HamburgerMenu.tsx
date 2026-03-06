@@ -7,7 +7,6 @@ import { RuleBook } from '../../popUp/ruleBook/RuleBook';
 import { LogViewer } from '../../logViewer/LogViewer';
 import { OverlayWrapper } from './overlayWrapper/OverlayWrapper';
 import { MemoBoard } from '../../memoMessages/MemoBoard';
-import Draggable from 'react-draggable';
 
 export const HamburgerMenu: React.FC<HamburgerProps> = ({
     userId,
@@ -21,7 +20,6 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
     const [showRuleBook, setShowRuleBook] = useState(false);
 
     const menuRef = useRef<HTMLDivElement>(null);
-    const memoBoardRef = useRef<HTMLDivElement>(null);
 
     const navigate = useNavigate();
 
@@ -134,32 +132,11 @@ export const HamburgerMenu: React.FC<HamburgerProps> = ({
                 isOpen={showMemoArea}
                 onClose={() => setShowMemoArea(false)}
             >
-                <Draggable
-                    handle='.dragHandle'
-                    nodeRef={memoBoardRef}
-                >
-                    <div
-                        ref={memoBoardRef}
-                        className='memoAreaContent'
-                    >
-                        <h2 className='memoBoardTitle'>
-                            <span className='dragHandle' />
-                            メモ欄
-                        </h2>
-                        
-                        <button
-                            className='closeButton'
-                            onClick={() => {
-                                setShowMemoArea(false);
-                                setIsOpen(false);
-                            }}
-                        />
-                        <MemoBoard
-                            user={{ uid: userId, name: userName}}
-                            userAuthority={userAuthority}
-                        />
-                    </div>
-                </Draggable>
+                <MemoBoard
+                    user={{ uid: userId, name: userName}}
+                    userAuthority={userAuthority}
+                    handleclose={() => setShowMemoArea(false)}
+                />
             </OverlayWrapper>
 
             {/* 内線番号 */}

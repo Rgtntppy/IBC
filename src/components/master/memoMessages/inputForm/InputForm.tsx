@@ -30,6 +30,26 @@ export const StructuredMemoForm:React.FC<StructuredMemoFormProps> = ({ user, onC
         firstDateRef.current?.focus();
     }, []);
 
+    useEffect(() => {
+        if (activeCount <= 2) return;
+
+        const newIndex = activeCount -1;
+        const target = dateRefs.current[newIndex];
+
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+            });
+            
+            const timer = setTimeout(() => {
+                target.focus();
+            }, 300);
+
+            return () => clearTimeout(timer);
+        }
+    }, [activeCount]);
+
     const updateBlock = (
         index: number,
         key: keyof MemoBlock,
@@ -111,8 +131,7 @@ export const StructuredMemoForm:React.FC<StructuredMemoFormProps> = ({ user, onC
 便：${block.bin}
 物・数量：${block.item}
 サイズ：${block.size || 'undefined'}
-伝票番号：${block.slipNo || 'undefined'}
-`)
+伝票番号：${block.slipNo || 'undefined'}`)
         .join('\n');
 
         try {
@@ -133,14 +152,14 @@ export const StructuredMemoForm:React.FC<StructuredMemoFormProps> = ({ user, onC
     const handleAddBlock = () => {
         if (activeCount >= 6) return;
 
-        const newIndex = activeCount;
+        // const newIndex = activeCount;
 
         setBlocks(prev => [...prev, { ...emptyBlock} ]);
         setActiveCount(prev => prev + 1);
 
-        setTimeout(() => {
-            dateRefs.current[newIndex]?.focus();
-        }, 0);
+        // setTimeout(() => {
+        //     dateRefs.current[newIndex]?.focus();
+        // }, 1000);
     };
 
     return (

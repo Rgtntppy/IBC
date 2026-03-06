@@ -64,6 +64,7 @@ $iconColor: #333;
     padding: 10px;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
     text-align: center;
     font-size: 1em;
@@ -81,14 +82,13 @@ $iconColor: #333;
     .userControle {
       display: flex;
       flex-flow: column nowrap;
-      justify-content: space-around;
+      gap: 30px;
       list-style-type: none;
       align-items: center;
       margin: 0;
       padding: 0;
       
       li {
-        padding: 20px 0;
         font-size: 250%;
         font-weight: 700;
         cursor: pointer;
