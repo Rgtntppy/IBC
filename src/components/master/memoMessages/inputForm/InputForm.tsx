@@ -125,13 +125,14 @@ export const StructuredMemoForm:React.FC<StructuredMemoFormProps> = ({ user, onC
         const formatted = blocks
             .slice(0, activeCount)
             .filter(block => isBlockFilled(block))
-            .map(block => `
-【${block.destination}】
+            .map(block => 
+                `【${block.destination}】
 日付：${formattedDate(block.date)}
 便：${block.bin}
 物・数量：${block.item}
 サイズ：${block.size || 'undefined'}
-伝票番号：${block.slipNo || 'undefined'}`)
+伝票番号：${block.slipNo || 'undefined'}
+`)
         .join('\n');
 
         try {
