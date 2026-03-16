@@ -5,7 +5,7 @@ export const AboutBinColorsPage1: React.FC = () => {
         <div>
             <RuleBookPage
                 departmentId={1}
-                textId={102}
+                textId={112}
             >
             <p className='ruleBookText'>
                 <span className='backcolor thinRedback'>

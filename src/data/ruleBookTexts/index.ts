@@ -1,13 +1,12 @@
 import { txtsProps } from './txtsInterface';
-import { AboutMemosPage1 } from './txts/commonTexts/aboutMemosPage1';
+import { AboutMemosPage1 } from './txts/commonTexts/aboutMemo/aboutMemosPage1';
+import { AboutMemosPage2 } from './txts/commonTexts/aboutMemo/aboutMemosPPage2';
 import { AboutBinBlocksPage1 } from './txts/commonTexts/aboutBinBlocks/aboutBinBlockPage1';
 import { AboutBinColorsPage1 } from './txts/commonTexts/aboutBincolorsPage1';
 import { AboutBinAlertsPage1 } from './txts/commonTexts/aboutBinAlertsPage1';
 import { AdditionsAndChangesPage1 } from './txts/cutAreaTexts/cutAreaText1/additionsAndChangesPage1';
-import { CutAreaText2Page1 } from './txts/cutAreaTexts/cutAreaText2/cutAreaText2Page1';
 import { AboutBigLuggagePage1 } from './txts/pickAreaTexts/pickAreaText1/txt3/aboutBigLuggagePage1';
 import { OfficeAreaText1Page1 } from './txts/officeAreaTexts/officeAreaText1/officeAreaText1Page1'
-import { CutAreaText2Page2 } from './txts/cutAreaTexts/cutAreaText2/cutAreaText2Page2';
 import { AboutIdsPage1 } from './txts/commonTexts/aboutIdsPage1';
 import { arrangementDrumsPage1 } from './txts/others/arrangementDrums';
 import { AboutAreaAlertsPage1 } from './txts/commonTexts/aboutAreaAlerts/aboutAreaAlertsPage1';
@@ -25,13 +24,13 @@ export const txts: txtsProps[] = [
             },{
                 id: 101,
                 label: 'メモについて',
-                pages: [AboutMemosPage1],
+                pages: [AboutMemosPage1,AboutMemosPage2],
             },{
                 id: 111,
                 label: '数量の見方について',
                 pages: [AboutBinBlocksPage1],
             },{
-                id: 102,
+                id: 112,
                 label: '便の背景色について',
                 pages: [AboutBinColorsPage1],
             },{
@@ -54,11 +53,6 @@ export const txts: txtsProps[] = [
                 label: 'ドラム数量の「追加・変更」について',
                 pages: [AdditionsAndChangesPage1],
             },
-            // {
-            //     id: 202,
-            //     label: '準備中...',
-            //     pages: [CutAreaText2Page1, CutAreaText2Page2],
-            // },
         ]
     },{
         id: 3,
